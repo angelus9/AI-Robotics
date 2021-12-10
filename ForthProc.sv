@@ -52,13 +52,12 @@
 
 //syn_ramstyle = "lsram"
 
-parameter DataWidthSystem = 33;
+parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
-parameter char_buf_ptr_size = 80;
 
 //Internal SRAM parameters
-parameter Int_SRAM_size = 36;
-parameter Int_SRAM_ADDR_size = 2;
+parameter Int_SRAM_size = 31;
+parameter Int_SRAM_ADDR_size = 16;
 
 //LSRAM2
 parameter data_width = 9;
@@ -123,76 +122,40 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 512,
+  boot_depth        = 30,
   ram_depth         = 100,
   high		        = 1'b1,
   low		        = 1'b0,
+  LED_on			= 1'b0,
+  LED_off			= 1'b1,
   true		        = 1'b1,
   false	            = 1'b0,
   dstack_start      = 0,
   read              = 1'b1, 
   write             = 1'b0
 )  
-  
+
 //Module I/O 
 (  
     input logic reset,
     input logic clk,
-    input logic main_clk,
 
-//SRAM Interface
-// input logic [data_size:0] data_in,
-// output logic [address_size:0] ADDR,
-// output logic [data_size:0] data_out,
-// output logic EN,
-// output logic WE
-
-//LSRAM signals
-/* synthesis syn_ramstyle="lsram" */
-input logic [Int_SRAM_size-1:0] LSRAM_DATA_IN,//LSRAM data output port
-output logic [Int_SRAM_size-1:0] LSRAM_DATA_OUT,//Data bus to LSRAM
-output logic [Int_SRAM_ADDR_size-1:0] LSRAM_WADDR,//Addr bus to LSRAM write port
-output logic [Int_SRAM_ADDR_size-1:0] LSRAM_RADDR,//Addr bus to LSRAM read port
-output logic  LSRAM_WEN,//LSRAM Write Enable=high
-output logic  LSRAM_REN,//LSRAM Read Enable=high
-
-//UART signals
-input logic [7:0] DATA_IN,
-output logic [7:0] DATA_OUT,
-output logic [12:0] BAUD_VAL,
-output logic WEN, OEN, CSN, BIT8, PARITY_EN, ODD_N_EVEN,
-input logic TXRDY,RXRDY, PARITY_ERR,FRAMING_ERR,OVERFLOW,
+//UART signals need Lattice version
+//input logic [7:0] DATA_IN,
+//output logic [7:0] DATA_OUT,
+//output logic [12:0] BAUD_VAL,
+//output logic WEN, OEN, CSN, BIT8, PARITY_EN, ODD_N_EVEN,
+//input logic TXRDY,RXRDY, PARITY_ERR,FRAMING_ERR,OVERFLOW,
 
 //Dev Board Specific I/O
 input  BUTTON0,
 input  BUTTON1,
 
-output logic GREEN_LED0,
-output logic RED_LED0,
-output logic GREEN_LED1,
-output logic RED_LED1
+output logic LED_G,
+output logic LED_B,
+output logic LED_R
 );
 
-//LSRAM2
-logic [data_width-1:0] mem [ram_size-1:0];
-logic [data_width-1:0] din;
-logic [data_width-1:0] dout;
-logic [address_width-1:0] addr;
-logic we, en;
-
-//Registers
-
-//logic ARD_IO0;
-//logic ARD_IO1;
-//logic ARD_IO2;
-//logic ARD_IO3;
-//logic ARD_IO4;
-//logic ARD_IO5;
-//logic ARD_IO6;
-//logic ARD_IO7;
-//logic ARD_IO8;
-//logic ARD_SDA;
-//logic ARD_SCL;
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
 logic [3:0] errorcode ; 
@@ -200,12 +163,6 @@ logic	[address_size:0] mp;      // memory pointer
 logic	[address_size:0] bp;      // boot ROM memory pointer
 logic	[1:0] successful;
 logic	[code_size:0] opcode;
-
-//SRAM Logic
-logic [Int_SRAM_size-1:0] S_DATA;
-logic SRAM_RW;
-logic [Int_SRAM_size-1:0] SRAM_CTR;
-logic SRAM_over_flow;
  
 //Circuliar stacks
 logic [data_size:0] data_stack[data_stack_depth] ;
@@ -217,9 +174,9 @@ logic [$clog2(data_stack_depth)-1:0] rp;
 //Internal Boot ROM
 logic [data_size:0] boot_ROM [boot_depth];
 
-//Internal RAM
-//logic [data_size:0] [ram_depth:0] internal_RAM;
-
+//Lattice Internal memory
+ logic [Int_SRAM_ADDR_size:0] mem[Int_SRAM_size:0]; /// memory block
+ 
 //External Memory
 logic [data_size:0] DataBus;
 logic [address_size:0] AddressBus;
@@ -236,44 +193,28 @@ logic busy;
 logic skip_op;
 logic branch;
 logic [address_size:0] branch_addr;
+
+//Loop registers?
 //logic [data_size:0] I;
 //logic [data_size:0] J;
-//logic [data_size:0] top;
-//logic [data_size:0] next_top;
-//logic [data_size:0] second;
-//logic [data_size:0] next_second;
-
-//LRAM registers
-logic [address_size:0] ADDR_REG;
-logic [data_size:0] data_out_REG;
-logic [data_size:0] data_in_REG;
-logic EN_REG;
-logic WE_REG;
-logic RD_REG;
 
 logic n_BUTTON0;
 logic n_BUTTON1;
-logic n_GREEN_LED0;
-logic n_GREEN_LED1;
+logic n_LED_G;
+logic n_LED_B;
+logic n_LED_R;
 
+//Need to add Lattice UART here
 //RS232 UART
-bit [8*char_buf_ptr_size:1] char_buf_rd;// = "Hello world\n";//DG works!
-bit [8*char_buf_ptr_size:1] char_buf_wr;// = "aaaaaaaaaaa";//DG works!
 //logic [7:0] char_buf[2**char_buf_ptr_width];
-logic [char_buf_ptr_width:0] char_buf_rd_ptr;
-logic [char_buf_ptr_width:0] char_buf_wr_ptr;
+//logic [char_buf_ptr_width-1:0] char_buf_rd_ptr;
+//logic [char_buf_ptr_width-1:0] char_buf_wr_ptr;
 //logic [7:0] rdata;
 //logic [7:0] wdata;
 //logic UARTread;
 //logic UARTwrite;
-logic valid;
-logic char_count;
-logic boot_flag;
-
-
-//logic n_LED2;
-
-//logic n_LED3;
+//logic valid;
+//logic boot_flag;
 
 //UART
 //logic n_DATA_IN[7:0];
@@ -307,7 +248,7 @@ task automatic t_init_boot_code;
 	boot_ROM[23] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
 	boot_ROM[24] <= _lit;		//next number is a literal number
 	boot_ROM[25] <= 65;			//ASCII "A" place on TOS	                            ( 09999999 65 )
-	boot_ROM[26] <= _emit;	//output ASCII "A" to RS232 terminal					    ( 09999999 )    
+	boot_ROM[26] <= _emit;	    //output ASCII "A" to RS232 terminal					    ( 09999999 )    
 	boot_ROM[27] <= _branch;	//Always branch (WHILE) to following location 			( 09999999 09999999 )
 	boot_ROM[28] <= 0;			//place on top of the stack	(TOS)
 endtask : t_init_boot_code 
@@ -340,11 +281,7 @@ task automatic t_reset;
         active_mem <= _ROM_active;
         DataStackDepth='0;
         ReturnStackDepth='0;
-        skip_op <= false;         
-        //RED_LED0 <= 0'b1;
-        //GREEN_LED0 <= 0'b1;
-        //RED_LED1 <= 0'b1;
-        //GREEN_LED1 <= 0'b1;          
+        skip_op <= false;                
     end
   endtask
 
@@ -386,13 +323,16 @@ task automatic t_reset;
 		end
 		// Demitri Peynado 30th Sept 2021
 		_io_led : begin
-			n_GREEN_LED0 <= data_stack[dp][0];
-			n_GREEN_LED1 <= data_stack[dp][1];
-//			n_LED2 <= data_stack[dp][2];
-//			n_LED3 <= data_stack[dp][3];
+			//Don 12/7/2021 testing leds 
+			n_LED_G <= !data_stack[dp][0];
+			n_LED_B <= !data_stack[dp][1];
+			//n_LED_G <= LED_off;
+			//n_LED_B <= LED_off;//low turns on  this is green
+			//n_LED_R <= LED_on;			
+			//n_LED_B <= data_stack[dp][2];
+			//n_LED_G <= data_stack[dp][3];
 		end
 		_io_button : begin
-//			data_stack[dp] = {BUTTON3,BUTTON2,BUTTON1,BUTTON0};
             data_stack[dp] = {BUTTON1,BUTTON0};
 		end
 		_lit : begin
@@ -466,7 +406,7 @@ task automatic t_reset;
     //endtask : t_boot_to_SRAM
   
   
-  assign n_main_clk = main_clk;
+//  assign n_main_clk = main_clk;
   
 //Forth Inner Intrepreter
 always_ff @(posedge clk) begin
@@ -485,15 +425,100 @@ always_ff @(posedge clk) begin
         
         n_BUTTON0 <= BUTTON0;
         n_BUTTON1 <= BUTTON1;         
-		GREEN_LED0 <= n_GREEN_LED0;
- 		GREEN_LED1 <= n_GREEN_LED1;       
-		RED_LED0 <= n_BUTTON0;//n_LED1;
-		RED_LED1 <= n_BUTTON1;//n_LED1;        
-//		LED2 <= n_LED2;
-//		LED3 <= n_LED3;  
-   
+		//LED_G <= n_LED_G;
+ 		//LED_B <= n_LED_B; 
+ 		//LED_R <= n_LED_R;		  
     end 
 end
+
+//Do we need to instantiate any of this Lattice stuff?
+//pmi_complex_mult 
+//#(
+  //.pmi_dataa_width         ( ), // integer
+  //.pmi_datab_width         ( ), // integer
+  //.pmi_sign                ( ), // "on"|"off"
+  //.pmi_additional_pipeline ( ), // integer
+  //.pmi_input_reg           ( ), // "on"|"off"
+  //.pmi_output_reg          ( ), // "on"|"off"
+  //.pmi_family              ( ), // "iCE40UP" | "common"
+  //.pmi_implementation      ( )  // "DSP"|"LUT"
+//) <your_inst_label> (
+  //.DataA_Re  ( ),  // I:
+  //.DataA_Im  ( ),  // I:
+  //.DataB_Re  ( ),  // I:
+  //.DataB_Im  ( ),  // I:
+  //.Clock     ( ),  // I:
+  //.ClkEn     ( ),  // I:
+  //.Aclr      ( ),  // I:
+  //.Result_Re ( ),  // O:
+  //.Result_Im ( )   // O:
+//);
+//pmi_multaddsub
+//#(
+  //.pmi_dataa_width         ( ), // integer
+  //.pmi_datab_width         ( ), // integer
+  //.pmi_sign                ( ), // "on"|"off"
+  //.pmi_additional_pipeline ( ), // integer
+  //.pmi_add_sub             ( ), // "add"|"sub"
+  //.pmi_input_reg           ( ), // "on"|"off"
+  //.pmi_output_reg          ( ), // "on"|"off"
+  //.pmi_family              ( ), // "iCE40UP" | "common"
+  //.pmi_implementation      ( )  // "DSP"|"LUT"
+//) <your_inst_label> (
+  //.DataA0 ( ),  // I:
+  //.DataA1 ( ),  // I:
+  //.DataB0 ( ),  // I:
+  //.DataB1 ( ),  // I:
+  //.Clock  ( ),  // I:
+  //.ClkEn  ( ),  // I:
+  //.Aclr   ( ),  // I:
+  //.Result ( )   // O:
+//);
+
+//pmi_ram_dp
+//#(
+  //.pmi_wr_addr_depth    ( ), // integer
+  //.pmi_wr_addr_width    ( ), // integer
+  //.pmi_wr_data_width    ( ), // integer
+  //.pmi_rd_addr_depth    ( ), // integer
+  //.pmi_rd_addr_width    ( ), // integer
+  //.pmi_rd_data_width    ( ), // integer
+  //.pmi_regmode          ( ), // "reg"|"noreg"
+  //.pmi_resetmode        ( ), // "async"|"sync"
+  //.pmi_init_file        ( ), // string
+  //.pmi_init_file_format ( ), // "binary"|"hex"
+  //.pmi_family           ( )  // "iCE40UP"|"common"
+//) <your_inst_label> (
+  //.Data      ( ),  // I:
+  //.WrAddress ( ),  // I:
+  //.RdAddress ( ),  // I:
+  //.WrClock   ( ),  // I:
+  //.RdClock   ( ),  // I:
+  //.WrClockEn ( ),  // I:
+  //.RdClockEn ( ),  // I:
+  //.WE        ( ),  // I:
+  //.Reset     ( ),  // I:
+  //.Q         ( )   // O:
+//);
+
+//pmi_rom 
+//#(
+	//.pmi_addr_depth       ( ), // integer       
+    //.pmi_addr_width       ( ), // integer       
+    //.pmi_data_width       ( ), // integer       
+    //.pmi_regmode          ( ), // "reg"|"noreg"
+    //.pmi_resetmode        ( ), // "async" | "sync"	
+    //.pmi_init_file        ( ), // string		
+    //.pmi_init_file_format ( ), // "binary"|"hex"    
+	//.pmi_family           ( )  // "common"
+//) <your_inst_label> (
+	//.Address    ( ),  // I:
+	//.OutClock   ( ),  // I:
+	//.OutClockEn ( ),  // I:
+	//.Reset      ( ),  // I:
+	//.Q          ( )   // O:
+//);
+
 
     //Outer Interpreter
 //always_ff  @(posedge clk) begin
@@ -512,48 +537,27 @@ end
     //end
 //end
 
-//RS232 Serial Port processing
-always_ff  @(posedge clk) begin
+//I need to work on this a bit, I need to add UART control lines, wdata, etc.
+//always_ff  @(posedge clk) begin
 
-  if (reset == 0) begin
-    char_buf_rd_ptr <= 0;
-    BAUD_VAL <= 'd434;// 50mhz/115,200 = 434 (115,200 baud)
-    CSN <= low; //enable UART
-    WEN <= high;
-    OEN <= high;
-    char_count <= 0;
-  end
-   
-  else begin
-    if(TXRDY == true) begin
-        DATA_OUT <= char_buf_wr[char_buf_wr_ptr];
-        ++char_buf_wr_ptr;// <= char_buf_wr_ptr + 1;
-        char_count <= char_count + 1;
-    end    
-        if (char_count >= char_buf_ptr_size) begin
-            char_count <= 0;
-            DATA_OUT <= 'h12;
-            DATA_OUT <= 'h13;
-        end    
+  //if (reset == 0) begin
+    //char_buf_rd_ptr <= 0;
+    //BAUD_VAL <= 'd434;// 50mhz/115,200 = 434 (115,200 baud)
+    //CSN <= low; //enable UART
+    //WEN <= high;
+    //OEN <= high;
+  //end
     
-    if(RXRDY == true) begin
-      char_buf_rd[char_buf_rd_ptr] <= DATA_IN;
-      ++char_buf_rd_ptr;   
-    end
+  //else begin
+    //if(TXRDY == true)
+        //DATA_OUT <= wdata;
+    //end
     
-    if(char_buf_wr_ptr >= char_buf_ptr_size) begin
-      char_buf_wr_ptr = 0;
-    end  
-  end
-end
-
-always_ff@(posedge clk) begin
-
-  char_buf_wr <= "Hello World!\n";
-
-end
-//Outer Interpreter
-
+    //if(RXRDY == true) begin
+      //rdata <= char_buf[char_buf_rd_ptr];
+      //char_buf_rd_ptr <= char_buf_rd_ptr + 1;
+    //end
+  //end
 
 //Read and Write to SRAM test
 //always_ff  @(posedge clk || reset) begin
@@ -614,35 +618,34 @@ end
     //end 
 
 //Booting processor
-  always_ff @(posedge clk)
-    begin
-      if (reset == 0) begin
-        SRAM_CTR <= 0;
-        active_mem <= _ROM_active; 
-        boot_flag <= true;
-      end
+  //always_ff @(posedge clk)
+    //begin
+      //if (reset == 0) begin
+        //SRAM_CTR <= 0;
+        //active_mem <= _ROM_active; 
+        //boot_flag <= true;
+      //end
     
-      else
-        begin
+      //else begin
    
-        LSRAM_WEN <= high;
-        LSRAM_WADDR <= SRAM_CTR;  
-        LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
+        //LSRAM_WEN <= high;
+        //LSRAM_WADDR <= SRAM_CTR;  
+        //LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
     
-            if (SRAM_CTR >= end_boot_ROM) begin
-                active_mem <= _SRAM_active;
-                    boot_flag <= false; 
-            end        
-            else begin
-                active_mem <= _ROM_active; 
-                  boot_flag <= true;    
-            end
-         ++SRAM_CTR; 
-        end         
-    end
-  
-endmodule
+            //if (SRAM_CTR >= end_boot_ROM) begin
+                //active_mem <= _SRAM_active;
+                    //boot_flag <= false; 
+            //end        
+            //else begin
+                //active_mem <= _ROM_active; 
+                  //boot_flag <= true;    
+            //end
+         //++SRAM_CTR; 
+      //end         
+    //end
 
+
+  
 //logic	[31:0] S_DATA;
 //logic   S_RW;
 //logic [Int_SRAM_size-1:0] SRAM_CTR;
@@ -665,6 +668,10 @@ endmodule
     //end   
   //end  
   
+  
+  
+endmodule
+
 //module ram (WAddress, RAddress, Data, WClock, WE,
  //RE, Rclock, Q);
 //input [8:0] WAddress, RAddress;
