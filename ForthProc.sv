@@ -223,7 +223,7 @@ logic n_LED_R;
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
 	boot_ROM[0] <= _lit;		//next number is a literal number
-	boot_ROM[1] <= 10000000;	//place on top of the stack	(TOS)						( 10000000 )
+	boot_ROM[1] <= 5000000;	//place on top of the stack	(TOS)						( 10000000 )
 	boot_ROM[2] <= _lit;		//next number is a literal
 	boot_ROM[3] <= 1;			//place on TOS											( 10000000 1 )
 	boot_ROM[4] <= _minus;		//subtract TOS from second stack item					( 09999999 )
@@ -235,7 +235,7 @@ task automatic t_init_boot_code;
 	boot_ROM[10] <= 1;			//place on TOS											( 09999999 1 )
 	boot_ROM[11] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
 	boot_ROM[12] <= _lit;		//next number is a literal
-	boot_ROM[13] <= 10000000;	//place on TOS											( 09999999 10000000 )
+	boot_ROM[13] <= 5000000;	//place on TOS											( 09999999 10000000 )
 	boot_ROM[14] <= _lit;		//next number is a literal number
 	boot_ROM[15] <= 1;			//place on TOS											( 09999999 10000000 1 )
 	boot_ROM[16] <= _minus;		//subtract TOS from second stack item					( 09999999 09999999 )
@@ -326,11 +326,7 @@ task automatic t_reset;
 			//Don 12/7/2021 testing leds 
 			n_LED_G <= !data_stack[dp][0];
 			n_LED_B <= !data_stack[dp][1];
-			//n_LED_G <= LED_off;
-			//n_LED_B <= LED_off;//low turns on  this is green
-			//n_LED_R <= LED_on;			
-			//n_LED_B <= data_stack[dp][2];
-			//n_LED_G <= data_stack[dp][3];
+			n_LED_R <= !data_stack[dp][2];
 		end
 		_io_button : begin
             data_stack[dp] = {BUTTON1,BUTTON0};
@@ -425,9 +421,9 @@ always_ff @(posedge clk) begin
         
         n_BUTTON0 <= BUTTON0;
         n_BUTTON1 <= BUTTON1;         
-		//LED_G <= n_LED_G;
- 		//LED_B <= n_LED_B; 
- 		//LED_R <= n_LED_R;		  
+		LED_G <= n_LED_G;
+ 		LED_B <= n_LED_B; 
+ 		LED_R <= n_LED_R;		  
     end 
 end
 
