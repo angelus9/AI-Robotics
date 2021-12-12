@@ -139,6 +139,8 @@ module ForthProc
 (  
     input logic reset,
     input logic clk,
+	output logic TX,
+	input logic RX,
 
 //UART signals need Lattice version
 //input logic [7:0] DATA_IN,
@@ -425,6 +427,42 @@ always_ff @(posedge clk) begin
  		LED_B <= n_LED_B; 
  		LED_R <= n_LED_R;		  
     end 
+end
+
+// UART TX
+always_ff @(posedge clk) begin
+	logic [3:0] count;
+	logic [9:0] clk_count;
+	logic [7:0] tx_data;
+	if (reset == 1'b0) begin
+		TX <= 1'b1;
+		count <= '0;
+		clk_count <= '0;
+		tx_data <= 8'h78;
+	end
+	else begin 
+		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+			clk_count <= clk_count + 1;
+		end
+		else begin
+			clk_count <= 0;
+			if (count < 9) begin
+				if (count == 0) begin
+					TX <= 1'b0;
+				end
+				else begin
+					TX <= tx_data[0];
+					tx_data <= tx_data >> 1;
+				end
+				count <= count+1;
+			end
+			else begin
+				TX <= 1'b1;
+				count <= 0;
+				tx_data <= 8'h78;
+			end
+		end
+	end
 end
 
 //Do we need to instantiate any of this Lattice stuff?
