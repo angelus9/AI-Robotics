@@ -206,6 +206,11 @@ logic n_LED_G;
 logic n_LED_B;
 logic n_LED_R;
 
+// UART registers
+logic [7:0] tx_data;
+logic uart_busy;
+logic uart_send;
+
 //Need to add Lattice UART here
 //RS232 UART
 //logic [7:0] char_buf[2**char_buf_ptr_width];
@@ -283,7 +288,8 @@ task automatic t_reset;
         active_mem <= _ROM_active;
         DataStackDepth='0;
         ReturnStackDepth='0;
-        skip_op <= false;                
+        skip_op <= false;
+		uart_send <= 1'b0;		
     end
   endtask
 
@@ -369,8 +375,18 @@ task automatic t_reset;
 		end        
 
         _emit : begin
-//			wdata = data_stack[dp];
-			--dp;             
+			if (busy == false) begin
+				uart_send <= 1'b1;
+				busy = true;
+				--dp;    
+			end
+			else if (uart_busy && busy == true) begin
+				tx_data   <= data_stack[dp+1][7:0];         
+			end
+			else if (!uart_busy && busy == true) begin
+				uart_send <= 1'b0;
+				busy = false;
+			end
         end
     
         _key : begin
@@ -413,7 +429,9 @@ always_ff @(posedge clk) begin
         t_reset;
     end    
     else begin
-		t_Fetch_opcode;
+		if (busy == false) begin
+			t_Fetch_opcode;
+		end
 		if (skip_op == false) begin
 			t_execute;
 		end
@@ -433,14 +451,17 @@ end
 always_ff @(posedge clk) begin
 	logic [3:0] count;
 	logic [9:0] clk_count;
-	logic [7:0] tx_data;
+	logic [7:0] txd;
+	logic clken;
+
 	if (reset == 1'b0) begin
 		TX <= 1'b1;
 		count <= '0;
 		clk_count <= '0;
-		tx_data <= 8'h78;
+		uart_busy = 1'b0;
 	end
-	else begin 
+	else if (uart_send) begin 
+		uart_busy = 1'b1;
 		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
 			clk_count <= clk_count + 1;
 		end
@@ -449,17 +470,18 @@ always_ff @(posedge clk) begin
 			if (count < 9) begin
 				if (count == 0) begin
 					TX <= 1'b0;
+					txd <= tx_data;
 				end
 				else begin
-					TX <= tx_data[0];
-					tx_data <= tx_data >> 1;
+					TX <= txd[0];
+					txd <= txd >> 1;
 				end
 				count <= count+1;
 			end
 			else begin
 				TX <= 1'b1;
 				count <= 0;
-				tx_data <= 8'h78;
+				uart_busy = 1'b0;
 			end
 		end
 	end
