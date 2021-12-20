@@ -9,6 +9,7 @@
 // Description: First working code from Demitri.  I had to change some blocking statements to non-blocking.
 // 			skip_op <= true;
 //
+//
 // Targeted device: <Family::IGLOO2> <Die::M2GL005> <Package::144 TQ>
 // Authors: Don Golding & Dimitri Peynado
 // 
@@ -208,9 +209,12 @@ logic n_LED_R;
 
 // UART registers
 logic [7:0] tx_data;
-logic uart_busy;
+logic uart_busy_tx;
 logic uart_send;
-
+logic uart_busy_rx;
+logic uart_receive;
+logic uart_rx_valid;
+logic [7:0] uart_rx_data;
 //Need to add Lattice UART here
 //RS232 UART
 //logic [7:0] char_buf[2**char_buf_ptr_width];
@@ -229,35 +233,12 @@ logic uart_send;
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
-	boot_ROM[0] <= _lit;		//next number is a literal number
-	boot_ROM[1] <= 5000000;	//place on top of the stack	(TOS)						( 10000000 )
-	boot_ROM[2] <= _lit;		//next number is a literal
-	boot_ROM[3] <= 1;			//place on TOS											( 10000000 1 )
-	boot_ROM[4] <= _minus;		//subtract TOS from second stack item					( 09999999 )
-	boot_ROM[5] <= _dup;		//duplicate TOS											( 09999999 09999999 )
-	boot_ROM[6] <= _zero_equal;	//is TOS equal to zero?									( 09999999 0 )
-	boot_ROM[7] <= _0branch;	//if TOS zero next number fetched is a branch location
-	boot_ROM[8] <= 2;			//jump to boot_ROM[2] above
-	boot_ROM[9] <= _lit;		//next number is a literal number
-	boot_ROM[10] <= 1;			//place on TOS											( 09999999 1 )
-	boot_ROM[11] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
-	boot_ROM[12] <= _lit;		//next number is a literal
-	boot_ROM[13] <= 5000000;	//place on TOS											( 09999999 10000000 )
-	boot_ROM[14] <= _lit;		//next number is a literal number
-	boot_ROM[15] <= 1;			//place on TOS											( 09999999 10000000 1 )
-	boot_ROM[16] <= _minus;		//subtract TOS from second stack item					( 09999999 09999999 )
-	boot_ROM[17] <= _dup;		//duplicate TOS											( 09999999 09999999 09999999 )
-	boot_ROM[18] <= _zero_equal;//is TOS equal to zero?									( 09999999 09999999 0 )
-	boot_ROM[19] <= _0branch;	//if TOS zero next number fetched is a branch location 	( 09999999 09999999 )
-	boot_ROM[20] <= 14;			//jump to boot_ROM[14] above							( 09999999 09999999 14 ) 
-	boot_ROM[21] <= _lit;		//next number is a literal number
-	boot_ROM[22] <= 0;			//place on TOS											( 09999999 09999999 0 )
-	boot_ROM[23] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
-	boot_ROM[24] <= _lit;		//next number is a literal number
-	boot_ROM[25] <= 65;			//ASCII "A" place on TOS	                            ( 09999999 65 )
-	boot_ROM[26] <= _emit;	    //output ASCII "A" to RS232 terminal					    ( 09999999 )    
-	boot_ROM[27] <= _branch;	//Always branch (WHILE) to following location 			( 09999999 09999999 )
-	boot_ROM[28] <= 0;			//place on top of the stack	(TOS)
+	boot_ROM[0] <=  _key;
+	boot_ROM[1] <=  _dup;
+	boot_ROM[2] <= _emit;
+	boot_ROM[3] <= _io_led;
+	boot_ROM[4] <= _branch;
+	boot_ROM[5] <= 0;		
 endtask : t_init_boot_code 
 
 task automatic t_Fetch_opcode;
@@ -290,6 +271,7 @@ task automatic t_reset;
         ReturnStackDepth='0;
         skip_op <= false;
 		uart_send <= 1'b0;		
+		uart_receive <= 1'b0;
     end
   endtask
 
@@ -380,18 +362,26 @@ task automatic t_reset;
 				busy = true;
 				--dp;    
 			end
-			else if (uart_busy && busy == true) begin
+			else if (uart_busy_tx && busy == true) begin
 				tx_data   <= data_stack[dp+1][7:0];         
 			end
-			else if (!uart_busy && busy == true) begin
+			else if (!uart_busy_tx && busy == true) begin
 				uart_send <= 1'b0;
 				busy = false;
 			end
         end
     
         _key : begin
-//			data_stack[dp] = wdata;
-			++dp;
+			if (busy == false) begin
+				uart_receive <= 1'b1;
+				busy = true;
+			end
+			else if (uart_rx_valid) begin
+				uart_receive <= 1'b0;
+				++dp;
+				data_stack[dp] = uart_rx_data;
+				busy = false;
+			end
         end        
 
 		default : ;
@@ -447,26 +437,63 @@ always_ff @(posedge clk) begin
     end 
 end
 
+// Forth Outer Interpreter
+// UART RX
+always_ff @(posedge clk) begin
+	logic [3:0] count;
+	logic [9:0] clk_count;
+	logic [7:0] rxd;
+
+	if (reset == 1'b0) begin
+		count <= '0;
+		clk_count <= '0;
+		uart_busy_rx = 1'b0;
+		uart_rx_valid <= 1'b0;
+	end
+	else if (uart_receive && uart_rx_valid) begin
+		uart_rx_valid <= 1'b0;
+	end
+	else if ((uart_busy_rx || RX == 1'b0) && !uart_rx_valid) begin 
+		uart_busy_rx = 1'b1;
+		uart_rx_valid <= 1'b0;
+		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+			clk_count <= clk_count + 1;
+		end
+		else begin
+			clk_count <= '0;
+			count <= count + 1;
+			if (count < 8) begin
+				rxd <= {RX,rxd[7:1]};
+			end
+			else begin
+				count <= '0;
+				uart_busy_rx = 1'b0;
+				uart_rx_valid <= 1'b1;
+				uart_rx_data = rxd;
+			end
+		end
+	end
+end
+
 // UART TX
 always_ff @(posedge clk) begin
 	logic [3:0] count;
 	logic [9:0] clk_count;
 	logic [7:0] txd;
-	logic clken;
 
 	if (reset == 1'b0) begin
 		TX <= 1'b1;
 		count <= '0;
 		clk_count <= '0;
-		uart_busy = 1'b0;
+		uart_busy_tx = 1'b0;
 	end
 	else if (uart_send) begin 
-		uart_busy = 1'b1;
+		uart_busy_tx = 1'b1;
 		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
 			clk_count <= clk_count + 1;
 		end
 		else begin
-			clk_count <= 0;
+			clk_count <= '0;
 			if (count < 9) begin
 				if (count == 0) begin
 					TX <= 1'b0;
@@ -480,8 +507,8 @@ always_ff @(posedge clk) begin
 			end
 			else begin
 				TX <= 1'b1;
-				count <= 0;
-				uart_busy = 1'b0;
+				count <= '0;
+				uart_busy_tx = 1'b0;
 			end
 		end
 	end
