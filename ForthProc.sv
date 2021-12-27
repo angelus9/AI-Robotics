@@ -215,6 +215,12 @@ logic uart_busy_rx;
 logic uart_receive;
 logic uart_rx_valid;
 logic [7:0] uart_rx_data;
+
+// Execution Token
+logic [address_size:0] xt;
+logic xt_valid;
+logic xt_ready;
+
 //Need to add Lattice UART here
 //RS232 UART
 //logic [7:0] char_buf[2**char_buf_ptr_width];
@@ -233,13 +239,78 @@ logic [7:0] uart_rx_data;
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
-	boot_ROM[0] <=  _key;
-	boot_ROM[1] <=  _dup;
-	boot_ROM[2] <= _emit;
-	boot_ROM[3] <= _io_led;
+	boot_ROM[0] <=  _execute;
+	boot_ROM[1] <=  _lit;
+	boot_ROM[2] <=  0;
+	boot_ROM[3] <=  _io_led;
 	boot_ROM[4] <= _branch;
-	boot_ROM[5] <= 0;		
+	boot_ROM[5] <= 0;
+	boot_ROM[6] <=  _lit;
+	boot_ROM[7] <= 1;
+	boot_ROM[8] <= _io_led;
+	boot_ROM[9] <= _branch;
+	boot_ROM[10] <= 0;
+	boot_ROM[11] <=  _lit;
+	boot_ROM[12] <= 2;
+	boot_ROM[13] <= _io_led;
+	boot_ROM[14] <= _branch;
+	boot_ROM[15] <= 0;
+	boot_ROM[16] <=  _lit;
+	boot_ROM[17] <= 4;
+	boot_ROM[18] <= _io_led;
+	boot_ROM[19] <= _branch;
+	boot_ROM[20] <= 0;
 endtask : t_init_boot_code 
+
+// Forth Outer Interpreter
+always_ff @(posedge clk) begin
+	logic [7:0] byte_in;
+	logic [2:0] wp;
+	logic [31:0] dict_size;
+	enum {IDLE, SEARCH, EXECUTE} state;
+	static logic [7:0] dict_name[3] = {"r","g","b"};
+	static logic [address_size:0] dict_addr[3] = {6,11,16};
+	if (reset == 1'b0) begin
+		wp = '0;
+		xt_valid <= 1'b0;
+		dict_size = 3;
+		state = IDLE;
+	end
+	else begin
+		case (state)
+			IDLE : begin
+				wp = '0;
+				uart_receive <= 1'b1;
+				if (uart_rx_valid && uart_receive) begin
+					uart_receive <= 1'b0;
+					byte_in = uart_rx_data;
+					state = SEARCH;
+				end
+			end
+			SEARCH : begin
+				if (dict_name[wp] == byte_in) begin
+					// token
+					state = EXECUTE;
+					xt = dict_addr[wp];
+				end
+				else begin
+					++wp;
+					if (wp >= dict_size) begin
+						state = EXECUTE;
+						xt = 1;
+					end
+				end
+			end
+			EXECUTE : begin
+				xt_valid <= 1'b1;
+				if (xt_valid && xt_ready) begin
+					state = IDLE;
+					xt_valid <= 1'b0;
+				end
+			end
+		endcase
+	end
+end
 
 task automatic t_Fetch_opcode;
 	if (branch) begin
@@ -250,7 +321,6 @@ task automatic t_Fetch_opcode;
 	else begin
 		DataBus = boot_ROM[bp];
 		++bp;
-
 	end
 	
 endtask        
@@ -271,7 +341,6 @@ task automatic t_reset;
         ReturnStackDepth='0;
         skip_op <= false;
 		uart_send <= 1'b0;		
-		uart_receive <= 1'b0;
     end
   endtask
 
@@ -369,21 +438,17 @@ task automatic t_reset;
 				uart_send <= 1'b0;
 				busy = false;
 			end
-        end
-    
-        _key : begin
-			if (busy == false) begin
-				uart_receive <= 1'b1;
-				busy = true;
-			end
-			else if (uart_rx_valid) begin
-				uart_receive <= 1'b0;
-				++dp;
-				data_stack[dp] = uart_rx_data;
-				busy = false;
-			end
         end        
-
+		_execute : begin
+			xt_ready <= 1'b1;
+			busy = true;
+			if (xt_valid && xt_ready) begin
+				xt_ready <= 1'b0;
+				branch_addr = xt;
+				busy = false;
+				branch = true;
+			end
+		end
 		default : ;
 	  endcase
       
@@ -437,7 +502,6 @@ always_ff @(posedge clk) begin
     end 
 end
 
-// Forth Outer Interpreter
 // UART RX
 always_ff @(posedge clk) begin
 	logic [3:0] count;
