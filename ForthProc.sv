@@ -241,22 +241,22 @@ logic xt_ready;
 task automatic t_init_boot_code;
 	boot_ROM[0] <=  _execute;
 	boot_ROM[1] <=  _lit;
-	boot_ROM[2] <=  0;
-	boot_ROM[3] <=  _io_led;
+	boot_ROM[2] <=  63;
+	boot_ROM[3] <=  _emit;
 	boot_ROM[4] <= _branch;
 	boot_ROM[5] <= 0;
 	boot_ROM[6] <=  _lit;
-	boot_ROM[7] <= 1;
+	boot_ROM[7] <= 4;
 	boot_ROM[8] <= _io_led;
 	boot_ROM[9] <= _branch;
 	boot_ROM[10] <= 0;
 	boot_ROM[11] <=  _lit;
-	boot_ROM[12] <= 2;
+	boot_ROM[12] <= 1;
 	boot_ROM[13] <= _io_led;
 	boot_ROM[14] <= _branch;
 	boot_ROM[15] <= 0;
 	boot_ROM[16] <=  _lit;
-	boot_ROM[17] <= 4;
+	boot_ROM[17] <= 2;
 	boot_ROM[18] <= _io_led;
 	boot_ROM[19] <= _branch;
 	boot_ROM[20] <= 0;
@@ -275,13 +275,13 @@ always_ff @(posedge clk) begin
 		xt_valid <= 1'b0;
 		dict_size = 3;
 		state = IDLE;
+		uart_receive <= 1'b1;
 	end
 	else begin
 		case (state)
 			IDLE : begin
 				wp = '0;
-				uart_receive <= 1'b1;
-				if (uart_rx_valid && uart_receive) begin
+				if (uart_rx_valid) begin
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
 					state = SEARCH;
@@ -291,23 +291,26 @@ always_ff @(posedge clk) begin
 				if (dict_name[wp] == byte_in) begin
 					// token
 					state = EXECUTE;
+					xt_valid <= 1'b1;
 					xt = dict_addr[wp];
 				end
 				else begin
 					++wp;
 					if (wp >= dict_size) begin
 						state = EXECUTE;
+						xt_valid <= 1'b1;
 						xt = 1;
 					end
 				end
 			end
 			EXECUTE : begin
-				xt_valid <= 1'b1;
-				if (xt_valid && xt_ready) begin
+				if (xt_ready) begin
 					state = IDLE;
 					xt_valid <= 1'b0;
+					uart_receive <= 1'b1;
 				end
 			end
+		default : state = IDLE;
 		endcase
 	end
 end
@@ -440,9 +443,11 @@ task automatic t_reset;
 			end
         end        
 		_execute : begin
-			xt_ready <= 1'b1;
-			busy = true;
-			if (xt_valid && xt_ready) begin
+			if (busy == false) begin				
+				xt_ready <= 1'b1;
+				busy = true;
+			end
+			else if (xt_valid) begin
 				xt_ready <= 1'b0;
 				branch_addr = xt;
 				busy = false;
