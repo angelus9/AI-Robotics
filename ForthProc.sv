@@ -72,7 +72,7 @@ parameter end_boot_ROM = 28;
 typedef enum logic [15:0]{
 
 //System Operators
-_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit,
+_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit, _number,
 
 //Stack Operators
 _depth, _dup, _pick, _over, _swap, _rot, _equal, _zero_equal, _greater_than, _less_than,
@@ -123,7 +123,7 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 30,
+  boot_depth        = 50,
   ram_depth         = 100,
   high		        = 1'b1,
   low		        = 1'b0,
@@ -217,9 +217,13 @@ logic uart_rx_valid;
 logic [7:0] uart_rx_data;
 
 // Execution Token
-logic [address_size:0] xt;
+logic [address_size:0] xt[256];
+logic [7:0] xtrp;
+logic [7:0] xtwp;
 logic xt_valid;
 logic xt_ready;
+
+logic [data_size:0] number;
 
 //Need to add Lattice UART here
 //RS232 UART
@@ -260,6 +264,21 @@ task automatic t_init_boot_code;
 	boot_ROM[18] <= _io_led;
 	boot_ROM[19] <= _branch;
 	boot_ROM[20] <= 0;
+	boot_ROM[21] <= _number;
+	boot_ROM[22] <= _branch;
+	boot_ROM[23] <= 0;
+	boot_ROM[24] <= _io_led;
+	boot_ROM[25] <= _branch;
+	boot_ROM[26] <= 0;
+	boot_ROM[27] <= _lit;
+	boot_ROM[28] <= 1000000;
+	boot_ROM[29] <= _lit;
+	boot_ROM[30] <= 1;
+	boot_ROM[31] <= _minus;
+	boot_ROM[32] <= _0branch;
+	boot_ROM[33] <= 29;
+	boot_ROM[34] <= _branch;
+	boot_ROM[35] <= 0;
 endtask : t_init_boot_code 
 
 // Forth Outer Interpreter
@@ -267,15 +286,16 @@ always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
 	logic [2:0] wp;
 	logic [31:0] dict_size;
-	enum {IDLE, SEARCH, EXECUTE} state;
-	static logic [7:0] dict_name[3] = {"r","g","b"};
-	static logic [address_size:0] dict_addr[3] = {6,11,16};
+	enum {IDLE, SEARCH, EXECUTE, NUMBER} state;
+	static logic [7:0] dict_name[4] = {"r","g","b","d"};
+	static logic [address_size:0] dict_addr[4] = {6,11,16,27};
 	if (reset == 1'b0) begin
 		wp = '0;
 		xt_valid <= 1'b0;
-		dict_size = 3;
+		dict_size = 4;
 		state = IDLE;
 		uart_receive <= 1'b1;
+		xtwp = 0;
 	end
 	else begin
 		case (state)
@@ -288,25 +308,37 @@ always_ff @(posedge clk) begin
 				end
 			end
 			SEARCH : begin
-				if (dict_name[wp] == byte_in) begin
-					// token
+				if (byte_in inside {[10:13]}) begin
 					state = EXECUTE;
-					xt_valid <= 1'b1;
-					xt = dict_addr[wp];
+				end
+				else if (dict_name[wp] == byte_in) begin
+					// token
+					xt[xtwp++] = dict_addr[wp];
+					state = IDLE;
+					uart_receive <= 1'b1;
 				end
 				else begin
 					++wp;
 					if (wp >= dict_size) begin
-						state = EXECUTE;
-						xt_valid <= 1'b1;
-						xt = 1;
+						state = NUMBER;
 					end
 				end
 			end
+			NUMBER : begin
+				if (byte_in inside{["0":"9"]}) begin
+					number = byte_in - "0";
+					xt[xtwp++] = 21;
+				end
+				else begin
+					xt[xtwp++] = 1;
+				end
+				state = IDLE;
+				uart_receive <= 1'b1;
+			end
 			EXECUTE : begin
-				if (xt_ready) begin
+				xt_valid <= (xtrp < xtwp);
+				if (xtrp < xtwp) begin
 					state = IDLE;
-					xt_valid <= 1'b0;
 					uart_receive <= 1'b1;
 				end
 			end
@@ -338,6 +370,7 @@ task automatic t_reset;
         dp='0;
         rp='0;
         mp ='0;
+		xtrp = 0;
         busy <= false;
         active_mem <= _ROM_active;
         DataStackDepth='0;
@@ -389,6 +422,7 @@ task automatic t_reset;
 			n_LED_G <= !data_stack[dp][0];
 			n_LED_B <= !data_stack[dp][1];
 			n_LED_R <= !data_stack[dp][2];
+			--dp;
 		end
 		_io_button : begin
             data_stack[dp] = {BUTTON1,BUTTON0};
@@ -416,7 +450,6 @@ task automatic t_reset;
 		 _branch : begin
 			branch = true;
 			branch_addr = boot_ROM[bp];
-			--dp;
         end    
 		_if : begin
 			--dp;
@@ -443,16 +476,16 @@ task automatic t_reset;
 			end
         end        
 		_execute : begin
-			if (busy == false) begin				
-				xt_ready <= 1'b1;
-				busy = true;
-			end
-			else if (xt_valid) begin
-				xt_ready <= 1'b0;
-				branch_addr = xt;
+			busy = true;
+			if (xt_valid) begin
+				branch_addr = xt[xtrp++];
 				busy = false;
 				branch = true;
 			end
+		end
+		_number : begin
+			++dp;
+			data_stack[dp] = number;
 		end
 		default : ;
 	  endcase
