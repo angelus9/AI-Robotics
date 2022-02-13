@@ -271,14 +271,17 @@ task automatic t_init_boot_code;
 	boot_ROM[25] <= _branch;
 	boot_ROM[26] <= 0;
 	boot_ROM[27] <= _lit;
-	boot_ROM[28] <= 1000000;
+	boot_ROM[28] <= 5000000;
 	boot_ROM[29] <= _lit;
 	boot_ROM[30] <= 1;
 	boot_ROM[31] <= _minus;
-	boot_ROM[32] <= _0branch;
-	boot_ROM[33] <= 29;
-	boot_ROM[34] <= _branch;
-	boot_ROM[35] <= 0;
+	boot_ROM[32] <= _dup;
+	boot_ROM[33] <= _zero_equal;
+	boot_ROM[34] <= _0branch;
+	boot_ROM[35] <= 29;
+	boot_ROM[36] <= _drop;
+	boot_ROM[37] <= _branch;
+	boot_ROM[38] <= 0;
 endtask : t_init_boot_code 
 
 // Forth Outer Interpreter
@@ -286,6 +289,7 @@ always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
 	logic [2:0] wp;
 	logic [31:0] dict_size;
+	logic [address_size:0] local_xt;
 	enum {IDLE, SEARCH, EXECUTE, NUMBER} state;
 	static logic [7:0] dict_name[4] = {"r","g","b","d"};
 	static logic [address_size:0] dict_addr[4] = {6,11,16,27};
@@ -296,6 +300,7 @@ always_ff @(posedge clk) begin
 		state = IDLE;
 		uart_receive <= 1'b1;
 		xtwp = 0;
+		local_xt=0;
 	end
 	else begin
 		case (state)
@@ -309,11 +314,19 @@ always_ff @(posedge clk) begin
 			end
 			SEARCH : begin
 				if (byte_in inside {[10:13]}) begin
+					xt[xtwp++] = local_xt;
+					local_xt = _execute;
 					state = EXECUTE;
+				end
+				else if (byte_in == " ") begin
+					xt[xtwp++] = local_xt;
+					local_xt = _execute;
+					state = IDLE;
+					uart_receive <= 1'b1;
 				end
 				else if (dict_name[wp] == byte_in) begin
 					// token
-					xt[xtwp++] = dict_addr[wp];
+					local_xt = dict_addr[wp];
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
@@ -327,17 +340,17 @@ always_ff @(posedge clk) begin
 			NUMBER : begin
 				if (byte_in inside{["0":"9"]}) begin
 					number = byte_in - "0";
-					xt[xtwp++] = 21;
+					local_xt = 21;
 				end
 				else begin
-					xt[xtwp++] = 1;
+					local_xt = 1;
 				end
 				state = IDLE;
 				uart_receive <= 1'b1;
 			end
 			EXECUTE : begin
 				xt_valid <= (xtrp < xtwp);
-				if (xtrp < xtwp) begin
+				if (xtrp == xtwp) begin
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
