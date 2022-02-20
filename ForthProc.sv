@@ -289,10 +289,16 @@ always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
 	logic [2:0] wp;
 	logic [31:0] dict_size;
+	logic [31:0] word_in;
 	logic [address_size:0] local_xt;
-	enum {IDLE, SEARCH, EXECUTE, NUMBER} state;
-	static logic [7:0] dict_name[4] = {"r","g","b","d"};
+	enum {IDLE, PARSE, SEARCH, EXECUTE, NUMBER} state;
+	static logic [31:0] dict_name[4] = {
+	{8'd3,"r","e","d"},
+	{8'd5,"g","r","e"},
+	{8'd4,"b","l","u"},
+	{8'd5,"d","e","l"}};
 	static logic [address_size:0] dict_addr[4] = {6,11,16,27};
+	
 	if (reset == 1'b0) begin
 		wp = '0;
 		xt_valid <= 1'b0;
@@ -301,6 +307,7 @@ always_ff @(posedge clk) begin
 		uart_receive <= 1'b1;
 		xtwp = 0;
 		local_xt=0;
+		word_in = '0;
 	end
 	else begin
 		case (state)
@@ -309,22 +316,38 @@ always_ff @(posedge clk) begin
 				if (uart_rx_valid) begin
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
-					state = SEARCH;
+					state = PARSE;
 				end
 			end
-			SEARCH : begin
+			PARSE : begin
 				if (byte_in inside {[10:13]}) begin
 					xt[xtwp++] = local_xt;
 					local_xt = _execute;
+					word_in = '0;
 					state = EXECUTE;
 				end
 				else if (byte_in == " ") begin
 					xt[xtwp++] = local_xt;
 					local_xt = _execute;
 					state = IDLE;
+					word_in = '0;
 					uart_receive <= 1'b1;
 				end
-				else if (dict_name[wp] == byte_in) begin
+				else begin
+					if (word_in[31:24] < 3) begin
+						case (word_in[31:24])
+							0 : word_in[23:16] = byte_in;
+							1 : word_in[15:8] = byte_in;
+							2 : word_in[7:0] = byte_in;
+							default :;
+						endcase
+					end
+					++word_in[31:24];
+					state = SEARCH;
+				end
+			end
+			SEARCH : begin
+				if (dict_name[wp] == word_in) begin
 					// token
 					local_xt = dict_addr[wp];
 					state = IDLE;
