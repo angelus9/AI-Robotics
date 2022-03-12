@@ -1,4 +1,6 @@
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Open Source Code, 
 //
@@ -52,21 +54,49 @@
 // Other Contributors: Dr. Ting
 
 //syn_ramstyle = "lsram"
+//module
+// spram256 user modules //
+//SB_SPRAM256KA SRAM(
+ //.DATAIN(DATAIN),
+ //.ADDRESS(ADDRESS),
+ //.MASKWREN(MASKWREN),
+ //.WREN(WREN),
+ //.CHIPSELECT(CHIPSELECT),
+ //.CLOCK(CLOCK),
+ //.STANDBY(STANDBY),
+ //.SLEEP(SLEEP),
+ //.POWEROFF(POWEROFF),
+ //.DATAOUT(DATAOUT_A)
+//) 
+//end module
 
 parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
 
 //Internal SRAM parameters
 parameter Int_SRAM_size = 31;
-parameter Int_SRAM_ADDR_size = 16;
+parameter Int_SRAM_ADDR_size = 500;
 
 //LSRAM2
 parameter data_width = 9;
 parameter address_width = 10;
-parameter ram_size = 1024;
+parameter ext_ram_size = 1024;
 
 //BootROM
 parameter end_boot_ROM = 28;
+parameter clock_1MHZ_divider = 6;
+parameter clock_1KHZ_divider = 500;
+parameter clock_500MS_divider = 2000;
+parameter clock_SPI1_divider = 12;
+parameter clock_SPI2_divider = 12;
+
+//PWM
+parameter PWM_reg_size = 16;
+parameter PWM_range = 200;
+
+//SPI
+parameter SPI_8_reg_size = 4;// ss = low, 8 data pulses, ss = high
+parameter SPI_16_reg_size = 5;//16 data pulses 
 
 //Define System Architecture
 typedef enum logic [15:0]{
@@ -124,7 +154,7 @@ module ForthProc
   data_stack_depth  = 16,
   return_stack_depth = 8,
   boot_depth        = 50,
-  ram_depth         = 100,
+  ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
   LED_on			= 1'b0,
@@ -143,21 +173,30 @@ module ForthProc
 	output logic TX,
 	input logic RX,
 
-//UART signals need Lattice version
-//input logic [7:0] DATA_IN,
-//output logic [7:0] DATA_OUT,
-//output logic [12:0] BAUD_VAL,
-//output logic WEN, OEN, CSN, BIT8, PARITY_EN, ODD_N_EVEN,
-//input logic TXRDY,RXRDY, PARITY_ERR,FRAMING_ERR,OVERFLOW,
-
 //Dev Board Specific I/O
 input  BUTTON0,
 input  BUTTON1,
+input SPI1_8_in,
+input SPI2_16_in,
 
 output logic LED_G,
 output logic LED_B,
-output logic LED_R
+output logic LED_R,
+
+//Devices
+output logic PWM_CH1,
+output logic PWM_CH2,
+output logic PWM_CH3,
+output logic PWM_CH4,
+output logic SPI1_8_out,
+output logic SPI2_16_out,
+output logic SPI1_8_ss,
+output logic SPI2_16_ss,
+output logic SPI1_8_clk,
+output logic SPI2_16_clk
 );
+
+logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
@@ -166,12 +205,35 @@ logic	[address_size:0] mp;      // memory pointer
 logic	[address_size:0] bp;      // boot ROM memory pointer
 logic	[1:0] successful;
 logic	[code_size:0] opcode;
- 
+
+logic [4:0] clock_1MHZ_ctr;
+logic [10:0] clock_1KHZ_ctr = 12;//from 1MHZ clock
+logic [10:0] clock_500MS_ctr = 12;//from 1KHZ clock
+
+logic [4:0] clock_1MHZ;
+logic [10:0] clock_1KHZ;//from 1MHZ clock
+logic [10:0] clock_500MS;//from 1KHZ clock
+
+//PWM Registers
+logic [PWM_reg_size:0] PWM_div_counter;
+logic [PWM_reg_size:0] PWM_CH1_compare_reg;
+logic [PWM_reg_size:0] PWM_CH2_compare_reg;
+logic [PWM_reg_size:0] PWM_CH3_compare_reg;
+logic [PWM_reg_size:0] PWM_CH4_compare_reg;
+
+//SPI Registers
+logic [SPI_8_reg_size:0] SPI1_8_div_counter;
+logic [7:0] SPI1_8_data_out;
+logic [7:0] SPI1_8_data_in;
+
+logic [SPI_16_reg_size:0] SPI2_16_div_counter;
+logic [15:0] SPI1_16_data_out;
+logic [15:0] SPI1_16_data_in;
+
 //Circuliar stacks
 logic [data_size:0] data_stack[data_stack_depth] ;
 logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
-//logic [$clog2(data_stack_depth)-1:0] next_dp;//delete this? -dg 10-12-21
 logic [$clog2(data_stack_depth)-1:0] rp;
 
 //Internal Boot ROM
@@ -225,21 +287,49 @@ logic xt_ready;
 
 logic [data_size:0] number;
 
-//Need to add Lattice UART here
-//RS232 UART
-//logic [7:0] char_buf[2**char_buf_ptr_width];
-//logic [char_buf_ptr_width-1:0] char_buf_rd_ptr;
-//logic [char_buf_ptr_width-1:0] char_buf_wr_ptr;
-//logic [7:0] rdata;
-//logic [7:0] wdata;
-//logic UARTread;
-//logic UARTwrite;
-//logic valid;
-//logic boot_flag;
-
-//UART
-//logic n_DATA_IN[7:0];
-//logic n_DATA_OUT[7:0];
+//Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
+//build dictionary for testing...
+task automatic t_init_dictionary_code;
+	mem[0] <=  _execute;
+	mem[1] <=  _lit;
+	mem[2] <=  63;
+	mem[3] <=  _emit;
+	mem[4] <= _branch;
+	mem[5] <= 0;
+	mem[6] <=  _lit;
+	mem[7] <= 4;
+	mem[8] <= _io_led;
+	mem[9] <= _branch;
+	mem[10] <= 0;
+	mem[11] <=  _lit;
+	mem[12] <= 1;
+	mem[13] <= _io_led;
+	mem[14] <= _branch;
+	mem[15] <= 0;
+	mem[16] <=  _lit;
+	mem[17] <= 2;
+	mem[18] <= _io_led;
+	mem[19] <= _branch;
+	mem[20] <= 0;
+	mem[21] <= _number;
+	mem[22] <= _branch;
+	mem[23] <= 0;
+	mem[24] <= _io_led;
+	mem[25] <= _branch;
+	mem[26] <= 0;
+	mem[27] <= _lit;
+	mem[28] <= 5000000;
+	mem[29] <= _lit;
+	mem[30] <= 1;
+	mem[31] <= _minus;
+	mem[32] <= _dup;
+	mem[33] <= _zero_equal;
+	mem[34] <= _0branch;
+	mem[35] <= 29;
+	mem[36] <= _drop;
+	mem[37] <= _branch;
+	mem[38] <= 0;
+endtask : t_init_dictionary_code
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
@@ -291,7 +381,7 @@ always_ff @(posedge clk) begin
 	logic [31:0] dict_size;
 	logic [31:0] word_in;
 	logic [address_size:0] local_xt;
-	enum {IDLE, PARSE, SEARCH, EXECUTE, NUMBER} state;
+	enum {IDLE, PARSE, SEARCH, EXECUTE, NUMBER, COMPILE} state;
 	static logic [31:0] dict_name[4] = {
 	{8'd3,"r","e","d"},
 	{8'd5,"g","r","e"},
@@ -320,7 +410,7 @@ always_ff @(posedge clk) begin
 				end
 			end
 			PARSE : begin
-				if (byte_in inside {[10:13]}) begin
+				if (byte_in inside {[10:13]}) begin//is character between <bl> and <cr>?
 					xt[xtwp++] = local_xt;
 					local_xt = _execute;
 					word_in = '0;
@@ -334,7 +424,7 @@ always_ff @(posedge clk) begin
 					uart_receive <= 1'b1;
 				end
 				else begin
-					if (word_in[31:24] < 3) begin
+					if (word_in[31:24] < 3) begin//is word count [31:24] less than 3?
 						case (word_in[31:24])
 							0 : word_in[23:16] = byte_in;
 							1 : word_in[15:8] = byte_in;
@@ -378,6 +468,14 @@ always_ff @(posedge clk) begin
 					uart_receive <= 1'b1;
 				end
 			end
+			
+			COMPILE: begin
+				//xt_valid <= (xtrp < xtwp);
+				//if (xtrp == xtwp) begin
+					//state = IDLE;
+					//uart_receive <= 1'b1;
+				//end
+			end
 		default : state = IDLE;
 		endcase
 	end
@@ -412,7 +510,8 @@ task automatic t_reset;
         DataStackDepth='0;
         ReturnStackDepth='0;
         skip_op <= false;
-		uart_send <= 1'b0;		
+		uart_send <= 1'b0;	
+		t_init_dictionary_code;
     end
   endtask
 
@@ -651,6 +750,56 @@ always_ff @(posedge clk) begin
 		end
 	end
 end
+
+//Process SPI1_8 out
+always_ff @(posedge clk) begin
+	logic i;
+	
+	if (reset == true) begin
+		SPI1_8_div_counter = 0;
+		SPI1_8_out <= low;
+		SPI1_8_ss  <= high;
+		SPI1_8_clk <= low;
+	end
+	
+    else if (SPI1_8_div_counter == 0) begin
+		SPI1_8_ss <= low;
+    end
+
+    else if (SPI1_8_div_counter <= 8) begin
+
+		for (int i = 0; i < 8; i++) begin
+			SPI1_8_clk <= low;
+		   	SPI1_8_out <= 8'b1000000 & (SPI1_8_data_out << 1);//may need to AND bit mask 1000000 here
+			SPI1_8_clk <= high;
+		end
+	end	
+	
+    else if (SPI1_8_div_counter >= 9) begin
+		SPI1_8_ss <= high;	
+		SPI1_8_div_counter = 0;
+    end	
+	
+				
+
+//		SPI1_8_out <= SPI1_8_in;
+		++SPI1_8_div_counter;
+end	
+
+//Process SPI2_16 out
+always_ff @(posedge clk) begin
+	if (reset == true) begin
+		SPI2_16_div_counter = 0;
+		SPI2_16_out <= low;
+		SPI2_16_out <= low;		
+		SPI2_16_ss <= low;	
+		SPI2_16_clk <= low;
+	end	
+	else begin
+		SPI2_16_out <= SPI2_16_in;	
+		++SPI2_16_div_counter;
+	end	
+end	
 
 //Do we need to instantiate any of this Lattice stuff?
 //pmi_complex_mult 
@@ -1035,4 +1184,3 @@ endmodule
 //// Compile
 //
 //End
-
