@@ -287,50 +287,6 @@ logic xt_ready;
 
 logic [data_size:0] number;
 
-//Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
-//build dictionary for testing...
-task automatic t_init_dictionary_code;
-	mem[0] <=  _execute;
-	mem[1] <=  _lit;
-	mem[2] <=  63;
-	mem[3] <=  _emit;
-	mem[4] <= _branch;
-	mem[5] <= 0;
-	mem[6] <=  _lit;
-	mem[7] <= 4;
-	mem[8] <= _io_led;
-	mem[9] <= _branch;
-	mem[10] <= 0;
-	mem[11] <=  _lit;
-	mem[12] <= 1;
-	mem[13] <= _io_led;
-	mem[14] <= _branch;
-	mem[15] <= 0;
-	mem[16] <=  _lit;
-	mem[17] <= 2;
-	mem[18] <= _io_led;
-	mem[19] <= _branch;
-	mem[20] <= 0;
-	mem[21] <= _number;
-	mem[22] <= _branch;
-	mem[23] <= 0;
-	mem[24] <= _io_led;
-	mem[25] <= _branch;
-	mem[26] <= 0;
-	mem[27] <= _lit;
-	mem[28] <= 5000000;
-	mem[29] <= _lit;
-	mem[30] <= 1;
-	mem[31] <= _minus;
-	mem[32] <= _dup;
-	mem[33] <= _zero_equal;
-	mem[34] <= _0branch;
-	mem[35] <= 29;
-	mem[36] <= _drop;
-	mem[37] <= _branch;
-	mem[38] <= 0;
-endtask : t_init_dictionary_code
-
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
 	boot_ROM[0] <=  _execute;
@@ -374,25 +330,33 @@ task automatic t_init_boot_code;
 	boot_ROM[38] <= 0;
 endtask : t_init_boot_code 
 
+//Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
+//build dictionary for testing...
+task automatic t_init_dictionary_code;
+	mem[0] <= {8'd3,"r","e","d"};
+	mem[1] <= 6;
+	mem[2] <= {8'd5,"g","r","e"};
+	mem[3] <= 11;
+	mem[4] <= {8'd4,"b","l","u"};
+	mem[5] <= 16;
+	mem[6] <=  {8'd5,"d","e","l"};
+	mem[7] <= 27;
+	mem[8] <= 0;
+endtask : t_init_dictionary_code
+
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
-	logic [2:0] wp;
+	logic [31:0] wp;
 	logic [31:0] dict_size;
 	logic [31:0] word_in;
 	logic [address_size:0] local_xt;
-	enum {IDLE, PARSE, SEARCH, EXECUTE, NUMBER, COMPILE} state;
-	static logic [31:0] dict_name[4] = {
-	{8'd3,"r","e","d"},
-	{8'd5,"g","r","e"},
-	{8'd4,"b","l","u"},
-	{8'd5,"d","e","l"}};
-	static logic [address_size:0] dict_addr[4] = {6,11,16,27};
+	enum {IDLE, PARSE, SEARCH, GET_XT, EXECUTE, NUMBER, COMPILE} state;
 	
 	if (reset == 1'b0) begin
 		wp = '0;
 		xt_valid <= 1'b0;
-		dict_size = 4;
+		dict_size = 8;
 		state = IDLE;
 		uart_receive <= 1'b1;
 		xtwp = 0;
@@ -437,19 +401,23 @@ always_ff @(posedge clk) begin
 				end
 			end
 			SEARCH : begin
-				if (dict_name[wp] == word_in) begin
+				if (mem[wp] == word_in) begin
 					// token
-					local_xt = dict_addr[wp];
-					state = IDLE;
-					uart_receive <= 1'b1;
+					++wp;
+					state = GET_XT;
 				end
 				else begin
-					++wp;
+					wp += 2;
 					if (wp >= dict_size) begin
 						state = NUMBER;
 					end
 				end
 			end
+			GET_XT: begin
+				local_xt = mem[wp];
+				state = IDLE;
+				uart_receive <= 1'b1;
+			end			
 			NUMBER : begin
 				if (byte_in inside{["0":"9"]}) begin
 					number = byte_in - "0";
