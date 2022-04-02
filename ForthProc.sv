@@ -333,25 +333,30 @@ endtask : t_init_boot_code
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <= {8'd3,"r","e","d"};
-	mem[1] <= 6;
-	mem[2] <= {8'd5,"g","r","e"};
-	mem[3] <= 11;
-	mem[4] <= {8'd4,"b","l","u"};
-	mem[5] <= 16;
-	mem[6] <=  {8'd5,"d","e","l"};
-	mem[7] <= 27;
-	mem[8] <= 0;
+	mem[0] <= 3;
+	mem[1] <= {8'd3,"r","e","d"};
+	mem[2] <= 6;
+	mem[3] <= 6;
+	mem[4] <= {8'd5,"g","r","e"};
+	mem[5] <= 11;
+	mem[6] <= 9;
+	mem[7] <= {8'd4,"b","l","u"};
+	mem[8] <= 16;
+	mem[9] <= 0;
+	mem[10] <= {8'd5,"d","e","l"};
+	mem[11] <= 27;
+	mem[12] <= 0;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
 	logic [31:0] wp;
+	logic [31:0] link_addr;
 	logic [31:0] dict_size;
 	logic [31:0] word_in;
 	logic [address_size:0] local_xt;
-	enum {IDLE, PARSE, SEARCH, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	enum {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
 	
 	if (reset == 1'b0) begin
 		wp = '0;
@@ -397,8 +402,13 @@ always_ff @(posedge clk) begin
 						endcase
 					end
 					++word_in[31:24];
-					state = SEARCH;
+					state = GET_LINK;
 				end
+			end
+			GET_LINK :  begin
+				link_addr = mem[wp];		
+				++wp;
+				state = SEARCH;
 			end
 			SEARCH : begin
 				if (mem[wp] == word_in) begin
@@ -407,10 +417,8 @@ always_ff @(posedge clk) begin
 					state = GET_XT;
 				end
 				else begin
-					wp += 2;
-					if (wp >= dict_size) begin
-						state = NUMBER;
-					end
+					wp = link_addr;
+					state = link_addr ? GET_LINK : NUMBER;
 				end
 			end
 			GET_XT: begin
