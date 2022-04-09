@@ -334,27 +334,30 @@ endtask : t_init_boot_code
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
 	mem[0] <= 3;
-	mem[1] <= {8'd3,"r","e","d"};
+	mem[1] <= {8'd1,"r","e","d"};
 	mem[2] <= 6;
-	mem[3] <= 6;
-	mem[4] <= {8'd5,"g","r","e"};
-	mem[5] <= 11;
-	mem[6] <= 9;
-	mem[7] <= {8'd4,"b","l","u"};
-	mem[8] <= 16;
-	mem[9] <= 0;
-	mem[10] <= {8'd5,"d","e","l"};
-	mem[11] <= 27;
-	mem[12] <= 0;
+	mem[3] <= 7;
+	mem[4] <= {8'd2,"g","r","e"};
+	mem[5] <= {"e","n","\0","\0"};
+	mem[6] <= 11;
+	mem[7] <= 11;
+	mem[8] <= {8'd2,"b","l","u"};
+	mem[9] <= {"e","\0","\0","\0"};
+	mem[10] <= 16;
+	mem[11] <= 0;
+	mem[12] <= {8'd2,"d","e","l"};
+	mem[13] <= {"a","y","\0","\0"};
+	mem[14] <= 27;
+	mem[15] <= 0;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
-	logic [31:0] wp;
+	logic [31:0] wp, ccell, cchar, cells;
 	logic [31:0] link_addr;
 	logic [31:0] dict_size;
-	logic [31:0] word_in;
+	logic [3:0][31:0] word_in;
 	logic [address_size:0] local_xt;
 	enum {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
 	
@@ -367,6 +370,8 @@ always_ff @(posedge clk) begin
 		xtwp = 0;
 		local_xt=0;
 		word_in = '0;
+		cells = '0;
+		cchar = '0;
 	end
 	else begin
 		case (state)
@@ -383,6 +388,8 @@ always_ff @(posedge clk) begin
 					xt[xtwp++] = local_xt;
 					local_xt = _execute;
 					word_in = '0;
+					cells = '0;
+					cchar = '0;
 					state = EXECUTE;
 				end
 				else if (byte_in == " ") begin
@@ -390,30 +397,37 @@ always_ff @(posedge clk) begin
 					local_xt = _execute;
 					state = IDLE;
 					word_in = '0;
+					cells = '0;
+					cchar = '0;
 					uart_receive <= 1'b1;
 				end
 				else begin
-					if (word_in[31:24] < 3) begin//is word count [31:24] less than 3?
-						case (word_in[31:24])
-							0 : word_in[23:16] = byte_in;
-							1 : word_in[15:8] = byte_in;
-							2 : word_in[7:0] = byte_in;
-							default :;
-						endcase
-					end
-					++word_in[31:24];
+					cchar++;
+					case (cchar % 4)
+						0 : word_in[cchar / 4][31:24] = byte_in;
+						1 : word_in[cchar / 4][23:16] = byte_in;
+						2 : word_in[cchar / 4][15:8] = byte_in;
+						3 : word_in[cchar / 4][7:0] = byte_in;
+						default :;
+					endcase
+					cells = 1 + (cchar / 4);
+					word_in[0][31:24] = cells;
 					state = GET_LINK;
 				end
 			end
 			GET_LINK :  begin
 				link_addr = mem[wp];		
 				++wp;
+				ccell = '0;
 				state = SEARCH;
 			end
 			SEARCH : begin
-				if (mem[wp] == word_in) begin
+				if (ccell < cells && mem[wp] == word_in[ccell]) begin
 					// token
 					++wp;
+					++ccell;
+				end
+				else if (ccell >= cells) begin
 					state = GET_XT;
 				end
 				else begin
