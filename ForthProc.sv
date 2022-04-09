@@ -1,4 +1,6 @@
 
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Open Source Code, 
 //
@@ -8,6 +10,7 @@
 //
 // Description: First working code from Demitri.  I had to change some blocking statements to non-blocking.
 // 			skip_op <= true;
+//
 //
 // Targeted device: <Family::IGLOO2> <Die::M2GL005> <Package::144 TQ>
 // Authors: Don Golding & Dimitri Peynado
@@ -51,27 +54,55 @@
 // Other Contributors: Dr. Ting
 
 //syn_ramstyle = "lsram"
+//module
+// spram256 user modules //
+//SB_SPRAM256KA SRAM(
+ //.DATAIN(DATAIN),
+ //.ADDRESS(ADDRESS),
+ //.MASKWREN(MASKWREN),
+ //.WREN(WREN),
+ //.CHIPSELECT(CHIPSELECT),
+ //.CLOCK(CLOCK),
+ //.STANDBY(STANDBY),
+ //.SLEEP(SLEEP),
+ //.POWEROFF(POWEROFF),
+ //.DATAOUT(DATAOUT_A)
+//) 
+//end module
 
 parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
 
 //Internal SRAM parameters
 parameter Int_SRAM_size = 31;
-parameter Int_SRAM_ADDR_size = 16;
+parameter Int_SRAM_ADDR_size = 500;
 
 //LSRAM2
 parameter data_width = 9;
 parameter address_width = 10;
-parameter ram_size = 1024;
+parameter ext_ram_size = 1024;
 
 //BootROM
 parameter end_boot_ROM = 28;
+parameter clock_1MHZ_divider = 6;
+parameter clock_1KHZ_divider = 500;
+parameter clock_500MS_divider = 2000;
+parameter clock_SPI1_divider = 12;
+parameter clock_SPI2_divider = 12;
+
+//PWM
+parameter PWM_reg_size = 16;
+parameter PWM_range = 200;
+
+//SPI
+parameter SPI_8_reg_size = 4;// ss = low, 8 data pulses, ss = high
+parameter SPI_16_reg_size = 5;//16 data pulses 
 
 //Define System Architecture
 typedef enum logic [15:0]{
 
 //System Operators
-_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit,
+_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit, _number,
 
 //Stack Operators
 _depth, _dup, _pick, _over, _swap, _rot, _equal, _zero_equal, _greater_than, _less_than,
@@ -122,8 +153,8 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 30,
-  ram_depth         = 100,
+  boot_depth        = 50,
+  ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
   LED_on			= 1'b0,
@@ -139,22 +170,33 @@ module ForthProc
 (  
     input logic reset,
     input logic clk,
-
-//UART signals need Lattice version
-//input logic [7:0] DATA_IN,
-//output logic [7:0] DATA_OUT,
-//output logic [12:0] BAUD_VAL,
-//output logic WEN, OEN, CSN, BIT8, PARITY_EN, ODD_N_EVEN,
-//input logic TXRDY,RXRDY, PARITY_ERR,FRAMING_ERR,OVERFLOW,
+	output logic TX,
+	input logic RX,
 
 //Dev Board Specific I/O
 input  BUTTON0,
 input  BUTTON1,
+input SPI1_8_in,
+input SPI2_16_in,
 
 output logic LED_G,
 output logic LED_B,
-output logic LED_R
+output logic LED_R,
+
+//Devices
+output logic PWM_CH1,
+output logic PWM_CH2,
+output logic PWM_CH3,
+output logic PWM_CH4,
+output logic SPI1_8_out,
+output logic SPI2_16_out,
+output logic SPI1_8_ss,
+output logic SPI2_16_ss,
+output logic SPI1_8_clk,
+output logic SPI2_16_clk
 );
+
+logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
@@ -163,12 +205,35 @@ logic	[address_size:0] mp;      // memory pointer
 logic	[address_size:0] bp;      // boot ROM memory pointer
 logic	[1:0] successful;
 logic	[code_size:0] opcode;
- 
+
+logic [4:0] clock_1MHZ_ctr;
+logic [10:0] clock_1KHZ_ctr = 12;//from 1MHZ clock
+logic [10:0] clock_500MS_ctr = 12;//from 1KHZ clock
+
+logic [4:0] clock_1MHZ;
+logic [10:0] clock_1KHZ;//from 1MHZ clock
+logic [10:0] clock_500MS;//from 1KHZ clock
+
+//PWM Registers
+logic [PWM_reg_size:0] PWM_div_counter;
+logic [PWM_reg_size:0] PWM_CH1_compare_reg;
+logic [PWM_reg_size:0] PWM_CH2_compare_reg;
+logic [PWM_reg_size:0] PWM_CH3_compare_reg;
+logic [PWM_reg_size:0] PWM_CH4_compare_reg;
+
+//SPI Registers
+logic [SPI_8_reg_size:0] SPI1_8_div_counter;
+logic [7:0] SPI1_8_data_out;
+logic [7:0] SPI1_8_data_in;
+
+logic [SPI_16_reg_size:0] SPI2_16_div_counter;
+logic [15:0] SPI1_16_data_out;
+logic [15:0] SPI1_16_data_in;
+
 //Circuliar stacks
 logic [data_size:0] data_stack[data_stack_depth] ;
 logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
-//logic [$clog2(data_stack_depth)-1:0] next_dp;//delete this? -dg 10-12-21
 logic [$clog2(data_stack_depth)-1:0] rp;
 
 //Internal Boot ROM
@@ -204,54 +269,207 @@ logic n_LED_G;
 logic n_LED_B;
 logic n_LED_R;
 
-//Need to add Lattice UART here
-//RS232 UART
-//logic [7:0] char_buf[2**char_buf_ptr_width];
-//logic [char_buf_ptr_width-1:0] char_buf_rd_ptr;
-//logic [char_buf_ptr_width-1:0] char_buf_wr_ptr;
-//logic [7:0] rdata;
-//logic [7:0] wdata;
-//logic UARTread;
-//logic UARTwrite;
-//logic valid;
-//logic boot_flag;
+// UART registers
+logic [7:0] tx_data;
+logic uart_busy_tx;
+logic uart_send;
+logic uart_busy_rx;
+logic uart_receive;
+logic uart_rx_valid;
+logic [7:0] uart_rx_data;
 
-//UART
-//logic n_DATA_IN[7:0];
-//logic n_DATA_OUT[7:0];
+// Execution Token
+logic [address_size:0] xt[256];
+logic [7:0] xtrp;
+logic [7:0] xtwp;
+logic xt_valid;
+logic xt_ready;
+
+logic [data_size:0] number;
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
-	boot_ROM[0] <= _lit;		//next number is a literal number
-	boot_ROM[1] <= 5000000;	//place on top of the stack	(TOS)						( 10000000 )
-	boot_ROM[2] <= _lit;		//next number is a literal
-	boot_ROM[3] <= 1;			//place on TOS											( 10000000 1 )
-	boot_ROM[4] <= _minus;		//subtract TOS from second stack item					( 09999999 )
-	boot_ROM[5] <= _dup;		//duplicate TOS											( 09999999 09999999 )
-	boot_ROM[6] <= _zero_equal;	//is TOS equal to zero?									( 09999999 0 )
-	boot_ROM[7] <= _0branch;	//if TOS zero next number fetched is a branch location
-	boot_ROM[8] <= 2;			//jump to boot_ROM[2] above
-	boot_ROM[9] <= _lit;		//next number is a literal number
-	boot_ROM[10] <= 1;			//place on TOS											( 09999999 1 )
-	boot_ROM[11] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
-	boot_ROM[12] <= _lit;		//next number is a literal
-	boot_ROM[13] <= 5000000;	//place on TOS											( 09999999 10000000 )
-	boot_ROM[14] <= _lit;		//next number is a literal number
-	boot_ROM[15] <= 1;			//place on TOS											( 09999999 10000000 1 )
-	boot_ROM[16] <= _minus;		//subtract TOS from second stack item					( 09999999 09999999 )
-	boot_ROM[17] <= _dup;		//duplicate TOS											( 09999999 09999999 09999999 )
-	boot_ROM[18] <= _zero_equal;//is TOS equal to zero?									( 09999999 09999999 0 )
-	boot_ROM[19] <= _0branch;	//if TOS zero next number fetched is a branch location 	( 09999999 09999999 )
-	boot_ROM[20] <= 14;			//jump to boot_ROM[14] above							( 09999999 09999999 14 ) 
-	boot_ROM[21] <= _lit;		//next number is a literal number
-	boot_ROM[22] <= 0;			//place on TOS											( 09999999 09999999 0 )
-	boot_ROM[23] <= _io_led;	//store TOS to IO pin, LED is turned on					( 09999999 )
-	boot_ROM[24] <= _lit;		//next number is a literal number
-	boot_ROM[25] <= 65;			//ASCII "A" place on TOS	                            ( 09999999 65 )
-	boot_ROM[26] <= _emit;	    //output ASCII "A" to RS232 terminal					    ( 09999999 )    
-	boot_ROM[27] <= _branch;	//Always branch (WHILE) to following location 			( 09999999 09999999 )
-	boot_ROM[28] <= 0;			//place on top of the stack	(TOS)
+	boot_ROM[0] <=  _execute;
+	boot_ROM[1] <=  _lit;
+	boot_ROM[2] <=  63;
+	boot_ROM[3] <=  _emit;
+	boot_ROM[4] <= _branch;
+	boot_ROM[5] <= 0;
+	boot_ROM[6] <=  _lit;
+	boot_ROM[7] <= 4;
+	boot_ROM[8] <= _io_led;
+	boot_ROM[9] <= _branch;
+	boot_ROM[10] <= 0;
+	boot_ROM[11] <=  _lit;
+	boot_ROM[12] <= 1;
+	boot_ROM[13] <= _io_led;
+	boot_ROM[14] <= _branch;
+	boot_ROM[15] <= 0;
+	boot_ROM[16] <=  _lit;
+	boot_ROM[17] <= 2;
+	boot_ROM[18] <= _io_led;
+	boot_ROM[19] <= _branch;
+	boot_ROM[20] <= 0;
+	boot_ROM[21] <= _number;
+	boot_ROM[22] <= _branch;
+	boot_ROM[23] <= 0;
+	boot_ROM[24] <= _io_led;
+	boot_ROM[25] <= _branch;
+	boot_ROM[26] <= 0;
+	boot_ROM[27] <= _lit;
+	boot_ROM[28] <= 5000000;
+	boot_ROM[29] <= _lit;
+	boot_ROM[30] <= 1;
+	boot_ROM[31] <= _minus;
+	boot_ROM[32] <= _dup;
+	boot_ROM[33] <= _zero_equal;
+	boot_ROM[34] <= _0branch;
+	boot_ROM[35] <= 29;
+	boot_ROM[36] <= _drop;
+	boot_ROM[37] <= _branch;
+	boot_ROM[38] <= 0;
 endtask : t_init_boot_code 
+
+//Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
+//build dictionary for testing...
+task automatic t_init_dictionary_code;
+	mem[0] <= 3;
+	mem[1] <= {8'd1,"r","e","d"};
+	mem[2] <= 6;
+	mem[3] <= 7;
+	mem[4] <= {8'd2,"g","r","e"};
+	mem[5] <= {"e","n","\0","\0"};
+	mem[6] <= 11;
+	mem[7] <= 11;
+	mem[8] <= {8'd2,"b","l","u"};
+	mem[9] <= {"e","\0","\0","\0"};
+	mem[10] <= 16;
+	mem[11] <= 0;
+	mem[12] <= {8'd2,"d","e","l"};
+	mem[13] <= {"a","y","\0","\0"};
+	mem[14] <= 27;
+	mem[15] <= 0;
+endtask : t_init_dictionary_code
+
+// Forth Outer Interpreter
+always_ff @(posedge clk) begin
+	logic [7:0] byte_in;
+	logic [31:0] wp, ccell, cchar, cells;
+	logic [31:0] link_addr;
+	logic [31:0] dict_size;
+	logic [3:0][31:0] word_in;
+	logic [address_size:0] local_xt;
+	enum {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	
+	if (reset == 1'b0) begin
+		wp = '0;
+		xt_valid <= 1'b0;
+		dict_size = 8;
+		state = IDLE;
+		uart_receive <= 1'b1;
+		xtwp = 0;
+		local_xt=0;
+		word_in = '0;
+		cells = '0;
+		cchar = '0;
+	end
+	else begin
+		case (state)
+			IDLE : begin
+				wp = '0;
+				if (uart_rx_valid) begin
+					uart_receive <= 1'b0;
+					byte_in = uart_rx_data;
+					state = PARSE;
+				end
+			end
+			PARSE : begin
+				if (byte_in inside {[10:13]}) begin//is character between <bl> and <cr>?
+					xt[xtwp++] = local_xt;
+					local_xt = _execute;
+					word_in = '0;
+					cells = '0;
+					cchar = '0;
+					state = EXECUTE;
+				end
+				else if (byte_in == " ") begin
+					xt[xtwp++] = local_xt;
+					local_xt = _execute;
+					state = IDLE;
+					word_in = '0;
+					cells = '0;
+					cchar = '0;
+					uart_receive <= 1'b1;
+				end
+				else begin
+					cchar++;
+					case (cchar % 4)
+						0 : word_in[cchar / 4][31:24] = byte_in;
+						1 : word_in[cchar / 4][23:16] = byte_in;
+						2 : word_in[cchar / 4][15:8] = byte_in;
+						3 : word_in[cchar / 4][7:0] = byte_in;
+						default :;
+					endcase
+					cells = 1 + (cchar / 4);
+					word_in[0][31:24] = cells;
+					state = GET_LINK;
+				end
+			end
+			GET_LINK :  begin
+				link_addr = mem[wp];		
+				++wp;
+				ccell = '0;
+				state = SEARCH;
+			end
+			SEARCH : begin
+				if (ccell < cells && mem[wp] == word_in[ccell]) begin
+					// token
+					++wp;
+					++ccell;
+				end
+				else if (ccell >= cells) begin
+					state = GET_XT;
+				end
+				else begin
+					wp = link_addr;
+					state = link_addr ? GET_LINK : NUMBER;
+				end
+			end
+			GET_XT: begin
+				local_xt = mem[wp];
+				state = IDLE;
+				uart_receive <= 1'b1;
+			end			
+			NUMBER : begin
+				if (byte_in inside{["0":"9"]}) begin
+					number = byte_in - "0";
+					local_xt = 21;
+				end
+				else begin
+					local_xt = 1;
+				end
+				state = IDLE;
+				uart_receive <= 1'b1;
+			end
+			EXECUTE : begin
+				xt_valid <= (xtrp < xtwp);
+				if (xtrp == xtwp) begin
+					state = IDLE;
+					uart_receive <= 1'b1;
+				end
+			end
+			
+			COMPILE: begin
+				//xt_valid <= (xtrp < xtwp);
+				//if (xtrp == xtwp) begin
+					//state = IDLE;
+					//uart_receive <= 1'b1;
+				//end
+			end
+		default : state = IDLE;
+		endcase
+	end
+end
 
 task automatic t_Fetch_opcode;
 	if (branch) begin
@@ -262,7 +480,6 @@ task automatic t_Fetch_opcode;
 	else begin
 		DataBus = boot_ROM[bp];
 		++bp;
-
 	end
 	
 endtask        
@@ -277,11 +494,14 @@ task automatic t_reset;
         dp='0;
         rp='0;
         mp ='0;
+		xtrp = 0;
         busy <= false;
         active_mem <= _ROM_active;
         DataStackDepth='0;
         ReturnStackDepth='0;
-        skip_op <= false;                
+        skip_op <= false;
+		uart_send <= 1'b0;	
+		t_init_dictionary_code;
     end
   endtask
 
@@ -327,6 +547,7 @@ task automatic t_reset;
 			n_LED_G <= !data_stack[dp][0];
 			n_LED_B <= !data_stack[dp][1];
 			n_LED_R <= !data_stack[dp][2];
+			--dp;
 		end
 		_io_button : begin
             data_stack[dp] = {BUTTON1,BUTTON0};
@@ -354,7 +575,6 @@ task automatic t_reset;
 		 _branch : begin
 			branch = true;
 			branch_addr = boot_ROM[bp];
-			--dp;
         end    
 		_if : begin
 			--dp;
@@ -367,15 +587,31 @@ task automatic t_reset;
 		end        
 
         _emit : begin
-//			wdata = data_stack[dp];
-			--dp;             
-        end
-    
-        _key : begin
-//			data_stack[dp] = wdata;
-			++dp;
+			if (busy == false) begin
+				uart_send <= 1'b1;
+				busy = true;
+				--dp;    
+			end
+			else if (uart_busy_tx && busy == true) begin
+				tx_data   <= data_stack[dp+1][7:0];         
+			end
+			else if (!uart_busy_tx && busy == true) begin
+				uart_send <= 1'b0;
+				busy = false;
+			end
         end        
-
+		_execute : begin
+			busy = true;
+			if (xt_valid) begin
+				branch_addr = xt[xtrp++];
+				busy = false;
+				branch = true;
+			end
+		end
+		_number : begin
+			++dp;
+			data_stack[dp] = number;
+		end
 		default : ;
 	  endcase
       
@@ -411,7 +647,9 @@ always_ff @(posedge clk) begin
         t_reset;
     end    
     else begin
-		t_Fetch_opcode;
+		if (busy == false) begin
+			t_Fetch_opcode;
+		end
 		if (skip_op == false) begin
 			t_execute;
 		end
@@ -426,6 +664,132 @@ always_ff @(posedge clk) begin
  		LED_R <= n_LED_R;		  
     end 
 end
+
+// UART RX
+always_ff @(posedge clk) begin
+	logic [3:0] count;
+	logic [9:0] clk_count;
+	logic [7:0] rxd;
+
+	if (reset == 1'b0) begin
+		count <= '0;
+		clk_count <= '0;
+		uart_busy_rx = 1'b0;
+		uart_rx_valid <= 1'b0;
+	end
+	else if (uart_receive && uart_rx_valid) begin
+		uart_rx_valid <= 1'b0;
+	end
+	else if ((uart_busy_rx || RX == 1'b0) && !uart_rx_valid) begin 
+		uart_busy_rx = 1'b1;
+		uart_rx_valid <= 1'b0;
+		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+			clk_count <= clk_count + 1;
+		end
+		else begin
+			clk_count <= '0;
+			count <= count + 1;
+			if (count < 8) begin
+				rxd <= {RX,rxd[7:1]};
+			end
+			else begin
+				count <= '0;
+				uart_busy_rx = 1'b0;
+				uart_rx_valid <= 1'b1;
+				uart_rx_data = rxd;
+			end
+		end
+	end
+end
+
+// UART TX
+always_ff @(posedge clk) begin
+	logic [3:0] count;
+	logic [9:0] clk_count;
+	logic [7:0] txd;
+
+	if (reset == 1'b0) begin
+		TX <= 1'b1;
+		count <= '0;
+		clk_count <= '0;
+		uart_busy_tx = 1'b0;
+	end
+	else if (uart_send) begin 
+		uart_busy_tx = 1'b1;
+		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+			clk_count <= clk_count + 1;
+		end
+		else begin
+			clk_count <= '0;
+			if (count < 9) begin
+				if (count == 0) begin
+					TX <= 1'b0;
+					txd <= tx_data;
+				end
+				else begin
+					TX <= txd[0];
+					txd <= txd >> 1;
+				end
+				count <= count+1;
+			end
+			else begin
+				TX <= 1'b1;
+				count <= '0;
+				uart_busy_tx = 1'b0;
+			end
+		end
+	end
+end
+
+//Process SPI1_8 out
+always_ff @(posedge clk) begin
+	logic i;
+	
+	if (reset == true) begin
+		SPI1_8_div_counter = 0;
+		SPI1_8_out <= low;
+		SPI1_8_ss  <= high;
+		SPI1_8_clk <= low;
+	end
+	
+    else if (SPI1_8_div_counter == 0) begin
+		SPI1_8_ss <= low;
+    end
+
+    else if (SPI1_8_div_counter <= 8) begin
+
+		for (int i = 0; i < 8; i++) begin
+			SPI1_8_clk <= low;
+		   	SPI1_8_out <= 8'b1000000 & (SPI1_8_data_out << 1);//may need to AND bit mask 1000000 here
+			SPI1_8_clk <= high;
+		end
+	end	
+	
+    else if (SPI1_8_div_counter >= 9) begin
+		SPI1_8_ss <= high;	
+		SPI1_8_div_counter = 0;
+    end	
+	
+				
+
+//		SPI1_8_out <= SPI1_8_in;
+		++SPI1_8_div_counter;
+end	
+
+//Process SPI2_16 out
+always_ff @(posedge clk) begin
+	if (reset == true) begin
+		SPI2_16_div_counter = 0;
+		SPI2_16_out <= low;
+		SPI2_16_out <= low;		
+		SPI2_16_ss <= low;	
+		SPI2_16_clk <= low;
+	end	
+	else begin
+		SPI2_16_out <= SPI2_16_in;	
+		++SPI2_16_div_counter;
+	end	
+end	
 
 //Do we need to instantiate any of this Lattice stuff?
 //pmi_complex_mult 
@@ -810,4 +1174,3 @@ endmodule
 //// Compile
 //
 //End
-
