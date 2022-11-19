@@ -125,9 +125,6 @@ _begin, _again, _until, _for, _next,
 //Logical
 _and, _or, _xor, _zero_less_than, _zero_greater_than, _zero_equals,
 
-//Error Codes
-dstack_overflow, dstack_underflow, rstack_overflow, rstack_underflow, invalid_instruction, no_errors,
-
 //Communications
 _key, _emit,
 
@@ -135,12 +132,6 @@ _key, _emit,
 _io_led, _io_button, _io_fetch, _io_store
 
 } op_e;
-
-typedef struct packed {
-
-  logic is_immediate;
-  op_e op;
-} opcode_t;
 
 module ForthProc
 
@@ -230,7 +221,7 @@ logic [SPI_16_reg_size:0] SPI2_16_div_counter;
 logic [15:0] SPI1_16_data_out;
 logic [15:0] SPI1_16_data_in;
 
-//Circuliar stacks
+//Circular stacks
 logic [data_size:0] data_stack[data_stack_depth] ;
 logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
@@ -247,21 +238,10 @@ logic [data_size:0] DataBus;
 logic [address_size:0] AddressBus;
 
 //Forth Registers
-logic [data_size:0] DataStackDepth;
-logic [data_size:0] ReturnStackDepth;
-logic [data_size:0] Temp;
-logic [data_size:0] Here;
-logic [data_size:0] Base;
-logic [data_size:0] State;
-logic [4:0] data_Stack_Op;
 logic busy;
 logic skip_op;
 logic branch;
 logic [address_size:0] branch_addr;
-
-//Loop registers?
-//logic [data_size:0] I;
-//logic [data_size:0] J;
 
 logic n_BUTTON0;
 logic n_BUTTON1;
@@ -291,7 +271,7 @@ logic [data_size:0] number;
 task automatic t_init_boot_code;
 	boot_ROM[0] <=  _execute;
 	boot_ROM[1] <=  _lit;
-	boot_ROM[2] <=  63;
+	boot_ROM[2] <=  "?";
 	boot_ROM[3] <=  _emit;
 	boot_ROM[4] <= _branch;
 	boot_ROM[5] <= 0;
@@ -333,9 +313,9 @@ endtask : t_init_boot_code
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <= 3;
-	mem[1] <= {8'd1,"r","e","d"};
-	mem[2] <= 6;
+	mem[0] <= 3;					// Link to next dictionary entry
+	mem[1] <= {8'd1,"r","e","d"};	// Name field (NFA)
+	mem[2] <= 6;					// Boot ROM address containing code (XT/CFA)
 	mem[3] <= 7;
 	mem[4] <= {8'd2,"g","r","e"};
 	mem[5] <= {"e","n","\0","\0"};
@@ -354,17 +334,16 @@ endtask : t_init_dictionary_code
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
-	logic [31:0] wp, ccell, cchar, cells;
+	logic [31:0] wp;
 	logic [31:0] link_addr;
-	logic [31:0] dict_size;
+	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
 	logic [address_size:0] local_xt;
-	enum {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	enum logic [2:0] {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
 	
 	if (reset == 1'b0) begin
 		wp = '0;
 		xt_valid <= 1'b0;
-		dict_size = 8;
 		state = IDLE;
 		uart_receive <= 1'b1;
 		xtwp = 0;
@@ -441,19 +420,20 @@ always_ff @(posedge clk) begin
 				uart_receive <= 1'b1;
 			end			
 			NUMBER : begin
+				// TODO: more than one char numbers
 				if (byte_in inside{["0":"9"]}) begin
 					number = byte_in - "0";
-					local_xt = 21;
+					local_xt = 21; // CFA for "number"
 				end
 				else begin
-					local_xt = 1;
+					local_xt = 1; // CFA for error "word not found"
 				end
 				state = IDLE;
 				uart_receive <= 1'b1;
 			end
 			EXECUTE : begin
-				xt_valid <= (xtrp < xtwp);
-				if (xtrp == xtwp) begin
+				xt_valid <= (xtrp < xtwp); // FIFO not empty (read before write)
+				if (xtrp == xtwp) begin    // Stop when FIFO empty (read at write)
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
@@ -471,42 +451,34 @@ always_ff @(posedge clk) begin
 	end
 end
 
-task automatic t_Fetch_opcode;
-	if (branch) begin
-		DataBus = boot_ROM[branch_addr];
-		bp = branch_addr+1;
-		branch = false;
-	end
-	else begin
-		DataBus = boot_ROM[bp];
-		++bp;
-	end
-	
-endtask        
-
-//assign second = data_stack[dp];//dON 10-13-21
-
-task automatic t_reset;
-    begin
+	task automatic t_reset;
         t_init_boot_code;
-        errorcode=no_errors;
         bp='0;
         dp='0;
         rp='0;
         mp ='0;
 		xtrp = 0;
         busy <= false;
-        active_mem <= _ROM_active;
-        DataStackDepth='0;
-        ReturnStackDepth='0;
         skip_op <= false;
 		uart_send <= 1'b0;	
 		t_init_dictionary_code;
-    end
-  endtask
+	endtask
 
-//Execute Opcodes task
-   task automatic t_execute;
+	task automatic t_Fetch_opcode;
+		if (branch) begin
+			DataBus = boot_ROM[branch_addr];
+			bp = branch_addr+1;
+			branch = false;
+		end
+		else begin
+			DataBus = boot_ROM[bp];
+			++bp;
+		end
+	
+	endtask        
+
+	//Execute opcodes task
+	task automatic t_execute;
    
       opcode = DataBus[code_size:0];
 	  case (opcode)
@@ -541,9 +513,7 @@ task automatic t_reset;
 		_zero_equal : begin
 			data_stack[dp] = data_stack[dp] == '0 ? -1 : 0;
 		end
-		// Demitri Peynado 30th Sept 2021
 		_io_led : begin
-			//Don 12/7/2021 testing leds 
 			n_LED_G <= !data_stack[dp][0];
 			n_LED_B <= !data_stack[dp][1];
 			n_LED_R <= !data_stack[dp][2];
@@ -576,16 +546,6 @@ task automatic t_reset;
 			branch = true;
 			branch_addr = boot_ROM[bp];
         end    
-		_if : begin
-			--dp;
-        end    
-        _else : begin
-			--dp;        
-		end
-        _then : begin
-			--dp;        
-		end        
-
         _emit : begin
 			if (busy == false) begin
 				uart_send <= 1'b1;
@@ -601,7 +561,7 @@ task automatic t_reset;
 			end
         end        
 		_execute : begin
-			busy = true;
+			busy = true; // Wait until XT/CFA available
 			if (xt_valid) begin
 				branch_addr = xt[xtrp++];
 				busy = false;
@@ -616,31 +576,8 @@ task automatic t_reset;
 	  endcase
       
   endtask : t_execute
-
- //Execute Opcodes task
-   //task automatic t_boot_to_SRAM; 
-//
-    //LSRAM_WEN <= low;
-    //++SRAM_CTR; 
-    //LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
-    //LSRAM_WADDR <= SRAM_CTR;
-    //LSRAM_WEN <= high;
-    //
-    ////LSRAM_RADDR <= 'd0;
-    ////LSRAM_REN <= low;
-//
-    ////S_DATA <= 'd0;  
-    ////SRAM_CTR <= 'd0; 
-    ////SRAM_over_flow <= false; 
-    ////SRAM_RW <= high;
-    ////mp <= 'd0;
-  //
-    //endtask : t_boot_to_SRAM
-  
-  
-//  assign n_main_clk = main_clk;
-  
-//Forth Inner Intrepreter
+ 
+//Forth Inner Interpreter (Fetch/Execute Unit)
 always_ff @(posedge clk) begin
 
     if (reset == 1'b0) begin
@@ -790,309 +727,8 @@ always_ff @(posedge clk) begin
 		++SPI2_16_div_counter;
 	end	
 end	
-
-//Do we need to instantiate any of this Lattice stuff?
-//pmi_complex_mult 
-//#(
-  //.pmi_dataa_width         ( ), // integer
-  //.pmi_datab_width         ( ), // integer
-  //.pmi_sign                ( ), // "on"|"off"
-  //.pmi_additional_pipeline ( ), // integer
-  //.pmi_input_reg           ( ), // "on"|"off"
-  //.pmi_output_reg          ( ), // "on"|"off"
-  //.pmi_family              ( ), // "iCE40UP" | "common"
-  //.pmi_implementation      ( )  // "DSP"|"LUT"
-//) <your_inst_label> (
-  //.DataA_Re  ( ),  // I:
-  //.DataA_Im  ( ),  // I:
-  //.DataB_Re  ( ),  // I:
-  //.DataB_Im  ( ),  // I:
-  //.Clock     ( ),  // I:
-  //.ClkEn     ( ),  // I:
-  //.Aclr      ( ),  // I:
-  //.Result_Re ( ),  // O:
-  //.Result_Im ( )   // O:
-//);
-//pmi_multaddsub
-//#(
-  //.pmi_dataa_width         ( ), // integer
-  //.pmi_datab_width         ( ), // integer
-  //.pmi_sign                ( ), // "on"|"off"
-  //.pmi_additional_pipeline ( ), // integer
-  //.pmi_add_sub             ( ), // "add"|"sub"
-  //.pmi_input_reg           ( ), // "on"|"off"
-  //.pmi_output_reg          ( ), // "on"|"off"
-  //.pmi_family              ( ), // "iCE40UP" | "common"
-  //.pmi_implementation      ( )  // "DSP"|"LUT"
-//) <your_inst_label> (
-  //.DataA0 ( ),  // I:
-  //.DataA1 ( ),  // I:
-  //.DataB0 ( ),  // I:
-  //.DataB1 ( ),  // I:
-  //.Clock  ( ),  // I:
-  //.ClkEn  ( ),  // I:
-  //.Aclr   ( ),  // I:
-  //.Result ( )   // O:
-//);
-
-//pmi_ram_dp
-//#(
-  //.pmi_wr_addr_depth    ( ), // integer
-  //.pmi_wr_addr_width    ( ), // integer
-  //.pmi_wr_data_width    ( ), // integer
-  //.pmi_rd_addr_depth    ( ), // integer
-  //.pmi_rd_addr_width    ( ), // integer
-  //.pmi_rd_data_width    ( ), // integer
-  //.pmi_regmode          ( ), // "reg"|"noreg"
-  //.pmi_resetmode        ( ), // "async"|"sync"
-  //.pmi_init_file        ( ), // string
-  //.pmi_init_file_format ( ), // "binary"|"hex"
-  //.pmi_family           ( )  // "iCE40UP"|"common"
-//) <your_inst_label> (
-  //.Data      ( ),  // I:
-  //.WrAddress ( ),  // I:
-  //.RdAddress ( ),  // I:
-  //.WrClock   ( ),  // I:
-  //.RdClock   ( ),  // I:
-  //.WrClockEn ( ),  // I:
-  //.RdClockEn ( ),  // I:
-  //.WE        ( ),  // I:
-  //.Reset     ( ),  // I:
-  //.Q         ( )   // O:
-//);
-
-//pmi_rom 
-//#(
-	//.pmi_addr_depth       ( ), // integer       
-    //.pmi_addr_width       ( ), // integer       
-    //.pmi_data_width       ( ), // integer       
-    //.pmi_regmode          ( ), // "reg"|"noreg"
-    //.pmi_resetmode        ( ), // "async" | "sync"	
-    //.pmi_init_file        ( ), // string		
-    //.pmi_init_file_format ( ), // "binary"|"hex"    
-	//.pmi_family           ( )  // "common"
-//) <your_inst_label> (
-	//.Address    ( ),  // I:
-	//.OutClock   ( ),  // I:
-	//.OutClockEn ( ),  // I:
-	//.Reset      ( ),  // I:
-	//.Q          ( )   // O:
-//);
-
-
-    //Outer Interpreter
-//always_ff  @(posedge clk) begin
-  //if (reset == 0) begin
-        //char_buf_rd_ptr <= 0;
-    //end    
-    //else begin
-        //valid <= false;
-    //end
-        //
-    //if (UARTread && char_buf_rd_ptr-1 ) begin
-    //
-        //rdata <= char_buf[char_buf_rd_ptr];
-        //char_buf_rd_ptr <= char_buf_rd_ptr + 1;
-        //valid <=  true;
-    //end
-//end
-
-//I need to work on this a bit, I need to add UART control lines, wdata, etc.
-//always_ff  @(posedge clk) begin
-
-  //if (reset == 0) begin
-    //char_buf_rd_ptr <= 0;
-    //BAUD_VAL <= 'd434;// 50mhz/115,200 = 434 (115,200 baud)
-    //CSN <= low; //enable UART
-    //WEN <= high;
-    //OEN <= high;
-  //end
-    
-  //else begin
-    //if(TXRDY == true)
-        //DATA_OUT <= wdata;
-    //end
-    
-    //if(RXRDY == true) begin
-      //rdata <= char_buf[char_buf_rd_ptr];
-      //char_buf_rd_ptr <= char_buf_rd_ptr + 1;
-    //end
-  //end
-
-//Read and Write to SRAM test
-//always_ff  @(posedge clk || reset) begin
-  //
-  //if (reset == 0) begin
-//
-    //LSRAM_DATA_OUT <= 'd0;
-    //LSRAM_WADDR <= 'd0;
-    //LSRAM_RADDR <= 'd0;
-    //LSRAM_REN <= low;
-    //LSRAM_WEN <= low;
-    //S_DATA <= 'd0;  
-    //SRAM_CTR <= 'd0; 
-    //SRAM_over_flow <= false; 
-    //SRAM_RW <= high;
-    //mp = 'd0;
-   //end
-    //
-  //else begin
-    //if (SRAM_RW == high) begin       
-        //LSRAM_WADDR <= 'd0;
-        //LSRAM_DATA_OUT <= 'hff; 
-        //LSRAM_WEN <= high;         
-        //SRAM_RW <= low; 
-        //LSRAM_WEN <= low;        
-    //end 
-    //
-    //else begin
-   //
-        //LSRAM_RADDR <= 'd1;
-        //LSRAM_REN <= high;         
-        //S_DATA <= LSRAM_DATA_IN;
-        //LSRAM_REN <= low;
-        //SRAM_RW <= high;         
-    //end
-  //end
-//end
-
-//always @(posedge clk)
-  //begin
-    //din <='d100;
-    //
-    //en <= high;
-    //we <= high;
-    //
-    //if (en == high) begin
-        //if(we == high) begin
-            //mem[addr] <= din;
-                //we <= low;
-        //end
-        //
-        //else begin
-            //dout <= mem[addr];
-            //we <= high;
-        //end    
-        //end
-        //en <= low;    
-    //end 
-
-//Booting processor
-  //always_ff @(posedge clk)
-    //begin
-      //if (reset == 0) begin
-        //SRAM_CTR <= 0;
-        //active_mem <= _ROM_active; 
-        //boot_flag <= true;
-      //end
-    
-      //else begin
-   
-        //LSRAM_WEN <= high;
-        //LSRAM_WADDR <= SRAM_CTR;  
-        //LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
-    
-            //if (SRAM_CTR >= end_boot_ROM) begin
-                //active_mem <= _SRAM_active;
-                    //boot_flag <= false; 
-            //end        
-            //else begin
-                //active_mem <= _ROM_active; 
-                  //boot_flag <= true;    
-            //end
-         //++SRAM_CTR; 
-      //end         
-    //end
-
-
-  
-//logic	[31:0] S_DATA;
-//logic   S_RW;
-//logic [Int_SRAM_size-1:0] SRAM_CTR;
-//logic SRAM_over_flow;  
-  ////Read to SRAM
-  //always_ff  @(posedge clk) begin
-//
-  //if (reset == 0) begin
- ////       S_RW <= low;
-        //C_DIN <= 'd0;
-        //C_ADDR <= 'd0;
-        //C_BLK <= low;//before C_WEN    
-        //C_WEN <= low; 
-   //end 
-    //else begin  
-        //if(S_RW == low) begin
-            //A_ADDR <= 'd0;
-            //S_DATA <= A_DOUT;
-        //end
-    //end   
-  //end  
-  
-  
   
 endmodule
-
-//module ram (WAddress, RAddress, Data, WClock, WE,
- //RE, Rclock, Q);
-//input [8:0] WAddress, RAddress;
-//input [31:0] Data;
-//input Rclock, WClock;
-//input WE, RE;
-//output [31:0] Q;
-//ram R_32_16 (.Data(Data), .WE(WE), .RE(RE), .WClock(WClock),
-//.Rclock(Rclock), .Q(Q), .WAddress(WAddress),
-//.RAddress(RAddress));
-//endmodule
-
-//Ideas code to implement later
-
-//Masks
-//Parsed numbers (LITERALS in Forth) will not require a compiled LITERAL token but
-// parsed WORDS will be identified as the most significant bit will denote an
-// executable WORD.  The second most significant bit will denote an IMMEDIATE
-// word to be executed during compliation.
-//for example...
-// expand databus width from 31 to 33 bits wide
-//   1111111111111111 32 bit word
-// 001111111111111111 is a LITERAL
-// 000011111111111111 is a LITERAL
-// 100000000000101010 is an executable WORD (token) like CFA
-// 110000000000101010 is an executable WORD as above plus with the IMMEDIATE bit set
-
-  //immediateMASK     <= 31'b010000000000000,
-  //OpCodeMASK        <= 31'b100000000000000
-  
-//module memory(
-//input logic clk ,
-//input logic write
-//Write enable
-//write ,
-//input logic [3:0] address
-//4-bit address
-//address ,
-//input logic [7:0] data_in 8-bit input bus data_in ,
-//output logic [7:0] data_out); data_out 8-bit output bus
-//logic [7:0] mem
-//The memory array: 16 8-bit bytes
-//mem [15:0];
-//always_ff @(posedge clk
-//Clocked
-//posedge clk)
-//begin
-//if (write)
-//mem[address] <= data_in
-//Write to array when asked
-//data_in;
-//data_out <= mem[address]
-//Always read (old) value from array
-//mem[address];
-//end
-//endmodule
-
-//logic [data_size:0] mem [memory_size:0];
-//mem[address] <= data_in;
-//data_out <= mem[address];
-
 
 //REFERENCE!
 
@@ -1122,55 +758,5 @@ endmodule
 //REPEAT  STATE  THEN  UNTIL  VARIABLE  VOCABULARY  WHILE   
 //[']  [COMPILE]  ] 
 
-//  By editing the code in the Entity declariations, you can add serial ports, parallel
-//  ports, adc's or just about anything you can imagine.
-//# Peter Jackie RISC V MAP Forth functions to logicisters
-//.eqv ip tp # Instruction ptr
-//.eqv rp s0 # Return thread stack ptr
-//.eqv lp s1 # Loop stack ptr
-//.eqv dp gp # data stack ptr
-//.eqv xx t0 # main working logicisters
-//.eqv yy t1
-//.eqv zz t2
-//.eqv aa a0 # top of data stack
-//.eqv bb a1 # second item
-//.eqv cc a2 # third item
-//.eqv dd a3 # fourth item
-//.eqv index a4 # top of loop stack parameters
-//.eqv limit a5 # loop limit or count
-//.eqv loopip a6 # loop address
-//.eqv threaded s10 #constant for decoding address
 
-//4?d0: y=a+b;
-//4?d1: y=a-b;
-//4?d2: y=a*b;
-//4?d3: y={4? bww, ~a};
-//4?d4: y={4? d0, (a & b)};
-//4?d5: y={4? d0, (a | b)};
-//4?d6: y={4? d0, (a ^ b)};
-//4?d7: y={4? d0, ~(a & b)};
-//4?d8: y={4? d0, ~(a | b)};
-//4?d9: y={4? d0, ~(a ^ b)};
-//
-
-//bit [MEM_WIDTH-1:0] mem_data; // memory might by
-//
-//mem_data <= 'b1010;           
-//
-//opcode_t ins <= opcode_t'(mem_data);
-//
- //
-//
-//if (ins.is_immediate) begin
-
-// Execute
-
-//end
-//
-//else
-//
-//begin
-//
-//// Compile
-//
 //End
