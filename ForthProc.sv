@@ -265,7 +265,9 @@ logic [7:0] xtwp;
 logic xt_valid;
 logic xt_ready;
 
-logic [data_size:0] number;
+logic [data_size:0] number[256];
+logic [7:0] nrp;
+logic [7:0] nwp;
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
@@ -324,11 +326,13 @@ task automatic t_init_dictionary_code;
 	mem[8] <= {8'd2,"b","l","u"};
 	mem[9] <= {"e","\0","\0","\0"};
 	mem[10] <= 16;
-	mem[11] <= 0;
+	mem[11] <= 15;
 	mem[12] <= {8'd2,"d","e","l"};
 	mem[13] <= {"a","y","\0","\0"};
 	mem[14] <= 27;
 	mem[15] <= 0;
+	mem[16] <= {8'd1,"l","e","d"};
+	mem[17] <= 8;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
@@ -347,6 +351,7 @@ always_ff @(posedge clk) begin
 		state = IDLE;
 		uart_receive <= 1'b1;
 		xtwp = 0;
+		nwp = '0;
 		local_xt=0;
 		word_in = '0;
 		cells = '0;
@@ -422,7 +427,7 @@ always_ff @(posedge clk) begin
 			NUMBER : begin
 				// TODO: more than one char numbers
 				if (byte_in inside{["0":"9"]}) begin
-					number = byte_in - "0";
+					number[nwp++] = byte_in - "0";
 					local_xt = 21; // CFA for "number"
 				end
 				else begin
@@ -458,6 +463,7 @@ end
         rp='0;
         mp ='0;
 		xtrp = 0;
+		nrp = '0;
         busy <= false;
         skip_op <= false;
 		uart_send <= 1'b0;	
@@ -570,7 +576,7 @@ end
 		end
 		_number : begin
 			++dp;
-			data_stack[dp] = number;
+			data_stack[dp] = number[nrp++];
 		end
 		default : ;
 	  endcase
