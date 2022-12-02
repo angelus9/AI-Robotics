@@ -310,6 +310,15 @@ task automatic t_init_boot_code;
 	boot_ROM[36] <= _drop;
 	boot_ROM[37] <= _branch;
 	boot_ROM[38] <= 0;
+	boot_ROM[39] <= _lit;
+	boot_ROM[40] <= " ";
+	boot_ROM[41] <= _emit;
+	boot_ROM[42] <= _lit;
+	boot_ROM[43] <= "0";
+	boot_ROM[44] <= _plus;
+	boot_ROM[45] <= _emit;
+	boot_ROM[46] <= _execute;
+	boot_ROM[47] <= _plus;
 endtask : t_init_boot_code 
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
@@ -330,9 +339,12 @@ task automatic t_init_dictionary_code;
 	mem[12] <= {8'd2,"d","e","l"};
 	mem[13] <= {"a","y","\0","\0"};
 	mem[14] <= 27;
-	mem[15] <= 0;
+	mem[15] <= 18;
 	mem[16] <= {8'd1,"l","e","d"};
 	mem[17] <= 8;
+	mem[18] <= 0;
+	mem[19] <= {8'd1,".","\0","\0"};
+	mem[20] <= 39;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
