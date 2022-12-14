@@ -74,8 +74,8 @@ parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
 
 //Internal SRAM parameters
-parameter Int_SRAM_size = 31;
-parameter Int_SRAM_ADDR_size = 500;
+parameter Int_SRAM_size = 256;
+parameter Int_SRAM_ADDR_size = 31;
 
 //LSRAM2
 parameter data_width = 9;
@@ -186,8 +186,6 @@ output logic SPI2_16_ss,
 output logic SPI1_8_clk,
 output logic SPI2_16_clk
 );
-
-logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
