@@ -1,6 +1,3 @@
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Open Source Code, 
 //
@@ -74,8 +71,8 @@ parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
 
 //Internal SRAM parameters
-parameter Int_SRAM_size = 31;
-parameter Int_SRAM_ADDR_size = 500;
+parameter Int_SRAM_size = 256;
+parameter Int_SRAM_ADDR_size = 31;
 
 //LSRAM2
 parameter data_width = 9;
@@ -114,7 +111,7 @@ _8store, _8fetch, _8plus_store, _16store, _16fetch, _32store, _32fetch, _cmove, 
 _ROM_active, _SRAM_active, _EXSRAM_active,
 
 //Arithmetic
-_plus, _minus, _times, _divide, _max, _min, _times_mod, _divide_mod, _times_divide, _one_plus, _one_minus,
+_plus, _minus, _times, _divide, _max, _min, _times_mod, _divide_mod, _times_divide, _one_plus, _one_minus, _negate,
 
 //Conditional
 _if, _else,_then, _0branch, _branch,
@@ -123,7 +120,7 @@ _if, _else,_then, _0branch, _branch,
 _begin, _again, _until, _for, _next,
 
 //Logical
-_and, _or, _xor, _zero_less_than, _zero_greater_than, _zero_equals,
+_and, _or, _xor, _not, _zero_less_than, _zero_greater_than, _zero_equals,
 
 //Communications
 _key, _emit,
@@ -144,7 +141,7 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 50,
+  boot_depth        = 256,
   ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
@@ -186,8 +183,6 @@ output logic SPI2_16_ss,
 output logic SPI1_8_clk,
 output logic SPI2_16_clk
 );
-
-logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
@@ -310,15 +305,31 @@ task automatic t_init_boot_code;
 	boot_ROM[36] <= _drop;
 	boot_ROM[37] <= _branch;
 	boot_ROM[38] <= 0;
-	boot_ROM[39] <= _lit;
-	boot_ROM[40] <= " ";
-	boot_ROM[41] <= _emit;
-	boot_ROM[42] <= _lit;
-	boot_ROM[43] <= "0";
-	boot_ROM[44] <= _plus;
+	boot_ROM[39] <= _dup;
+	boot_ROM[40] <= _zero_less_than;
+	boot_ROM[41] <= _0branch;
+	boot_ROM[42] <= 47;
+	boot_ROM[43] <= _lit;
+	boot_ROM[44] <= "-";
 	boot_ROM[45] <= _emit;
-	boot_ROM[46] <= _execute;
-	boot_ROM[47] <= _plus;
+	boot_ROM[46] <= _negate;
+	boot_ROM[47] <= _lit;
+	boot_ROM[48] <= "0";
+	boot_ROM[49] <= _plus;
+	boot_ROM[50] <= _emit;
+	boot_ROM[51] <= _lit;
+	boot_ROM[52] <= " ";
+	boot_ROM[53] <= _emit;
+	boot_ROM[54] <= _execute;
+	boot_ROM[55] <= _plus;
+	boot_ROM[56] <= _execute;
+	boot_ROM[57] <= _minus;
+	boot_ROM[58] <= _execute;
+	boot_ROM[59] <= _lit;
+	boot_ROM[60] <= "0";
+	boot_ROM[61] <= _execute;
+	boot_ROM[62] <= _negate;
+	boot_ROM[63] <= _execute;
 endtask : t_init_boot_code 
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
@@ -342,9 +353,26 @@ task automatic t_init_dictionary_code;
 	mem[15] <= 18;
 	mem[16] <= {8'd1,"l","e","d"};
 	mem[17] <= 8;
-	mem[18] <= 0;
+	mem[18] <= 21;
 	mem[19] <= {8'd1,".","\0","\0"};
 	mem[20] <= 39;
+	mem[21] <= 24;
+	mem[22] <= {8'd1,"+","\0","\0"};
+	mem[23] <= 55;
+	mem[24] <= 27;
+	mem[25] <= {8'd1,"-","\0","\0"};
+	mem[26] <= 57;
+	mem[27] <= 31;
+	mem[28] <= {8'd2,"e","m","i"};
+	mem[29] <= {"t","\0","\0","\0"};
+	mem[30] <= 53;
+	mem[31] <= 34;
+	mem[32] <= {8'd1,"\"","0","\""};
+	mem[33] <= 59;
+	mem[34] <= 0;
+	mem[35] <= {8'd2,"n","e","g"};
+	mem[36] <= {"a","t","e","\0"};
+	mem[37] <= 62;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
@@ -380,9 +408,9 @@ always_ff @(posedge clk) begin
 				end
 			end
 			PARSE : begin
-				if (byte_in inside {[10:13]}) begin//is character between <bl> and <cr>?
+				if (10 <= byte_in && byte_in <= 13) begin//is character between <bl> and <cr>?
 					xt[xtwp++] = local_xt;
-					local_xt = _execute;
+					local_xt = 0;
 					word_in = '0;
 					cells = '0;
 					cchar = '0;
@@ -390,7 +418,7 @@ always_ff @(posedge clk) begin
 				end
 				else if (byte_in == " ") begin
 					xt[xtwp++] = local_xt;
-					local_xt = _execute;
+					local_xt = 0;
 					state = IDLE;
 					word_in = '0;
 					cells = '0;
@@ -452,6 +480,7 @@ always_ff @(posedge clk) begin
 				xt_valid <= (xtrp < xtwp); // FIFO not empty (read before write)
 				if (xtrp == xtwp) begin    // Stop when FIFO empty (read at write)
 					state = IDLE;
+					nwp = nrp;
 					uart_receive <= 1'b1;
 				end
 			end
@@ -509,7 +538,9 @@ end
 		  --dp;
 				data_stack[dp] = data_stack[dp] + data_stack[dp+1];
         end
-              
+        _one_plus : begin
+			++data_stack[dp];
+		end			
 		_dup : begin
 			++dp;
 			data_stack[dp] = data_stack[dp-1];
@@ -529,7 +560,16 @@ end
 			data_stack[dp] = data_stack[dp+1] == data_stack[dp] ? -1 : 0;
 		end
 		_zero_equal : begin
-			data_stack[dp] = data_stack[dp] == '0 ? -1 : 0;
+			data_stack[dp] = (data_stack[dp] == '0) ? -1 : '0;
+		end
+		_zero_less_than : begin
+			data_stack[dp] = (data_stack[dp] < '0) ? -1 : '0;
+		end
+		_not : begin
+			data_stack[dp] = ~data_stack[dp];
+		end
+		_negate : begin
+			data_stack[dp] = ~data_stack[dp]+1;
 		end
 		_io_led : begin
 			n_LED_G <= !data_stack[dp][0];
@@ -555,10 +595,10 @@ end
 			data_stack[dp] = data_stack[dp] | data_stack[dp+1];
 		end
 		_0branch : begin
-			branch = data_stack[dp] == 0;
+			branch = (data_stack[dp] == '0) ? -1 : '0;
+			--dp;
 			branch_addr = boot_ROM[bp];
 			skip_op <= ~branch;
-			--dp;
 		end
 		 _branch : begin
 			branch = true;
