@@ -79,8 +79,6 @@ parameter data_width = 9;
 parameter address_width = 10;
 parameter ext_ram_size = 1024;
 
-//BootROM
-parameter end_boot_ROM = 28;
 parameter clock_1MHZ_divider = 6;
 parameter clock_1KHZ_divider = 500;
 parameter clock_500MS_divider = 2000;
@@ -188,7 +186,6 @@ logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
 logic [3:0] errorcode ; 
 logic	[address_size:0] mp;      // memory pointer
-logic	[address_size:0] bp;      // boot ROM memory pointer
 logic	[1:0] successful;
 logic	[code_size:0] opcode;
 
@@ -221,9 +218,6 @@ logic [data_size:0] data_stack[data_stack_depth] ;
 logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
-
-//Internal Boot ROM
-logic [data_size:0] boot_ROM [boot_depth];
 
 //Lattice Internal memory
  logic [Int_SRAM_ADDR_size:0] mem[Int_SRAM_size:0]; /// memory block
@@ -266,113 +260,177 @@ logic [7:0] nwp;
 
 //Boot code when the processor starts...
 task automatic t_init_boot_code;
-	boot_ROM[0] <=  _execute;
-	boot_ROM[1] <=  _lit;
-	boot_ROM[2] <=  "?";
-	boot_ROM[3] <=  _emit;
-	boot_ROM[4] <= _branch;
-	boot_ROM[5] <= 0;
-	boot_ROM[6] <=  _lit;
-	boot_ROM[7] <= 4;
-	boot_ROM[8] <= _io_led;
-	boot_ROM[9] <= _branch;
-	boot_ROM[10] <= 0;
-	boot_ROM[11] <=  _lit;
-	boot_ROM[12] <= 1;
-	boot_ROM[13] <= _io_led;
-	boot_ROM[14] <= _branch;
-	boot_ROM[15] <= 0;
-	boot_ROM[16] <=  _lit;
-	boot_ROM[17] <= 2;
-	boot_ROM[18] <= _io_led;
-	boot_ROM[19] <= _branch;
-	boot_ROM[20] <= 0;
-	boot_ROM[21] <= _number;
-	boot_ROM[22] <= _branch;
-	boot_ROM[23] <= 0;
-	boot_ROM[24] <= _io_led;
-	boot_ROM[25] <= _branch;
-	boot_ROM[26] <= 0;
-	boot_ROM[27] <= _lit;
-	boot_ROM[28] <= 5000000;
-	boot_ROM[29] <= _lit;
-	boot_ROM[30] <= 1;
-	boot_ROM[31] <= _minus;
-	boot_ROM[32] <= _dup;
-	boot_ROM[33] <= _zero_equal;
-	boot_ROM[34] <= _0branch;
-	boot_ROM[35] <= 29;
-	boot_ROM[36] <= _drop;
-	boot_ROM[37] <= _branch;
-	boot_ROM[38] <= 0;
-	boot_ROM[39] <= _dup;
-	boot_ROM[40] <= _zero_less_than;
-	boot_ROM[41] <= _0branch;
-	boot_ROM[42] <= 47;
-	boot_ROM[43] <= _lit;
-	boot_ROM[44] <= "-";
-	boot_ROM[45] <= _emit;
-	boot_ROM[46] <= _negate;
-	boot_ROM[47] <= _lit;
-	boot_ROM[48] <= "0";
-	boot_ROM[49] <= _plus;
-	boot_ROM[50] <= _emit;
-	boot_ROM[51] <= _lit;
-	boot_ROM[52] <= " ";
-	boot_ROM[53] <= _emit;
-	boot_ROM[54] <= _execute;
-	boot_ROM[55] <= _plus;
-	boot_ROM[56] <= _execute;
-	boot_ROM[57] <= _minus;
-	boot_ROM[58] <= _execute;
-	boot_ROM[59] <= _lit;
-	boot_ROM[60] <= "0";
-	boot_ROM[61] <= _execute;
-	boot_ROM[62] <= _negate;
-	boot_ROM[63] <= _execute;
+	mem[0] <=  _execute;
+	mem[1] <=  _lit;
+	mem[2] <=  "?";
+	mem[3] <=  _emit;
+	mem[4] <= _branch;
+	mem[5] <= 0;
+	mem[6] <=  _lit;
+	mem[7] <= 4;
+	mem[8] <= _io_led;
+	mem[9] <= _branch;
+	mem[10] <= 0;
+	mem[11] <=  _lit;
+	mem[12] <= 1;
+	mem[13] <= _io_led;
+	mem[14] <= _branch;
+	mem[15] <= 0;
+	mem[16] <=  _lit;
+	mem[17] <= 2;
+	mem[18] <= _io_led;
+	mem[19] <= _branch;
+	mem[20] <= 0;
+	mem[21] <= _number;
+	mem[22] <= _branch;
+	mem[23] <= 0;
+	mem[24] <= _io_led;
+	mem[25] <= _branch;
+	mem[26] <= 0;
+	mem[27] <= _lit;
+	mem[28] <= 5000000;
+	mem[29] <= _lit;
+	mem[30] <= 1;
+	mem[31] <= _minus;
+	mem[32] <= _dup;
+	mem[33] <= _zero_equal;
+	mem[34] <= _0branch;
+	mem[35] <= 29;
+	mem[36] <= _drop;
+	mem[37] <= _branch;
+	mem[38] <= 0;
+	mem[39] <= _dup;
+	mem[40] <= _zero_less_than;
+	mem[41] <= _0branch;
+	mem[42] <= 47;
+	mem[43] <= _lit;
+	mem[44] <= "-";
+	mem[45] <= _emit;
+	mem[46] <= _negate;
+	mem[47] <= _lit;
+	mem[48] <= "0";
+	mem[49] <= _plus;
+	mem[50] <= _emit;
+	mem[51] <= _lit;
+	mem[52] <= " ";
+	mem[53] <= _emit;
+	mem[54] <= _execute;
+	mem[55] <= _plus;
+	mem[56] <= _execute;
+	mem[57] <= _minus;
+	mem[58] <= _execute;
+	mem[59] <= _lit;
+	mem[60] <= "0";
+	mem[61] <= _execute;
+	mem[62] <= _negate;
+	mem[63] <= _execute;
 endtask : t_init_boot_code 
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <= 3;					// Link to next dictionary entry
-	mem[1] <= {8'd1,"r","e","d"};	// Name field (NFA)
-	mem[2] <= 6;					// Boot ROM address containing code (XT/CFA)
-	mem[3] <= 7;
-	mem[4] <= {8'd2,"g","r","e"};
-	mem[5] <= {"e","n","\0","\0"};
-	mem[6] <= 11;
-	mem[7] <= 11;
-	mem[8] <= {8'd2,"b","l","u"};
-	mem[9] <= {"e","\0","\0","\0"};
-	mem[10] <= 16;
-	mem[11] <= 15;
-	mem[12] <= {8'd2,"d","e","l"};
-	mem[13] <= {"a","y","\0","\0"};
-	mem[14] <= 27;
-	mem[15] <= 18;
-	mem[16] <= {8'd1,"l","e","d"};
-	mem[17] <= 8;
-	mem[18] <= 21;
-	mem[19] <= {8'd1,".","\0","\0"};
-	mem[20] <= 39;
-	mem[21] <= 24;
-	mem[22] <= {8'd1,"+","\0","\0"};
-	mem[23] <= 55;
-	mem[24] <= 27;
-	mem[25] <= {8'd1,"-","\0","\0"};
-	mem[26] <= 57;
-	mem[27] <= 31;
-	mem[28] <= {8'd2,"e","m","i"};
-	mem[29] <= {"t","\0","\0","\0"};
-	mem[30] <= 53;
-	mem[31] <= 34;
-	mem[32] <= {8'd1,"\"","0","\""};
-	mem[33] <= 59;
-	mem[34] <= 0;
-	mem[35] <= {8'd2,"n","e","g"};
-	mem[36] <= {"a","t","e","\0"};
-	mem[37] <= 62;
+	mem[0] <=  _execute;
+	mem[1] <=  _lit;
+	mem[2] <=  "?";
+	mem[3] <=  _emit;
+	mem[4] <= _branch;
+	mem[5] <= 0;
+	mem[6] <=  _lit;
+	mem[7] <= 4;
+	mem[8] <= _io_led;
+	mem[9] <= _branch;
+	mem[10] <= 0;
+	mem[11] <=  _lit;
+	mem[12] <= 1;
+	mem[13] <= _io_led;
+	mem[14] <= _branch;
+	mem[15] <= 0;
+	mem[16] <=  _lit;
+	mem[17] <= 2;
+	mem[18] <= _io_led;
+	mem[19] <= _branch;
+	mem[20] <= 0;
+	mem[21] <= _number;
+	mem[22] <= _branch;
+	mem[23] <= 0;
+	mem[24] <= _io_led;
+	mem[25] <= _branch;
+	mem[26] <= 0;
+	mem[27] <= _lit;
+	mem[28] <= 5000000;
+	mem[29] <= _lit;
+	mem[30] <= 1;
+	mem[31] <= _minus;
+	mem[32] <= _dup;
+	mem[33] <= _zero_equal;
+	mem[34] <= _0branch;
+	mem[35] <= 29;
+	mem[36] <= _drop;
+	mem[37] <= _branch;
+	mem[38] <= 0;
+	mem[39] <= _dup;
+	mem[40] <= _zero_less_than;
+	mem[41] <= _0branch;
+	mem[42] <= 47;
+	mem[43] <= _lit;
+	mem[44] <= "-";
+	mem[45] <= _emit;
+	mem[46] <= _negate;
+	mem[47] <= _lit;
+	mem[48] <= "0";
+	mem[49] <= _plus;
+	mem[50] <= _emit;
+	mem[51] <= _lit;
+	mem[52] <= " ";
+	mem[53] <= _emit;
+	mem[54] <= _execute;
+	mem[55] <= _plus;
+	mem[56] <= _execute;
+	mem[57] <= _minus;
+	mem[58] <= _execute;
+	mem[59] <= _lit;
+	mem[60] <= "0";
+	mem[61] <= _execute;
+	mem[62] <= _negate;
+	mem[63] <= _execute;
+	mem[100] <= 103;				// Link to next dictionary entry
+	mem[101] <= {8'd1,"r","e","d"};	// Name field (NFA)
+	mem[102] <= 6;					// Memory address containing code (XT/CFA)
+	mem[103] <= 107;
+	mem[104] <= {8'd2,"g","r","e"};
+	mem[105] <= {"e","n","\0","\0"};
+	mem[106] <= 11;
+	mem[107] <= 111;
+	mem[108] <= {8'd2,"b","l","u"};
+	mem[109] <= {"e","\0","\0","\0"};
+	mem[110] <= 16;
+	mem[111] <= 115;
+	mem[112] <= {8'd2,"d","e","l"};
+	mem[113] <= {"a","y","\0","\0"};
+	mem[114] <= 27;
+	mem[115] <= 118;
+	mem[116] <= {8'd1,"l","e","d"};
+	mem[117] <= 8;
+	mem[118] <= 121;
+	mem[119] <= {8'd1,".","\0","\0"};
+	mem[120] <= 39;
+	mem[121] <= 124;
+	mem[122] <= {8'd1,"+","\0","\0"};
+	mem[123] <= 55;
+	mem[124] <= 127;
+	mem[125] <= {8'd1,"-","\0","\0"};
+	mem[126] <= 57;
+	mem[127] <= 131;
+	mem[128] <= {8'd2,"e","m","i"};
+	mem[129] <= {"t","\0","\0","\0"};
+	mem[130] <= 53;
+	mem[131] <= 134;
+	mem[132] <= {8'd1,"\"","0","\""};
+	mem[133] <= 59;
+	mem[134] <= 0;
+	mem[135] <= {8'd2,"n","e","g"};
+	mem[136] <= {"a","t","e","\0"};
+	mem[137] <= 62;
 endtask : t_init_dictionary_code
 
 // Forth Outer Interpreter
@@ -384,9 +442,10 @@ always_ff @(posedge clk) begin
 	logic [3:0][31:0] word_in;
 	logic [address_size:0] local_xt;
 	enum logic [2:0] {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	localparam DICT_START = 100;
 	
 	if (reset == 1'b0) begin
-		wp = '0;
+		wp = DICT_START;
 		xt_valid <= 1'b0;
 		state = IDLE;
 		uart_receive <= 1'b1;
@@ -400,7 +459,7 @@ always_ff @(posedge clk) begin
 	else begin
 		case (state)
 			IDLE : begin
-				wp = '0;
+				wp = DICT_START;
 				if (uart_rx_valid) begin
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
@@ -499,7 +558,6 @@ end
 
 	task automatic t_reset;
         t_init_boot_code;
-        bp='0;
         dp='0;
         rp='0;
         mp ='0;
@@ -513,13 +571,13 @@ end
 
 	task automatic t_Fetch_opcode;
 		if (branch) begin
-			DataBus = boot_ROM[branch_addr];
-			bp = branch_addr+1;
+			DataBus = mem[branch_addr];
+			mp = branch_addr+1;
 			branch = false;
 		end
 		else begin
-			DataBus = boot_ROM[bp];
-			++bp;
+			DataBus = mem[mp];
+			++mp;
 		end
 	
 	endtask        
@@ -583,7 +641,7 @@ end
 		_lit : begin
 			// TODO: allow to work for main memory too
 			++dp;
-			data_stack[dp] = boot_ROM[bp];
+			data_stack[dp] = mem[mp];
 			skip_op <= true;
 		end
 		_and : begin
@@ -597,12 +655,12 @@ end
 		_0branch : begin
 			branch = (data_stack[dp] == '0) ? -1 : '0;
 			--dp;
-			branch_addr = boot_ROM[bp];
+			branch_addr = mem[mp];
 			skip_op <= ~branch;
 		end
 		 _branch : begin
 			branch = true;
-			branch_addr = boot_ROM[bp];
+			branch_addr = mem[mp];
         end    
         _emit : begin
 			if (busy == false) begin
