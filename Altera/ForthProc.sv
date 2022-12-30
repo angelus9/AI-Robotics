@@ -66,6 +66,8 @@
  //.DATAOUT(DATAOUT_A)
 //) 
 //end module
+// Clock
+parameter clock_freq = 50000000;
 
 parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
@@ -183,8 +185,6 @@ output logic SPI2_16_ss,
 output logic SPI1_8_clk,
 output logic SPI2_16_clk
 );
-
-logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
@@ -373,7 +373,7 @@ task automatic t_init_dictionary_code;
 	mem[32] <= 53;
 	mem[33] <= 0;
 	mem[34] <= {8'd2,"n","e","g"};
-	mem[35] <= {8'd2,"a","t","e"};
+	mem[35] <= {"a","t","e","\0"};
 	mem[36] <= 59;
 endtask : t_init_dictionary_code
 
@@ -664,7 +664,7 @@ end
 // UART RX
 always_ff @(posedge clk) begin
 	logic [3:0] count;
-	logic [9:0] clk_count;
+	logic [$clog2(clock_freq/19200)-1:0] clk_count;
 	logic [7:0] rxd;
 
 	if (reset == 1'b0) begin
@@ -679,7 +679,7 @@ always_ff @(posedge clk) begin
 	else if ((uart_busy_rx || RX == 1'b0) && !uart_rx_valid) begin 
 		uart_busy_rx = 1'b1;
 		uart_rx_valid <= 1'b0;
-		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+		if (clk_count < clock_freq/19200) begin // f_clk/19.2KHz = 19200 baud
 			clk_count <= clk_count + 1;
 		end
 		else begin
@@ -701,7 +701,7 @@ end
 // UART TX
 always_ff @(posedge clk) begin
 	logic [3:0] count;
-	logic [9:0] clk_count;
+	logic [$clog2(clock_freq/19200)-1:0] clk_count;
 	logic [7:0] txd;
 
 	if (reset == 1'b0) begin
@@ -712,7 +712,7 @@ always_ff @(posedge clk) begin
 	end
 	else if (uart_send) begin 
 		uart_busy_tx = 1'b1;
-		if (clk_count < 625) begin // 12MHz/625 = 19.2KHz = 19200 baud
+		if (clk_count < clock_freq/19200) begin // f_clk/19.2KHz = 19200 baud
 			clk_count <= clk_count + 1;
 		end
 		else begin
