@@ -139,7 +139,6 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 256,
   ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
@@ -220,7 +219,7 @@ logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
 //Lattice Internal memory
- logic [Int_SRAM_ADDR_size:0] mem[Int_SRAM_size:0]; /// memory block
+ logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
 //External Memory
 logic [data_size:0] DataBus;
@@ -248,7 +247,7 @@ logic uart_rx_valid;
 logic [7:0] uart_rx_data;
 
 // Execution Token
-logic [address_size:0] xt[256];
+localparam XTQ_START = 200;
 logic [7:0] xtrp;
 logic [7:0] xtwp;
 logic xt_valid;
@@ -258,73 +257,14 @@ logic [data_size:0] number[256];
 logic [7:0] nrp;
 logic [7:0] nwp;
 
-//Boot code when the processor starts...
-task automatic t_init_boot_code;
-	mem[0] <=  _execute;
-	mem[1] <=  _lit;
-	mem[2] <=  "?";
-	mem[3] <=  _emit;
-	mem[4] <= _branch;
-	mem[5] <= 0;
-	mem[6] <=  _lit;
-	mem[7] <= 4;
-	mem[8] <= _io_led;
-	mem[9] <= _branch;
-	mem[10] <= 0;
-	mem[11] <=  _lit;
-	mem[12] <= 1;
-	mem[13] <= _io_led;
-	mem[14] <= _branch;
-	mem[15] <= 0;
-	mem[16] <=  _lit;
-	mem[17] <= 2;
-	mem[18] <= _io_led;
-	mem[19] <= _branch;
-	mem[20] <= 0;
-	mem[21] <= _number;
-	mem[22] <= _branch;
-	mem[23] <= 0;
-	mem[24] <= _io_led;
-	mem[25] <= _branch;
-	mem[26] <= 0;
-	mem[27] <= _lit;
-	mem[28] <= 5000000;
-	mem[29] <= _lit;
-	mem[30] <= 1;
-	mem[31] <= _minus;
-	mem[32] <= _dup;
-	mem[33] <= _zero_equal;
-	mem[34] <= _0branch;
-	mem[35] <= 29;
-	mem[36] <= _drop;
-	mem[37] <= _branch;
-	mem[38] <= 0;
-	mem[39] <= _dup;
-	mem[40] <= _zero_less_than;
-	mem[41] <= _0branch;
-	mem[42] <= 47;
-	mem[43] <= _lit;
-	mem[44] <= "-";
-	mem[45] <= _emit;
-	mem[46] <= _negate;
-	mem[47] <= _lit;
-	mem[48] <= "0";
-	mem[49] <= _plus;
-	mem[50] <= _emit;
-	mem[51] <= _lit;
-	mem[52] <= " ";
-	mem[53] <= _emit;
-	mem[54] <= _execute;
-	mem[55] <= _plus;
-	mem[56] <= _execute;
-	mem[57] <= _minus;
-	mem[58] <= _execute;
-	mem[59] <= _lit;
-	mem[60] <= "0";
-	mem[61] <= _execute;
-	mem[62] <= _negate;
-	mem[63] <= _execute;
-endtask : t_init_boot_code 
+// Dictionary
+logic dict_write;
+logic mem_access_outer;
+logic [address_size:0] mem_addr;
+logic [Int_SRAM_ADDR_size:0] dict_wdata;
+logic [31:0] wp; // dictionary pointer wp
+assign mem_addr = mem_access_outer ? wp : mp ;
+
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
@@ -433,10 +373,24 @@ task automatic t_init_dictionary_code;
 	mem[137] <= 62;
 endtask : t_init_dictionary_code
 
+// Memory manager
+always_ff @(posedge clk) begin
+	if (reset == 1'b0) begin
+		t_init_dictionary_code;
+	end
+	else begin
+		if (dict_write == 1'b1) begin
+			mem[mem_addr] <= dict_wdata;
+		end
+		else begin
+			DataBus <= mem[mem_addr];
+		end
+	end
+end
+
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	logic [7:0] byte_in;
-	logic [31:0] wp;
 	logic [31:0] link_addr;
 	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
@@ -449,7 +403,7 @@ always_ff @(posedge clk) begin
 		xt_valid <= 1'b0;
 		state = IDLE;
 		uart_receive <= 1'b1;
-		xtwp = 0;
+		xtwp = XTQ_START;
 		nwp = '0;
 		local_xt=0;
 		word_in = '0;
@@ -459,6 +413,8 @@ always_ff @(posedge clk) begin
 	else begin
 		case (state)
 			IDLE : begin
+				mem_access_outer = 1'b0;
+				dict_write = 1'b0;
 				wp = DICT_START;
 				if (uart_rx_valid) begin
 					uart_receive <= 1'b0;
@@ -467,8 +423,11 @@ always_ff @(posedge clk) begin
 				end
 			end
 			PARSE : begin
+				mem_access_outer = 1'b1;
 				if (10 <= byte_in && byte_in <= 13) begin//is character between <bl> and <cr>?
-					xt[xtwp++] = local_xt;
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = local_xt;
 					local_xt = 0;
 					word_in = '0;
 					cells = '0;
@@ -476,7 +435,9 @@ always_ff @(posedge clk) begin
 					state = EXECUTE;
 				end
 				else if (byte_in == " ") begin
-					xt[xtwp++] = local_xt;
+					wp = xtwp++;	
+					dict_write = 1'b1;
+					dict_wdata = local_xt;
 					local_xt = 0;
 					state = IDLE;
 					word_in = '0;
@@ -499,13 +460,13 @@ always_ff @(posedge clk) begin
 				end
 			end
 			GET_LINK :  begin
-				link_addr = mem[wp];		
+				link_addr = DataBus;
 				++wp;
 				ccell = '0;
 				state = SEARCH;
 			end
 			SEARCH : begin
-				if (ccell < cells && mem[wp] == word_in[ccell]) begin
+				if (ccell < cells && DataBus == word_in[ccell]) begin
 					// token
 					++wp;
 					++ccell;
@@ -519,7 +480,7 @@ always_ff @(posedge clk) begin
 				end
 			end
 			GET_XT: begin
-				local_xt = mem[wp];
+				local_xt = DataBus;
 				state = IDLE;
 				uart_receive <= 1'b1;
 			end			
@@ -536,6 +497,7 @@ always_ff @(posedge clk) begin
 				uart_receive <= 1'b1;
 			end
 			EXECUTE : begin
+				dict_write = 1'b0;
 				xt_valid <= (xtrp < xtwp); // FIFO not empty (read before write)
 				if (xtrp == xtwp) begin    // Stop when FIFO empty (read at write)
 					state = IDLE;
@@ -557,35 +519,32 @@ always_ff @(posedge clk) begin
 end
 
 	task automatic t_reset;
-        t_init_boot_code;
         dp='0;
         rp='0;
         mp ='0;
-		xtrp = 0;
+		xtrp = XTQ_START;
 		nrp = '0;
         busy <= false;
         skip_op <= false;
-		uart_send <= 1'b0;	
-		t_init_dictionary_code;
+		uart_send <= 1'b0;
 	endtask
 
 	task automatic t_Fetch_opcode;
 		if (branch) begin
-			DataBus = mem[branch_addr];
-			mp = branch_addr+1;
+			mp = branch_addr;
 			branch = false;
 		end
 		else begin
-			DataBus = mem[mp];
-			++mp;
+			mp++;
 		end
-	
 	endtask        
 
 	//Execute opcodes task
 	task automatic t_execute;
    
-      opcode = DataBus[code_size:0];
+      if (skip_op == false) begin
+		opcode = DataBus[code_size:0];
+	  end
 	  case (opcode)
         _minus : begin
 				--dp;
@@ -640,9 +599,14 @@ end
 		end
 		_lit : begin
 			// TODO: allow to work for main memory too
-			++dp;
-			data_stack[dp] = mem[mp];
-			skip_op <= true;
+			if (skip_op == false) begin
+				skip_op = true;
+			end
+			else begin
+				++dp;
+				data_stack[dp] = DataBus;
+				skip_op = false;
+			end
 		end
 		_and : begin
 			--dp;
@@ -653,14 +617,25 @@ end
 			data_stack[dp] = data_stack[dp] | data_stack[dp+1];
 		end
 		_0branch : begin
-			branch = (data_stack[dp] == '0) ? -1 : '0;
-			--dp;
-			branch_addr = mem[mp];
-			skip_op <= ~branch;
+			if (skip_op == false) begin
+				skip_op = true;
+			end
+			else begin
+				branch = (data_stack[dp] == '0) ? -1 : '0;
+				--dp;
+				branch_addr = DataBus;
+				skip_op = false;
+			end
 		end
 		 _branch : begin
-			branch = true;
-			branch_addr = mem[mp];
+			 if (skip_op == false) begin
+				skip_op = true;
+			end
+			else begin
+				branch = true;
+				branch_addr = DataBus;
+				skip_op = false;
+			end
         end    
         _emit : begin
 			if (busy == false) begin
@@ -679,7 +654,8 @@ end
 		_execute : begin
 			busy = true; // Wait until XT/CFA available
 			if (xt_valid) begin
-				branch_addr = xt[xtrp++];
+				xtrp++;
+				branch_addr = DataBus;
 				busy = false;
 				branch = true;
 			end
@@ -703,12 +679,7 @@ always_ff @(posedge clk) begin
 		if (busy == false) begin
 			t_Fetch_opcode;
 		end
-		if (skip_op == false) begin
-			t_execute;
-		end
-		else begin
-			skip_op <= false;
-		end
+		t_execute;
         
         n_BUTTON0 <= BUTTON0;
         n_BUTTON1 <= BUTTON1;         
