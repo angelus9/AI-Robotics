@@ -218,6 +218,8 @@ logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
+logic boot_enable;
+logic [data_size:0] bootROM [200:0];
 //Lattice Internal memory
  logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
@@ -262,131 +264,130 @@ logic dict_write;
 logic mem_access_outer;
 logic [address_size:0] mem_addr;
 logic [Int_SRAM_ADDR_size:0] dict_wdata;
-logic [31:0] wp; // dictionary pointer wp
-assign mem_addr = mem_access_outer ? wp : mp ;
-
+logic [address_size:0] wp; // dictionary pointer wp
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <=  _execute;
-	mem[1] <=  _lit;
-	mem[2] <=  "?";
-	mem[3] <=  _emit;
-	mem[4] <= _branch;
-	mem[5] <= 0;
-	mem[6] <=  _lit;
-	mem[7] <= 4;
-	mem[8] <= _io_led;
-	mem[9] <= _branch;
-	mem[10] <= 0;
-	mem[11] <=  _lit;
-	mem[12] <= 1;
-	mem[13] <= _io_led;
-	mem[14] <= _branch;
-	mem[15] <= 0;
-	mem[16] <=  _lit;
-	mem[17] <= 2;
-	mem[18] <= _io_led;
-	mem[19] <= _branch;
-	mem[20] <= 0;
-	mem[21] <= _number;
-	mem[22] <= _branch;
-	mem[23] <= 0;
-	mem[24] <= _io_led;
-	mem[25] <= _branch;
-	mem[26] <= 0;
-	mem[27] <= _lit;
-	mem[28] <= 5000000;
-	mem[29] <= _lit;
-	mem[30] <= 1;
-	mem[31] <= _minus;
-	mem[32] <= _dup;
-	mem[33] <= _zero_equal;
-	mem[34] <= _0branch;
-	mem[35] <= 29;
-	mem[36] <= _drop;
-	mem[37] <= _branch;
-	mem[38] <= 0;
-	mem[39] <= _dup;
-	mem[40] <= _zero_less_than;
-	mem[41] <= _0branch;
-	mem[42] <= 47;
-	mem[43] <= _lit;
-	mem[44] <= "-";
-	mem[45] <= _emit;
-	mem[46] <= _negate;
-	mem[47] <= _lit;
-	mem[48] <= "0";
-	mem[49] <= _plus;
-	mem[50] <= _emit;
-	mem[51] <= _lit;
-	mem[52] <= " ";
-	mem[53] <= _emit;
-	mem[54] <= _execute;
-	mem[55] <= _plus;
-	mem[56] <= _execute;
-	mem[57] <= _minus;
-	mem[58] <= _execute;
-	mem[59] <= _lit;
-	mem[60] <= "0";
-	mem[61] <= _execute;
-	mem[62] <= _negate;
-	mem[63] <= _execute;
-	mem[100] <= 103;				// Link to next dictionary entry
-	mem[101] <= {8'd1,"r","e","d"};	// Name field (NFA)
-	mem[102] <= 6;					// Memory address containing code (XT/CFA)
-	mem[103] <= 107;
-	mem[104] <= {8'd2,"g","r","e"};
-	mem[105] <= {"e","n","\0","\0"};
-	mem[106] <= 11;
-	mem[107] <= 111;
-	mem[108] <= {8'd2,"b","l","u"};
-	mem[109] <= {"e","\0","\0","\0"};
-	mem[110] <= 16;
-	mem[111] <= 115;
-	mem[112] <= {8'd2,"d","e","l"};
-	mem[113] <= {"a","y","\0","\0"};
-	mem[114] <= 27;
-	mem[115] <= 118;
-	mem[116] <= {8'd1,"l","e","d"};
-	mem[117] <= 8;
-	mem[118] <= 121;
-	mem[119] <= {8'd1,".","\0","\0"};
-	mem[120] <= 39;
-	mem[121] <= 124;
-	mem[122] <= {8'd1,"+","\0","\0"};
-	mem[123] <= 55;
-	mem[124] <= 127;
-	mem[125] <= {8'd1,"-","\0","\0"};
-	mem[126] <= 57;
-	mem[127] <= 131;
-	mem[128] <= {8'd2,"e","m","i"};
-	mem[129] <= {"t","\0","\0","\0"};
-	mem[130] <= 53;
-	mem[131] <= 134;
-	mem[132] <= {8'd1,"\"","0","\""};
-	mem[133] <= 59;
-	mem[134] <= 0;
-	mem[135] <= {8'd2,"n","e","g"};
-	mem[136] <= {"a","t","e","\0"};
-	mem[137] <= 62;
+	bootROM[0] <=  _execute;
+	bootROM[1] <=  _lit;
+	bootROM[2] <=  "?";
+	bootROM[3] <=  _emit;
+	bootROM[4] <= _branch;
+	bootROM[5] <= 0;
+	bootROM[6] <=  _lit;
+	bootROM[7] <= 4;
+	bootROM[8] <= _io_led;
+	bootROM[9] <= _branch;
+	bootROM[10] <= 0;
+	bootROM[11] <=  _lit;
+	bootROM[12] <= 1;
+	bootROM[13] <= _io_led;
+	bootROM[14] <= _branch;
+	bootROM[15] <= 0;
+	bootROM[16] <=  _lit;
+	bootROM[17] <= 2;
+	bootROM[18] <= _io_led;
+	bootROM[19] <= _branch;
+	bootROM[20] <= 0;
+	bootROM[21] <= _number;
+	bootROM[22] <= _branch;
+	bootROM[23] <= 0;
+	bootROM[24] <= _io_led;
+	bootROM[25] <= _branch;
+	bootROM[26] <= 0;
+	bootROM[27] <= _lit;
+	bootROM[28] <= 5000000;
+	bootROM[29] <= _lit;
+	bootROM[30] <= 1;
+	bootROM[31] <= _minus;
+	bootROM[32] <= _dup;
+	bootROM[33] <= _zero_equal;
+	bootROM[34] <= _0branch;
+	bootROM[35] <= 29;
+	bootROM[36] <= _drop;
+	bootROM[37] <= _branch;
+	bootROM[38] <= 0;
+	bootROM[39] <= _dup;
+	bootROM[40] <= _zero_less_than;
+	bootROM[41] <= _0branch;
+	bootROM[42] <= 47;
+	bootROM[43] <= _lit;
+	bootROM[44] <= "-";
+	bootROM[45] <= _emit;
+	bootROM[46] <= _negate;
+	bootROM[47] <= _lit;
+	bootROM[48] <= "0";
+	bootROM[49] <= _plus;
+	bootROM[50] <= _emit;
+	bootROM[51] <= _lit;
+	bootROM[52] <= " ";
+	bootROM[53] <= _emit;
+	bootROM[54] <= _execute;
+	bootROM[55] <= _plus;
+	bootROM[56] <= _execute;
+	bootROM[57] <= _minus;
+	bootROM[58] <= _execute;
+	bootROM[59] <= _lit;
+	bootROM[60] <= "0";
+	bootROM[61] <= _execute;
+	bootROM[62] <= _negate;
+	bootROM[63] <= _execute;
+	bootROM[100] <= 103;				// Link to next dictionary entry
+	bootROM[101] <= {8'd1,"r","e","d"};	// Name field (NFA)
+	bootROM[102] <= 6;					// bootROMory address containing code (XT/CFA)
+	bootROM[103] <= 107;
+	bootROM[104] <= {8'd2,"g","r","e"};
+	bootROM[105] <= {"e","n","\0","\0"};
+	bootROM[106] <= 11;
+	bootROM[107] <= 111;
+	bootROM[108] <= {8'd2,"b","l","u"};
+	bootROM[109] <= {"e","\0","\0","\0"};
+	bootROM[110] <= 16;
+	bootROM[111] <= 115;
+	bootROM[112] <= {8'd2,"d","e","l"};
+	bootROM[113] <= {"a","y","\0","\0"};
+	bootROM[114] <= 27;
+	bootROM[115] <= 118;
+	bootROM[116] <= {8'd1,"l","e","d"};
+	bootROM[117] <= 8;
+	bootROM[118] <= 121;
+	bootROM[119] <= {8'd1,".","\0","\0"};
+	bootROM[120] <= 39;
+	bootROM[121] <= 124;
+	bootROM[122] <= {8'd1,"+","\0","\0"};
+	bootROM[123] <= 55;
+	bootROM[124] <= 127;
+	bootROM[125] <= {8'd1,"-","\0","\0"};
+	bootROM[126] <= 57;
+	bootROM[127] <= 131;
+	bootROM[128] <= {8'd2,"e","m","i"};
+	bootROM[129] <= {"t","\0","\0","\0"};
+	bootROM[130] <= 53;
+	bootROM[131] <= 134;
+	bootROM[132] <= {8'd1,"\"","0","\""};
+	bootROM[133] <= 59;
+	bootROM[134] <= 0;
+	bootROM[135] <= {8'd2,"n","e","g"};
+	bootROM[136] <= {"a","t","e","\0"};
+	bootROM[137] <= 62;
 endtask : t_init_dictionary_code
 
-// Memory manager
-always_ff @(posedge clk) begin
+assign boot_enable = mem_addr < XTQ_START;
+
+// memory manager
+always_ff @(posedge clk or negedge reset) begin
 	if (reset == 1'b0) begin
 		t_init_dictionary_code;
 	end
 	else begin
-		if (dict_write == 1'b1) begin
+		mem_addr <= mem_access_outer ? (wp-XTQ_START) : mp;
+		if (dict_write) begin
 			mem[mem_addr] <= dict_wdata;
-		end
-		else begin
-			DataBus <= mem[mem_addr];
 		end
 	end
 end
+assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
@@ -653,12 +654,19 @@ end
         end        
 		_execute : begin
 			busy = true; // Wait until XT/CFA available
-			if (xt_valid) begin
-				xtrp++;
-				branch_addr = DataBus;
-				busy = false;
-				branch = true;
+			if (skip_op == false) begin
+				skip_op = true;
+				mp = xtrp++;
 			end
+			else begin
+				if (xt_valid) begin
+					branch_addr = DataBus;
+					busy = false;
+					branch = true;
+				end
+				skip_op = false;
+			end
+
 		end
 		_number : begin
 			++dp;
