@@ -632,6 +632,7 @@ end
 				branch = (data_stack[dp] == '0) ? -1 : '0;
 				--dp;
 				branch_addr = DataBus;
+				busy = false;
 				skip_op = true;
 			end
 		end
