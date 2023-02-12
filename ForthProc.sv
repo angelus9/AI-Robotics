@@ -270,107 +270,50 @@ logic [address_size:0] wp; // dictionary pointer wp
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
 	bootROM[0] <=  _execute;
-	bootROM[1] <=  _lit;
-	bootROM[2] <=  "?";
-	bootROM[3] <=  _emit;
-	bootROM[4] <= _branch;
-	bootROM[5] <= 0;
-	bootROM[6] <=  _lit;
-	bootROM[7] <= 4;
-	bootROM[8] <= _io_led;
-	bootROM[9] <= _branch;
-	bootROM[10] <= 0;
+	bootROM[1] <=  _branch;
+	bootROM[2] <=  0;
 	bootROM[11] <=  _lit;
-	bootROM[12] <= 1;
-	bootROM[13] <= _io_led;
-	bootROM[14] <= _branch;
-	bootROM[15] <= 0;
-	bootROM[16] <=  _lit;
-	bootROM[17] <= 2;
-	bootROM[18] <= _io_led;
-	bootROM[19] <= _branch;
-	bootROM[20] <= 0;
-	bootROM[21] <= _number;
-	bootROM[22] <= _branch;
-	bootROM[23] <= 0;
-	bootROM[24] <= _io_led;
-	bootROM[25] <= _branch;
-	bootROM[26] <= 0;
-	bootROM[27] <= _lit;
-	bootROM[28] <= 5000000;
-	bootROM[29] <= _lit;
-	bootROM[30] <= 1;
-	bootROM[31] <= _minus;
-	bootROM[32] <= _dup;
-	bootROM[33] <= _zero_equal;
-	bootROM[34] <= _0branch;
-	bootROM[35] <= 29;
-	bootROM[36] <= _drop;
-	bootROM[37] <= _branch;
-	bootROM[38] <= 0;
-	bootROM[39] <= _dup;
-	bootROM[40] <= _zero_less_than;
-	bootROM[41] <= _0branch;
-	bootROM[42] <= 47;
-	bootROM[43] <= _lit;
-	bootROM[44] <= "-";
-	bootROM[45] <= _emit;
-	bootROM[46] <= _negate;
-	bootROM[47] <= _lit;
-	bootROM[48] <= "0";
-	bootROM[49] <= _plus;
-	bootROM[50] <= _emit;
-	bootROM[51] <= _lit;
-	bootROM[52] <= " ";
-	bootROM[53] <= _emit;
-	bootROM[54] <= _execute;
-	bootROM[55] <= _plus;
-	bootROM[56] <= _execute;
-	bootROM[57] <= _minus;
-	bootROM[58] <= _execute;
-	bootROM[59] <= _lit;
-	bootROM[60] <= "0";
-	bootROM[61] <= _execute;
-	bootROM[62] <= _negate;
-	bootROM[63] <= _execute;
-	bootROM[100] <= 103;				// Link to next dictionary entry
-	bootROM[101] <= {8'd1,"r","e","d"};	// Name field (NFA)
-	bootROM[102] <= -6;					// bootROM address containing code (XT/CFA)
-	bootROM[103] <= 107;
-	bootROM[104] <= {8'd2,"g","r","e"};
-	bootROM[105] <= {"e","n","\0","\0"};
-	bootROM[106] <= -11;
-	bootROM[107] <= 111;
-	bootROM[108] <= {8'd2,"b","l","u"};
-	bootROM[109] <= {"e","\0","\0","\0"};
-	bootROM[110] <= -16;
-	bootROM[111] <= 115;
-	bootROM[112] <= {8'd2,"d","e","l"};
-	bootROM[113] <= {"a","y","\0","\0"};
-	bootROM[114] <= -27;
-	bootROM[115] <= 118;
-	bootROM[116] <= {8'd1,"l","e","d"};
-	bootROM[117] <= -8;
-	bootROM[118] <= 121;
-	bootROM[119] <= {8'd1,".","\0","\0"};
-	bootROM[120] <= -39;
-	bootROM[121] <= 124;
-	bootROM[122] <= {8'd1,"+","\0","\0"};
-	bootROM[123] <= -55;
-	bootROM[124] <= 127;
-	bootROM[125] <= {8'd1,"-","\0","\0"};
-	bootROM[126] <= -57;
-	bootROM[127] <= 131;
-	bootROM[128] <= {8'd2,"e","m","i"};
-	bootROM[129] <= {"t","\0","\0","\0"};
-	bootROM[130] <= -53;
-	bootROM[131] <= 134;
-	bootROM[132] <= {8'd1,"\"","0","\""};
-	bootROM[133] <= -59;
-	bootROM[134] <= 0;
-	bootROM[135] <= {8'd2,"n","e","g"};
-	bootROM[136] <= {"a","t","e","\0"};
-	bootROM[137] <= -62;
+	bootROM[12] <=  "?";
+	bootROM[13] <=  _emit;
+	bootROM[14] <= _exit;
+	bootROM[15] <= 19; 					// Link to next dictionary entry
+	bootROM[16] <= {8'd1,"l","e","d"};	// Name field (NFA)
+	bootROM[17] <= _io_led;				// code field
+	bootROM[18] <= _exit;					// end of code field
+	bootROM[19] <= 25;
+	bootROM[20] <= {8'd1,"r","e","d"};				
+	bootROM[21] <= _lit;
+	bootROM[22] <= 1;
+	bootROM[23] <= -17;
+	bootROM[24] <= _exit;				
+	bootROM[25] <= 32;
+	bootROM[26] <= {8'd2,"g","r","e"};
+	bootROM[27] <= {"e","n","\0","\0"};
+	bootROM[28] <= _lit;
+	bootROM[29] <= 2;
+	bootROM[30] <= -17;
+	bootROM[31] <= _exit;
+	bootROM[32] <= 39;
+	bootROM[33] <= {8'd2,"b","l","u"};
+	bootROM[34] <= {"e","\0","\0","\0"};
+	bootROM[35] <= _lit;
+	bootROM[36] <= 4;
+	bootROM[37] <= -17;
+	bootROM[38] <= _exit;
+	bootROM[39] <= 0;
+	bootROM[40] <= {8'd2,"d","e","l"};
+	bootROM[41] <= {"a","y","\0","\0"};
+	bootROM[42] <= _lit;
+	bootROM[43] <= 5000000;
+	bootROM[44] <= _lit;
+	bootROM[45] <= 1;
+	bootROM[46] <= _minus;
+	bootROM[47] <= _dup;
+	bootROM[48] <= _zero_equal;
+	bootROM[49] <= _0branch;
+	bootROM[50] <= 44;
+	bootROM[51] <= _drop;
+	bootROM[52] <= _exit;
 endtask : t_init_dictionary_code
 
 logic [address_size:0] mem_diff;
@@ -395,11 +338,12 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
 	logic [data_size:0] local_xt;
-	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE} state;
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	localparam DICT_START = 100;
+	localparam DICT_START = 15;
+	localparam ERROR_CFA = 1;
 	
 	if (reset == 1'b0) begin
 		wp = DICT_START;
@@ -436,7 +380,7 @@ always_ff @(posedge clk) begin
 					word_in = '0;
 					cells = '0;
 					cchar = '0;
-					state = GET_XT;
+					state = ADD_EXIT;
 				end
 				else if (byte_in == " ") begin
 					wp = xtwp++;	
@@ -480,7 +424,7 @@ always_ff @(posedge clk) begin
 					++ccell;
 				end
 				else if (ccell >= cells) begin
-					local_xt = DataBus;
+					local_xt = -(wp-1);
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
@@ -488,6 +432,12 @@ always_ff @(posedge clk) begin
 					wp = link_addr;
 					state = link_addr ? BEFORE_LINK : NUMBER;
 				end
+			end
+			ADD_EXIT: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = _exit;
+				state = GET_XT;
 			end
 			GET_XT: begin // Demitri 2023 Jan 9: repurposed for adding a delay for XT compilation before execute
 				dict_write = 1'b0;
@@ -498,10 +448,10 @@ always_ff @(posedge clk) begin
 				// TODO: more than one char numbers
 				if (byte_in inside{["0":"9"]}) begin
 					number[nwp++] = byte_in - "0";
-					local_xt = -21; // CFA for "number"
+					local_xt = _number;
 				end
 				else begin
-					local_xt = -1; // CFA for error "word not found"
+					local_xt = -ERROR_CFA; // CFA for error "word not found"
 				end
 				state = IDLE;
 				uart_receive <= 1'b1;
@@ -667,16 +617,26 @@ end
 				branch = true;
 				busy = false;
 				skip_op = true;
-				xtrp++;
+				xtrp=xtwp;
+				rp++;
+				return_stack[rp] = mp;
 			end
 		end
 		_number : begin
 			++dp;
 			data_stack[dp] = number[nrp++];
 		end
+		_exit : begin
+			branch_addr = return_stack[rp];
+			branch = true;
+			skip_op = true;
+			rp--;
+		end
 		default: begin
 			branch_addr = -opcode;
 			branch = true;
+			rp++;
+			return_stack[rp] = mp;
 		end
 	  endcase
       
