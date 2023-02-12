@@ -283,21 +283,21 @@ task automatic t_init_dictionary_code;
 	bootROM[19] <= 25;
 	bootROM[20] <= {8'd1,"r","e","d"};				
 	bootROM[21] <= _lit;
-	bootROM[22] <= 1;
+	bootROM[22] <= 4;
 	bootROM[23] <= -17;
 	bootROM[24] <= _exit;				
 	bootROM[25] <= 32;
 	bootROM[26] <= {8'd2,"g","r","e"};
 	bootROM[27] <= {"e","n","\0","\0"};
 	bootROM[28] <= _lit;
-	bootROM[29] <= 2;
+	bootROM[29] <= 1;
 	bootROM[30] <= -17;
 	bootROM[31] <= _exit;
 	bootROM[32] <= 39;
 	bootROM[33] <= {8'd2,"b","l","u"};
 	bootROM[34] <= {"e","\0","\0","\0"};
 	bootROM[35] <= _lit;
-	bootROM[36] <= 4;
+	bootROM[36] <= 2;
 	bootROM[37] <= -17;
 	bootROM[38] <= _exit;
 	bootROM[39] <= 0;
@@ -343,7 +343,7 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
 	localparam DICT_START = 15;
-	localparam ERROR_CFA = 1;
+	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
 		wp = DICT_START;
@@ -361,6 +361,7 @@ always_ff @(posedge clk) begin
 	else begin
 		case (state)
 			IDLE : begin
+				xt_valid = 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
 				wp = DICT_START;
@@ -457,11 +458,11 @@ always_ff @(posedge clk) begin
 				uart_receive <= 1'b1;
 			end
 			EXECUTE : begin
-				xt_valid <= (xtrp < xtwp); // FIFO not empty (read before write)
-				if (xtrp == xtwp) begin    // Stop when FIFO empty (read at write)
+				xt_valid <= 1'b1;
+				if (xt_ready) begin
 					state = IDLE;
-					nwp = nrp;
 					uart_receive <= 1'b1;
+					xt_valid <= 1'b0;
 				end
 			end
 			
@@ -612,6 +613,7 @@ end
         end        
 		_execute : begin
 			busy = true;
+			xt_ready = 1'b0;
 			if (xt_valid) begin
 				branch_addr = xtrp;
 				branch = true;
@@ -620,6 +622,7 @@ end
 				xtrp=xtwp;
 				rp++;
 				return_stack[rp] = mp;
+				xt_ready = 1'b1;
 			end
 		end
 		_number : begin
