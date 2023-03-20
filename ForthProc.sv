@@ -97,7 +97,7 @@ parameter SPI_16_reg_size = 5;//16 data pulses
 typedef enum logic [15:0]{
 
 //System Operators
-_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit, _number,
+_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit,
 
 //Stack Operators
 _depth, _dup, _pick, _over, _swap, _rot, _equal, _zero_equal, _greater_than, _less_than,
@@ -255,7 +255,6 @@ logic [address_size:0] xtwp;
 logic xt_valid;
 logic xt_ready;
 
-logic [data_size:0] number[256];
 logic [7:0] nrp;
 logic [7:0] nwp;
 
@@ -373,26 +372,8 @@ always_ff @(posedge clk) begin
 				end
 			end
 			PARSE : begin
-				if (10 <= byte_in && byte_in <= 13) begin//is character between <bl> and <cr>?
-					wp = xtwp++;
-					dict_write = 1'b1;
-					dict_wdata = local_xt;
-					local_xt = 0;
-					word_in = '0;
-					cells = '0;
-					cchar = '0;
-					state = ADD_EXIT;
-				end
-				else if (byte_in == " ") begin
-					wp = xtwp++;	
-					dict_write = 1'b1;
-					dict_wdata = local_xt;
-					local_xt = 0;
-					state = IDLE;
-					word_in = '0;
-					cells = '0;
-					cchar = '0;
-					uart_receive <= 1'b1;
+				if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
+					state = BEFORE_LINK;
 				end
 				else begin
 					cchar++;
@@ -405,7 +386,8 @@ always_ff @(posedge clk) begin
 					endcase
 					cells = 1 + (cchar / 4);
 					word_in[0][31:24] = cells;
-					state = BEFORE_LINK;
+					uart_receive <= 1'b1;
+					state = IDLE;
 				end
 			end
 			BEFORE_LINK : begin
@@ -426,8 +408,7 @@ always_ff @(posedge clk) begin
 				end
 				else if (ccell >= cells) begin
 					local_xt = -(wp-1);
-					state = IDLE;
-					uart_receive <= 1'b1;
+					state = COMPILE;
 				end
 				else begin
 					wp = link_addr;
@@ -447,15 +428,16 @@ always_ff @(posedge clk) begin
 			end			
 			NUMBER : begin
 				// TODO: more than one char numbers
-				if (byte_in inside{["0":"9"]}) begin
-					number[nwp++] = byte_in - "0";
-					local_xt = _number;
+				if (word_in[0][23:16] inside{["0":"9"]}) begin
+					local_xt = word_in[0][23:16] - "0";
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = _lit;
 				end
 				else begin
 					local_xt = -ERROR_CFA; // CFA for error "word not found"
 				end
-				state = IDLE;
-				uart_receive <= 1'b1;
+				state = COMPILE;
 			end
 			EXECUTE : begin
 				xt_valid <= 1'b1;
@@ -465,13 +447,21 @@ always_ff @(posedge clk) begin
 					xt_valid <= 1'b0;
 				end
 			end
-			
 			COMPILE: begin
-				//xt_valid <= (xtrp < xtwp);
-				//if (xtrp == xtwp) begin
-					//state = IDLE;
-					//uart_receive <= 1'b1;
-				//end
+				wp = xtwp++;	
+				dict_write = 1'b1;
+				dict_wdata = local_xt;
+				local_xt = 0;
+				word_in = '0;
+				cells = '0;
+				cchar = '0;
+				if (byte_in == " ") begin
+					state = IDLE;
+					uart_receive <= 1'b1;
+				end
+				else begin
+					state = ADD_EXIT;
+				end
 			end
 		default : state = IDLE;
 		endcase
@@ -624,10 +614,6 @@ end
 				return_stack[rp] = mp;
 				xt_ready = 1'b1;
 			end
-		end
-		_number : begin
-			++dp;
-			data_stack[dp] = number[nrp++];
 		end
 		_exit : begin
 			branch_addr = return_stack[rp];
