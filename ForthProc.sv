@@ -299,7 +299,7 @@ task automatic t_init_dictionary_code;
 	bootROM[36] <= 2;
 	bootROM[37] <= -17;
 	bootROM[38] <= _exit;
-	bootROM[39] <= 0;
+	bootROM[39] <= XTQ_START;
 	bootROM[40] <= {8'd2,"d","e","l"};
 	bootROM[41] <= {"a","y","\0","\0"};
 	bootROM[42] <= _lit;
@@ -337,7 +337,10 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
 	logic [data_size:0] local_xt;
-	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE} state;
+	logic [3:0] count ;
+	enum logic [3:0] {BOOT, INIT, IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
+	NEW_LINK, NEW_DEF} state;
+	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
@@ -347,23 +350,44 @@ always_ff @(posedge clk) begin
 	if (reset == 1'b0) begin
 		wp = DICT_START;
 		xt_valid <= 1'b0;
-		state = IDLE;
+		state = BOOT;
+		count = '0;
 		uart_receive <= 1'b1;
-		xtwp = XTQ_START;
+		xtwp = XTQ_START+1;
+		xtrp = XTQ_START+1;
 		nwp = '0;
 		local_xt=0;
 		word_in = '0;
 		cells = '0;
 		cchar = '0;
 		mem_access_outer = 1'b0;
+		wp = XTQ_START;
+		comp_state = INTERPRET;
 	end
 	else begin
 		case (state)
+			BOOT : begin
+				if (count < 10) begin
+					++count;
+				end
+				else begin
+					state = INIT;
+					mem_access_outer = 1'b1;
+					count = '0;
+				end
+			end
+			INIT : begin
+				dict_write = 1'b1;
+				wp=XTQ_START;
+				dict_wdata = '0;
+				state = IDLE;
+			end
 			IDLE : begin
 				xt_valid = 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
 				wp = DICT_START;
+				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
 					mem_access_outer = 1'b1;
 					uart_receive <= 1'b0;
@@ -372,8 +396,29 @@ always_ff @(posedge clk) begin
 				end
 			end
 			PARSE : begin
+				state = IDLE;
 				if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
-					state = BEFORE_LINK;
+					if (comp_state == COLON) begin
+						comp_state = WORD;
+					end
+					else if (comp_state == WORD) begin
+						comp_state = COMPILING;
+						state = NEW_LINK;
+					end
+					else if (comp_state == END_COMPILE) begin
+						comp_state = INTERPRET;
+						xtrp = xtwp;
+					end
+					else begin
+						state = BEFORE_LINK;
+					end
+				end
+				else if (byte_in == ":") begin
+					comp_state = COLON;
+				end
+				else if (byte_in == ";") begin
+					state = ADD_EXIT;
+					comp_state = END_COMPILE;
 				end
 				else begin
 					cchar++;
@@ -386,8 +431,6 @@ always_ff @(posedge clk) begin
 					endcase
 					cells = 1 + (cchar / 4);
 					word_in[0][31:24] = cells;
-					uart_receive <= 1'b1;
-					state = IDLE;
 				end
 			end
 			BEFORE_LINK : begin
@@ -424,7 +467,7 @@ always_ff @(posedge clk) begin
 			GET_XT: begin // Demitri 2023 Jan 9: repurposed for adding a delay for XT compilation before execute
 				dict_write = 1'b0;
 				mem_access_outer = 1'b0;
-				state = EXECUTE;
+				state = comp_state == INTERPRET ? EXECUTE : IDLE;
 			end			
 			NUMBER : begin
 				// TODO: more than one char numbers
@@ -442,6 +485,7 @@ always_ff @(posedge clk) begin
 			EXECUTE : begin
 				xt_valid <= 1'b1;
 				if (xt_ready) begin
+					xtwp=xtrp;
 					state = IDLE;
 					uart_receive <= 1'b1;
 					xt_valid <= 1'b0;
@@ -459,9 +503,24 @@ always_ff @(posedge clk) begin
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
-				else begin
+				else if (comp_state == INTERPRET) begin
 					state = ADD_EXIT;
 				end
+			end
+			NEW_LINK: begin
+				wp = xtwp-1;
+				dict_write = 1'b1;
+				dict_wdata = '0;
+				state = NEW_DEF;
+			end
+			NEW_DEF: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = word_in[0];
+				word_in = '0;
+				cells = '0;
+				cchar = '0;
+				state = IDLE;
 			end
 		default : state = IDLE;
 		endcase
@@ -472,7 +531,6 @@ end
         dp='0;
         rp='0;
         mp ='0;
-		xtrp = XTQ_START;
 		nrp = '0;
         busy <= false;
         skip_op <= false;
@@ -609,7 +667,6 @@ end
 				branch = true;
 				busy = false;
 				skip_op = true;
-				xtrp=xtwp;
 				rp++;
 				return_stack[rp] = mp;
 				xt_ready = 1'b1;
