@@ -275,31 +275,31 @@ task automatic t_init_dictionary_code;
 	bootROM[12] <=  "?";
 	bootROM[13] <=  _emit;
 	bootROM[14] <= _exit;
-	bootROM[15] <= 19; 					// Link to next dictionary entry
+	bootROM[15] <= 0; 					// Link to next dictionary entry
 	bootROM[16] <= {8'd1,"l","e","d"};	// Name field (NFA)
 	bootROM[17] <= _io_led;				// code field
 	bootROM[18] <= _exit;					// end of code field
-	bootROM[19] <= 25;
+	bootROM[19] <= 15;
 	bootROM[20] <= {8'd1,"r","e","d"};				
 	bootROM[21] <= _lit;
 	bootROM[22] <= 4;
 	bootROM[23] <= -17;
 	bootROM[24] <= _exit;				
-	bootROM[25] <= 32;
+	bootROM[25] <= 19;
 	bootROM[26] <= {8'd2,"g","r","e"};
 	bootROM[27] <= {"e","n","\0","\0"};
 	bootROM[28] <= _lit;
 	bootROM[29] <= 1;
 	bootROM[30] <= -17;
 	bootROM[31] <= _exit;
-	bootROM[32] <= 39;
+	bootROM[32] <= 25;
 	bootROM[33] <= {8'd2,"b","l","u"};
 	bootROM[34] <= {"e","\0","\0","\0"};
 	bootROM[35] <= _lit;
 	bootROM[36] <= 2;
 	bootROM[37] <= -17;
 	bootROM[38] <= _exit;
-	bootROM[39] <= XTQ_START;
+	bootROM[39] <= 32;
 	bootROM[40] <= {8'd2,"d","e","l"};
 	bootROM[41] <= {"a","y","\0","\0"};
 	bootROM[42] <= _lit;
@@ -334,59 +334,43 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 
 	logic [7:0] byte_in;
 	logic [31:0] link_addr;
+	logic [31:0] newest_def;
 	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
 	logic [data_size:0] local_xt;
 	logic [3:0] count ;
-	enum logic [3:0] {BOOT, INIT, IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
+	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
 	NEW_LINK, NEW_DEF} state;
 	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	localparam DICT_START = 15;
+	localparam DICT_START = 39;
 	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
-		wp = DICT_START;
+		newest_def = DICT_START;
 		xt_valid <= 1'b0;
-		state = BOOT;
+		state = IDLE;
 		count = '0;
 		uart_receive <= 1'b1;
-		xtwp = XTQ_START+1;
-		xtrp = XTQ_START+1;
+		xtwp = XTQ_START;
+		xtrp = XTQ_START;
 		nwp = '0;
 		local_xt=0;
 		word_in = '0;
 		cells = '0;
 		cchar = '0;
 		mem_access_outer = 1'b0;
-		wp = XTQ_START;
 		comp_state = INTERPRET;
 	end
 	else begin
 		case (state)
-			BOOT : begin
-				if (count < 10) begin
-					++count;
-				end
-				else begin
-					state = INIT;
-					mem_access_outer = 1'b1;
-					count = '0;
-				end
-			end
-			INIT : begin
-				dict_write = 1'b1;
-				wp=XTQ_START;
-				dict_wdata = '0;
-				state = IDLE;
-			end
 			IDLE : begin
 				xt_valid = 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
-				wp = DICT_START;
+				wp = newest_def;
 				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
 					mem_access_outer = 1'b1;
@@ -508,19 +492,26 @@ always_ff @(posedge clk) begin
 				end
 			end
 			NEW_LINK: begin
-				wp = xtwp-1;
-				dict_write = 1'b1;
-				dict_wdata = '0;
-				state = NEW_DEF;
-			end
-			NEW_DEF: begin
 				wp = xtwp++;
 				dict_write = 1'b1;
-				dict_wdata = word_in[0];
-				word_in = '0;
-				cells = '0;
-				cchar = '0;
-				state = IDLE;
+				dict_wdata = newest_def;
+				state = NEW_DEF;
+				newest_def = wp;
+				ccell = '0;
+			end
+			NEW_DEF: begin
+				if (ccell < cells) begin
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = word_in[ccell];
+					++ccell;
+				end
+				else begin
+					word_in = '0;
+					cells = '0;
+					cchar = '0;
+					state = IDLE;
+				end
 			end
 		default : state = IDLE;
 		endcase
