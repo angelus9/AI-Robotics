@@ -1,6 +1,3 @@
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Open Source Code, 
 //
@@ -54,36 +51,20 @@
 // Other Contributors: Dr. Ting
 
 //syn_ramstyle = "lsram"
-//module
-// spram256 user modules //
-//SB_SPRAM256KA SRAM(
- //.DATAIN(DATAIN),
- //.ADDRESS(ADDRESS),
- //.MASKWREN(MASKWREN),
- //.WREN(WREN),
- //.CHIPSELECT(CHIPSELECT),
- //.CLOCK(CLOCK),
- //.STANDBY(STANDBY),
- //.SLEEP(SLEEP),
- //.POWEROFF(POWEROFF),
- //.DATAOUT(DATAOUT_A)
-//) 
-//end module
 
 parameter DataWidthSystem = 31;
 parameter char_buf_ptr_width = 7;
-
+parameter locals_depth = 8;
 //Internal SRAM parameters
-parameter Int_SRAM_size = 31;
-parameter Int_SRAM_ADDR_size = 500;
+parameter Int_SRAM_size = 18;
+parameter Int_SRAM_ADDR_size = 12;
+parameter Int_SRAM_MAX_CELLS = 2048;
 
 //LSRAM2
 parameter data_width = 9;
 parameter address_width = 10;
 parameter ext_ram_size = 1024;
 
-//BootROM
-parameter end_boot_ROM = 28;
 parameter clock_1MHZ_divider = 6;
 parameter clock_1KHZ_divider = 500;
 parameter clock_500MS_divider = 2000;
@@ -102,19 +83,26 @@ parameter SPI_16_reg_size = 5;//16 data pulses
 typedef enum logic [15:0]{
 
 //System Operators
-_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit, _number,
+_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit,
 
 //Stack Operators
 _depth, _dup, _pick, _over, _swap, _rot, _equal, _zero_equal, _greater_than, _less_than,
 _question_dup, _drop, _roll, _to_return, _from_return, _copy_return,
 _lit,
 
+//Register Operators
+_local1_store, _local2_store, _local3_store, _local4_store, _local5_store,
+_local6_store, _local7_store, _local8_store, _local9_store, _local10_store,
+
+_local1_fetch, _local2_fetch, _local3_fetch, _local4_fetch, _local5_fetch,
+_local6_fetch, _local7_fetch, _local8_fetch, _local9_fetch, _local10_fetch,
+
 //Memory Operators              
-_8store, _8fetch, _8plus_store, _16store, _16fetch, _32store, _32fetch, _cmove, _fill,
+_8store, _8fetch, _8plus_store, _16store, _16fetch, _store, _fetch, _cmove, _fill,
 _ROM_active, _SRAM_active, _EXSRAM_active,
 
 //Arithmetic
-_plus, _minus, _times, _divide, _max, _min, _times_mod, _divide_mod, _times_divide, _one_plus, _one_minus,
+_plus, _minus, _times, _divide, _max, _min, _times_mod, _divide_mod, _times_divide, _one_plus, _one_minus, _negate,
 
 //Conditional
 _if, _else,_then, _0branch, _branch,
@@ -123,27 +111,30 @@ _if, _else,_then, _0branch, _branch,
 _begin, _again, _until, _for, _next,
 
 //Logical
-_and, _or, _xor, _zero_less_than, _zero_greater_than, _zero_equals,
-
-//Error Codes
-dstack_overflow, dstack_underflow, rstack_overflow, rstack_underflow, invalid_instruction, no_errors,
+_and, _or, _xor, _not, _zero_less_than, _zero_greater_than, _zero_equals,
 
 //Communications
 _key, _emit,
 
 //I/O Processing                
-_io_led, _io_button, _io_fetch, _io_store
+_io_led, _io_button, _io_fetch, _io_store,
 
+//Control Outer Interpreter State
+_outer_state_set, _outer_state_get, comp_state_set, comp_state_get
 } op_e;
-
-typedef struct packed {
-
-  logic is_immediate;
-  op_e op;
-} opcode_t;
+	
+//module SRAM_2K_S (Clock, ClockEn, Reset, WE, Address, Data, Q)/* synthesis NGD_DRC_MASK=1 */;
+    //input wire Clock;
+    //input wire ClockEn;
+    //input wire Reset;
+    //input wire WE;
+    //input wire [10:0] Address;
+    //input wire [35:0] Data;
+    //output wire [35:0] Q;
+//endmodule	
 
 module ForthProc
-
+	
 #( parameter
   address_size      = 9,//size-1
   data_size         = DataWidthSystem,//size-1
@@ -153,7 +144,6 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 50,
   ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
@@ -172,6 +162,7 @@ module ForthProc
     input logic clk,
 	output logic TX,
 	input logic RX,
+	output logic clk_enable,
 
 //Dev Board Specific I/O
 input  BUTTON0,
@@ -179,10 +170,14 @@ input  BUTTON1,
 input SPI1_8_in,
 input SPI2_16_in,
 
-output logic LED_G,
-output logic LED_B,
-output logic LED_R,
-
+output logic LED0,
+output logic LED1,
+output logic LED2,
+output logic LED3,
+output logic LED4,
+output logic LED5,
+output logic LED6,
+output logic LED7,
 //Devices
 output logic PWM_CH1,
 output logic PWM_CH2,
@@ -194,17 +189,72 @@ output logic SPI1_8_ss,
 output logic SPI2_16_ss,
 output logic SPI1_8_clk,
 output logic SPI2_16_clk
+
 );
 
-logic [Int_SRAM_size:0] IntMem [Int_SRAM_ADDR_size:0];
+//DG 6-7-2023 Demitri, CREATE DOES is a combination of these states, right?
+//DG Moved here 6-7-23 assigned numbers so we can put a number on the stack and set new (state)
+	enum logic [3:0] {
+	IDLE = 0,
+	PARSE = 1,
+	SEARCH = 2,
+	BEFORE_LINK = 3,
+	GET_LINK = 4,
+	GET_XT = 5,
+	ADD_EXIT = 6,
+	EXECUTE = 7,
+	NUMBER = 8,
+	COMPILE = 9,
+	NEW_LINK = 10,
+	NEW_DEF = 11} estate;
+//DG Moved here 6-7-23 assigned numbers so we can put a number on the stack and set new (comp_state)
 
+	enum logic [3:0]{
+	INTERPRET = 0,
+	COLON = 1,
+	WORD =2,
+	COMPILING = 3, 
+	END_COMPILE = 4} ecomp_state;
+	
+//DG Experimental - instaanciate 2 SRAMs and testing them in always statement at EOF
+//SRAM1
+//logic SRAM1_ClockEn;
+//logic SRAM1_Reset;
+//logic SRAM1_WE;
+//logic [Int_SRAM_size:0] SRAM1_Address,
+//logic [DataWidthSystem:0] SRAM1_Data,
+//logic [DataWidthSystem:0] SRAM1_Q,
+
+//SRAM2
+//logic SRAM2_ClockEn;
+//logic SRAM2_Reset;
+//logic SRAM2_WE;
+//logic [Int_SRAM_size:0] SRAM2_Address,
+//logic [DataWidthSystem:0] SRAM2_Data,
+//logic [DataWidthSystem:0] SRAM2_Q,
+
+///* parameterized module instance */
+//SRAM_2K_S SRAM1 (.Clock(clk), .ClockEn(SRAM_ClockEn), .Reset(SRAM_Reset), .WE(SRAM_WE ), .Address(SRAM_Address ), 
+    //.Data(SRAM_Data ), .Q(SRAM_Q )); 
+///* parameterized module instance */
+//SRAM_2K_S SRAM2 (.Clock(clk), .ClockEn(SRAM_ClockEn), .Reset(SRAM_Reset), .WE(SRAM_WE ), .Address(SRAM_Address ), 
+    //.Data(SRAM_Data ), .Q(SRAM_Q ));
+	
+logic n_clk_enable = 1'b1;
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
 logic [3:0] errorcode ; 
-logic	[address_size:0] mp;      // memory pointer
-logic	[address_size:0] bp;      // boot ROM memory pointer
-logic	[1:0] successful;
-logic	[code_size:0] opcode;
+logic [address_size:0] mp;      // memory pointer
+logic [1:0] successful;
+op_e opcode;
+
+//Outer Interpreter Control Registers
+logic [3:0] new_outer_state = IDLE;
+logic [3:0] new_outer_comp_state = INTERPRET;
+logic [3:0] state = IDLE;
+logic [3:0] comp_state = INTERPRET;
+logic new_outer_state_flag = false;
+logic new_comp_outer_state_flag = false;
 
 logic [4:0] clock_1MHZ_ctr;
 logic [10:0] clock_1KHZ_ctr = 12;//from 1MHZ clock
@@ -230,44 +280,46 @@ logic [SPI_16_reg_size:0] SPI2_16_div_counter;
 logic [15:0] SPI1_16_data_out;
 logic [15:0] SPI1_16_data_in;
 
-//Circuliar stacks
-logic [data_size:0] data_stack[data_stack_depth] ;
-logic [data_size:0] return_stack[return_stack_depth];
+//Circular stacks
+logic [data_size:0] data_stack[data_stack_depth] ; /* synthesis syn_ramstyle="block_ram" */;
+logic [data_size:0] return_stack[return_stack_depth]; /* synthesis syn_ramstyle="block_ram" */;
 logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
-//Internal Boot ROM
-logic [data_size:0] boot_ROM [boot_depth];
+logic [data_size:0] locals[locals_depth]; /* synthesis syn_ramstyle="block_ram" */;
 
+logic boot_enable;
+logic [data_size:0] bootROM [200:0];/* synthesis syn_romstyle="EBR" */;
 //Lattice Internal memory
- logic [Int_SRAM_ADDR_size:0] mem[Int_SRAM_size:0]; /// memory block
- 
+logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
+  
 //External Memory
 logic [data_size:0] DataBus;
 logic [address_size:0] AddressBus;
 
+/*
+//Internal Memory
+logic [data_size:0] SRAM_32K_DataIn;
+logic [data_size:0] SRAM_32K_DataOut;
+logic [address_size:0] SRAM_32K_Address;
+*/
+
 //Forth Registers
-logic [data_size:0] DataStackDepth;
-logic [data_size:0] ReturnStackDepth;
-logic [data_size:0] Temp;
-logic [data_size:0] Here;
-logic [data_size:0] Base;
-logic [data_size:0] State;
-logic [4:0] data_Stack_Op;
 logic busy;
 logic skip_op;
 logic branch;
 logic [address_size:0] branch_addr;
 
-//Loop registers?
-//logic [data_size:0] I;
-//logic [data_size:0] J;
-
 logic n_BUTTON0;
 logic n_BUTTON1;
-logic n_LED_G;
-logic n_LED_B;
-logic n_LED_R;
+logic n_LED0 = 1'b1;
+logic n_LED1 = 1'b0;
+logic n_LED2 = 1'b0;
+logic n_LED3 = 1'b1;
+logic n_LED4 = 1'b1;
+logic n_LED5 = 1'b0;
+logic n_LED6 = 1'b1;
+logic n_LED7 = 1'b0;
 
 // UART registers
 logic [7:0] tx_data;
@@ -279,326 +331,677 @@ logic uart_rx_valid;
 logic [7:0] uart_rx_data;
 
 // Execution Token
-logic [address_size:0] xt[256];
-logic [7:0] xtrp;
-logic [7:0] xtwp;
+localparam XTQ_START = 200;
+logic [address_size:0] xtrp;
+logic [address_size:0] xtwp;
 logic xt_valid;
 logic xt_ready;
 
-logic [data_size:0] number;
+logic [7:0] nrp;
+logic [7:0] nwp;
+
+// Dictionary
+logic dict_write;
+logic dict_mem_write;//Don 6-6-23
+logic dict_mem_read;//Don 6-6-23
+logic dict_mem_read_done;
+
+logic mem_access_outer;
+logic [address_size:0] mem_addr;
+logic [Int_SRAM_ADDR_size:0] dict_wdata;
+logic [Int_SRAM_ADDR_size:0] dict_mem_data;//Don 6-6-23 for _store and fetch
+logic [Int_SRAM_ADDR_size:0] dict_read_mem_data;//Don 6-6-23 for _store and fetch
+logic [Int_SRAM_ADDR_size:0] dict_mem_addr;//Don 6-6-23 for _store and fetch
+logic [address_size:0] wp; // dictionary pointer wp
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <=  _execute;
-	mem[1] <=  _lit;
-	mem[2] <=  63;
-	mem[3] <=  _emit;
-	mem[4] <= _branch;
-	mem[5] <= 0;
-	mem[6] <=  _lit;
-	mem[7] <= 4;
-	mem[8] <= _io_led;
-	mem[9] <= _branch;
-	mem[10] <= 0;
-	mem[11] <=  _lit;
-	mem[12] <= 1;
-	mem[13] <= _io_led;
-	mem[14] <= _branch;
-	mem[15] <= 0;
-	mem[16] <=  _lit;
-	mem[17] <= 2;
-	mem[18] <= _io_led;
-	mem[19] <= _branch;
-	mem[20] <= 0;
-	mem[21] <= _number;
-	mem[22] <= _branch;
-	mem[23] <= 0;
-	mem[24] <= _io_led;
-	mem[25] <= _branch;
-	mem[26] <= 0;
-	mem[27] <= _lit;
-	mem[28] <= 5000000;
-	mem[29] <= _lit;
-	mem[30] <= 1;
-	mem[31] <= _minus;
-	mem[32] <= _dup;
-	mem[33] <= _zero_equal;
-	mem[34] <= _0branch;
-	mem[35] <= 29;
-	mem[36] <= _drop;
-	mem[37] <= _branch;
-	mem[38] <= 0;
+	//bootROM[0] <=  _execute;
+	//bootROM[1] <=  _branch;
+	bootROM[0] <=  _io_led;
+	bootROM[1] <=  _io_led;	
+	bootROM[2] <=  0;
+//	bootROM[11] <=  _lit;
+	bootROM[11] <=  _io_led;	
+	bootROM[12] <=  "?";
+	bootROM[13] <=  _emit;
+	bootROM[14] <= _exit;
+	bootROM[15] <= 0; 					// Link to next dictionary entry
+	bootROM[16] <= {8'd1,"l","e","d"};	// Name field (NFA)
+	bootROM[17] <= _io_led;				// code field
+	bootROM[18] <= _exit;					// end of code field
+	bootROM[19] <= 15;
+	bootROM[20] <= {8'd1,"r","e","d"};				
+	bootROM[21] <= _lit;
+	bootROM[22] <= 4;
+	bootROM[23] <= -17;
+	bootROM[24] <= _exit;				
+	bootROM[25] <= 19;
+	bootROM[26] <= {8'd2,"g","r","e"};
+	bootROM[27] <= {"e","n","\0","\0"};
+	bootROM[28] <= _lit;
+	bootROM[29] <= 1;
+	bootROM[30] <= -17;
+	bootROM[31] <= _exit;
+	bootROM[32] <= 25;
+	bootROM[33] <= {8'd2,"b","l","u"};
+	bootROM[34] <= {"e","\0","\0","\0"};
+	bootROM[35] <= _lit;
+	bootROM[36] <= 2;
+	bootROM[37] <= -17;
+	bootROM[38] <= _exit;
+	bootROM[39] <= 32;
+	bootROM[40] <= {8'd2,"d","e","l"};
+	bootROM[41] <= {"a","y","\0","\0"};
+	bootROM[42] <= _lit;
+	bootROM[43] <= 5000000;
+	bootROM[44] <= _lit;
+	bootROM[45] <= 1;
+	bootROM[46] <= _minus;
+	bootROM[47] <= _dup;
+	bootROM[48] <= _zero_equal;
+	bootROM[49] <= _0branch;
+	bootROM[50] <= 44;
+	bootROM[51] <= _drop;
+	bootROM[52] <= _exit;
 endtask : t_init_dictionary_code
 
-//Boot code when the processor starts...
-task automatic t_init_boot_code;
-	boot_ROM[0] <=  _execute;
-	boot_ROM[1] <=  _lit;
-	boot_ROM[2] <=  63;
-	boot_ROM[3] <=  _emit;
-	boot_ROM[4] <= _branch;
-	boot_ROM[5] <= 0;
-	boot_ROM[6] <=  _lit;
-	boot_ROM[7] <= 4;
-	boot_ROM[8] <= _io_led;
-	boot_ROM[9] <= _branch;
-	boot_ROM[10] <= 0;
-	boot_ROM[11] <=  _lit;
-	boot_ROM[12] <= 1;
-	boot_ROM[13] <= _io_led;
-	boot_ROM[14] <= _branch;
-	boot_ROM[15] <= 0;
-	boot_ROM[16] <=  _lit;
-	boot_ROM[17] <= 2;
-	boot_ROM[18] <= _io_led;
-	boot_ROM[19] <= _branch;
-	boot_ROM[20] <= 0;
-	boot_ROM[21] <= _number;
-	boot_ROM[22] <= _branch;
-	boot_ROM[23] <= 0;
-	boot_ROM[24] <= _io_led;
-	boot_ROM[25] <= _branch;
-	boot_ROM[26] <= 0;
-	boot_ROM[27] <= _lit;
-	boot_ROM[28] <= 5000000;
-	boot_ROM[29] <= _lit;
-	boot_ROM[30] <= 1;
-	boot_ROM[31] <= _minus;
-	boot_ROM[32] <= _dup;
-	boot_ROM[33] <= _zero_equal;
-	boot_ROM[34] <= _0branch;
-	boot_ROM[35] <= 29;
-	boot_ROM[36] <= _drop;
-	boot_ROM[37] <= _branch;
-	boot_ROM[38] <= 0;
-endtask : t_init_boot_code 
+logic [address_size:0] mem_diff;
+assign boot_enable = (mem_access_outer ? wp : mp) < XTQ_START;
+
+// memory manager
+always_ff @(posedge clk or negedge reset) begin
+	if (reset == 1'b0) begin
+		t_init_dictionary_code;
+	end
+	else begin
+		mem_diff = boot_enable ? '0 : -XTQ_START;
+		mem_addr = (mem_access_outer ? wp : mp)+mem_diff;
+		if (dict_write) begin
+			mem[mem_addr] <= dict_wdata;
+		end	//Don 6-6-23
+		else if (dict_mem_write) begin
+			     mem[dict_mem_addr] <= dict_mem_data;
+			 end
+		else if (dict_mem_read) begin
+			     dict_read_mem_data <= mem[dict_mem_addr];
+				 dict_mem_read_done = true;
+			 end			 
+	end		
+end
+
+assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
+
+	logic [7:0] byte_in;
+	logic [31:0] link_addr;
+	logic [31:0] newest_def;
+	logic [7:0] ccell, cchar, cells;
+	logic [3:0][31:0] word_in;
+	logic [data_size:0] local_xt;
+	logic [3:0] count ;
+
+	//enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
+	//NEW_LINK, NEW_DEF} state;
+	
+	//enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
+// added opcodes to manipulate the Outer Interpreter - DG 6-7-23
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	logic [7:0] byte_in;
-	logic [2:0] wp;
-	logic [31:0] dict_size;
-	logic [31:0] word_in;
-	logic [address_size:0] local_xt;
-	enum {IDLE, PARSE, SEARCH, EXECUTE, NUMBER, COMPILE} state;
-	static logic [31:0] dict_name[4] = {
-	{8'd3,"r","e","d"},
-	{8'd5,"g","r","e"},
-	{8'd4,"b","l","u"},
-	{8'd5,"d","e","l"}};
-	static logic [address_size:0] dict_addr[4] = {6,11,16,27};
+	localparam DICT_START = 39;
+	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
-		wp = '0;
-		xt_valid <= 1'b0;
-		dict_size = 4;
+		newest_def = DICT_START;
+        xt_valid = 1'b0;//Don changed from <= to =
 		state = IDLE;
+		count = '0;
 		uart_receive <= 1'b1;
-		xtwp = 0;
+		xtwp = XTQ_START;
+		xtrp = XTQ_START;
+		nwp = '0;
 		local_xt=0;
 		word_in = '0;
+		cells = '0;
+		cchar = '0;
+		mem_access_outer = 1'b0;
+		comp_state = INTERPRET;
 	end
+	
+	else if (new_outer_state_flag == true) begin //DG 6-7-2023 Added opcode to set state
+	state = new_outer_state;
+    end
+
+	else if (new_comp_outer_state_flag == true) begin ////DG 6-7-2023 Added opcode to set comp_state
+	comp_state = new_outer_comp_state;
+    end
+		
 	else begin
 		case (state)
 			IDLE : begin
-				wp = '0;
+				xt_valid = 1'b0;
+				mem_access_outer = 1'b0;
+				dict_write = 1'b0;
+				wp = newest_def;
+				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
+					mem_access_outer = 1'b1;
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
 					state = PARSE;
 				end
 			end
 			PARSE : begin
-				if (byte_in inside {[10:13]}) begin//is character between <bl> and <cr>?
-					xt[xtwp++] = local_xt;
-					local_xt = _execute;
-					word_in = '0;
-					state = EXECUTE;
+				state = IDLE;
+				if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
+					if (comp_state == COLON) begin
+						comp_state = WORD;
+					end
+					else if (comp_state == WORD) begin
+						comp_state = COMPILING;
+						state = NEW_LINK;
+					end
+					else if (comp_state == END_COMPILE) begin
+						comp_state = INTERPRET;
+						xtrp = xtwp;
+					end
+					else begin
+						state = BEFORE_LINK;
+					end
 				end
-				else if (byte_in == " ") begin
-					xt[xtwp++] = local_xt;
-					local_xt = _execute;
-					state = IDLE;
-					word_in = '0;
-					uart_receive <= 1'b1;
+				else if (byte_in == ":") begin
+					comp_state = COLON;
+				end
+				else if (byte_in == ";") begin
+					state = ADD_EXIT;
+					comp_state = END_COMPILE;
 				end
 				else begin
-					if (word_in[31:24] < 3) begin//is word count [31:24] less than 3?
-						case (word_in[31:24])
-							0 : word_in[23:16] = byte_in;
-							1 : word_in[15:8] = byte_in;
-							2 : word_in[7:0] = byte_in;
-							default :;
-						endcase
-					end
-					++word_in[31:24];
-					state = SEARCH;
+					cchar++;
+					case (cchar % 4)
+						0 : word_in[cchar / 4][31:24] = byte_in;
+						1 : word_in[cchar / 4][23:16] = byte_in;
+						2 : word_in[cchar / 4][15:8] = byte_in;
+						3 : word_in[cchar / 4][7:0] = byte_in;
+						default :;
+					endcase
+					cells = 1 + (cchar / 4);
+					word_in[0][31:24] = cells;
 				end
+			end
+			BEFORE_LINK : begin
+				++wp;
+				state = GET_LINK;
+			end
+			GET_LINK :  begin
+				link_addr = DataBus;
+				++wp;
+				ccell = '0;
+				state = SEARCH;
 			end
 			SEARCH : begin
-				if (dict_name[wp] == word_in) begin
+				if (ccell < cells && DataBus == word_in[ccell]) begin
 					// token
-					local_xt = dict_addr[wp];
-					state = IDLE;
-					uart_receive <= 1'b1;
+					++wp;
+					++ccell;
+				end
+				else if (ccell >= cells) begin
+					local_xt = -(wp-1);
+					state = COMPILE;
 				end
 				else begin
-					++wp;
-					if (wp >= dict_size) begin
-						state = NUMBER;
-					end
+					wp = link_addr;
+					state = link_addr ? BEFORE_LINK : NUMBER;
 				end
 			end
+			ADD_EXIT: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = _exit;
+				state = GET_XT;
+			end
+			GET_XT: begin // Demitri 2023 Jan 9: repurposed for adding a delay for XT compilation before execute
+				dict_write = 1'b0;
+				mem_access_outer = 1'b0;
+				state = comp_state == INTERPRET ? EXECUTE : IDLE;
+			end			
 			NUMBER : begin
-				if (byte_in inside{["0":"9"]}) begin
-					number = byte_in - "0";
-					local_xt = 21;
+				// TODO: more than one char numbers
+				if (word_in[0][23:16] inside{["0":"9"]}) begin
+					local_xt = word_in[0][23:16] - "0";
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = _lit;
 				end
 				else begin
-					local_xt = 1;
+					local_xt = -ERROR_CFA; // CFA for error "word not found"
 				end
-				state = IDLE;
-				uart_receive <= 1'b1;
+				state = COMPILE;
 			end
 			EXECUTE : begin
-				xt_valid <= (xtrp < xtwp);
-				if (xtrp == xtwp) begin
+				xt_valid = 1'b1;
+				if (xt_ready) begin
+					xtwp=xtrp;
+					state = IDLE;
+					uart_receive <= 1'b1;
+					xt_valid = 1'b0;
+				end
+			end
+			COMPILE: begin
+				wp = xtwp++;	
+				dict_write = 1'b1;
+				dict_wdata = local_xt;
+				local_xt = 0;
+				word_in = '0;
+				cells = '0;
+				cchar = '0;
+				if (byte_in == " ") begin
 					state = IDLE;
 					uart_receive <= 1'b1;
 				end
+				else if (comp_state == INTERPRET) begin
+					state = ADD_EXIT;
+				end
 			end
-			
-			COMPILE: begin
-				//xt_valid <= (xtrp < xtwp);
-				//if (xtrp == xtwp) begin
-					//state = IDLE;
-					//uart_receive <= 1'b1;
-				//end
+			NEW_LINK: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = newest_def;
+				state = NEW_DEF;
+				newest_def = wp;
+				ccell = '0;
+			end
+			NEW_DEF: begin
+				if (ccell < cells) begin
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = word_in[ccell];
+					++ccell;
+				end
+				else begin
+					word_in = '0;
+					cells = '0;
+					cchar = '0;
+					state = IDLE;
+				end
 			end
 		default : state = IDLE;
 		endcase
 	end
 end
 
-task automatic t_Fetch_opcode;
-	if (branch) begin
-		DataBus = boot_ROM[branch_addr];
-		bp = branch_addr+1;
-		branch = false;
-	end
-	else begin
-		DataBus = boot_ROM[bp];
-		++bp;
-	end
-	
-endtask        
-
-//assign second = data_stack[dp];//dON 10-13-21
-
-task automatic t_reset;
-    begin
-        t_init_boot_code;
-        errorcode=no_errors;
-        bp='0;
+	task automatic t_reset;
         dp='0;
         rp='0;
         mp ='0;
-		xtrp = 0;
-        busy <= false;
-        active_mem <= _ROM_active;
-        DataStackDepth='0;
-        ReturnStackDepth='0;
-        skip_op <= false;
-		uart_send <= 1'b0;	
-		t_init_dictionary_code;
-    end
-  endtask
+		nrp = '0;
+        busy = false;//Don changed from <= to =
+        skip_op = false;//Don changed from <= to =
+		uart_send = 1'b0;//Don changed from <= to =
+	endtask
 
-//Execute Opcodes task
-   task automatic t_execute;
+	task automatic t_Fetch_opcode;
+		if (branch) begin
+			mp = branch_addr;
+		end
+		else if (busy == false) begin
+			mp++;
+		end
+	endtask        
+
+	//Execute opcodes task
+	task automatic t_execute;
    
-      opcode = DataBus[code_size:0];
+      if (skip_op == false && busy == false) begin
+		opcode = op_e'(DataBus[code_size:0]);
+	  end
 	  case (opcode)
         _minus : begin
-				--dp;
-				data_stack[dp] = data_stack[dp] - data_stack[dp+1];
+		    busy = true;
+			--dp;
+			data_stack[dp] = data_stack[dp] - data_stack[dp+1];
+			busy = false;
         end
         
         _plus : begin
-		  --dp;
-				data_stack[dp] = data_stack[dp] + data_stack[dp+1];
+		    busy = true;			
+		    --dp;
+			data_stack[dp] = data_stack[dp] + data_stack[dp+1];
+			busy = false;			
         end
-              
+		
+        _one_plus : begin
+		    busy = true;			
+			++data_stack[dp];
+			busy = false;			
+		end			
 		_dup : begin
+		    busy = true;			
 			++dp;
 			data_stack[dp] = data_stack[dp-1];
-			
+			busy = false;			
 		end
+		
 		_over : begin
-			data_stack[dp+1] = data_stack[dp-1];
-          ++dp;
+		    busy = true;			
+			++dp;
+			data_stack[dp] = data_stack[dp-1];
+			busy = false;			
+		  end
+
+		_swap : begin
+		    busy = true;			
+			++dp;
+			return_stack[rp+1] = data_stack[dp-1];
+			data_stack[dp] = data_stack[dp-1];
+			data_stack[dp-1] = return_stack[rp+1];
+			busy = false;			
 		end
-        
+
 		_drop : begin
 			--dp;
 		end
-        
+		
+		_store : begin
+		    busy = true;			
+			dp = dp + 2;
+			dict_mem_addr = data_stack[dp-2];
+			dict_mem_write = 1'b1;
+			dict_mem_data = data_stack[dp-1];
+			busy = false;			
+		end		
+		
+		_fetch : begin
+		    busy = true;			
+			++dp;
+			dict_mem_read = 1'b1;
+			if (dict_mem_read_done == true) begin
+			    data_stack[dp-1] = dict_read_mem_data;//DG must be done after memory manager?
+				busy = false;	
+			end			
+		end	
+
+// added opcodes to manipulate the Outer Interpreter - DG 6-7-23
+
+		_outer_state_set : begin
+		    busy = true;			
+			--dp;
+			new_outer_state = data_stack[dp-1];
+			new_outer_state_flag = true;
+				busy = false;			
+		end	
+		
+		comp_state_set : begin
+		    busy = true;			
+			--dp;
+			new_outer_comp_state = data_stack[dp-1];
+			new_comp_outer_state_flag = true;
+				busy = false;			
+		end			
+
+		_outer_state_get : begin
+		    busy = true;			
+			++dp;
+			data_stack[dp] = state;
+			busy = false;			
+		end	
+		
+		comp_state_get : begin
+		    busy = true;			
+			++dp;
+			data_stack[dp] = comp_state;
+				busy = false;			
+		end	
+		
+//Local Register STORE
+		_local1_store : begin
+		    busy = true;			
+			--dp;
+			locals[0] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end			
+
+		_local2_store : begin
+		    busy = true;			
+			--dp;
+			locals[1] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end
+
+		_local3_store : begin
+		    busy = true;			
+			--dp;
+			locals[2] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end			
+
+		_local4_store : begin
+		    busy = true;			
+			--dp;
+			locals[3] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end
+
+		_local5_store : begin
+		    busy = true;			
+			--dp;
+			locals[4] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end			
+
+		_local6_store : begin
+		    busy = true;			
+			--dp;
+			locals[5] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end
+
+		_local7_store : begin
+		    busy = true;			
+			--dp;
+			locals[6] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end			
+
+		_local8_store : begin
+		    busy = true;			
+			--dp;
+			locals[7] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end
+
+		_local9_store : begin
+		    busy = true;			
+			--dp;
+			locals[8] = data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end			
+
+		_local10_store : begin
+		    busy = true;			
+			--dp;
+			locals[9] <= data_stack[dp] - data_stack[dp+1];
+			busy = false;			
+		end
+
+//Local Register FETCH
+
+		_local1_fetch : begin
+		    busy = true;			
+		    locals[0] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end			
+
+		_local2_fetch : begin
+		    busy = true;			
+		    locals[1] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+		
+		_local3_fetch : begin
+		    busy = true;			
+		    locals[2] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+
+		_local4_fetch : begin
+		    busy = true;			
+		    locals[3] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end			
+
+		_local5_fetch : begin
+		    busy = true;			
+		    locals[4] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+
+		_local6_fetch : begin
+		    busy = true;			
+		    locals[6] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end			
+
+		_local7_fetch : begin
+		    busy = true;			
+		    locals[7] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+
+		_local8_fetch : begin
+		    busy = true;			
+		    locals[8] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end			
+
+		_local9_fetch : begin
+		    busy = true;			
+		    locals[9] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+
+		_local10_fetch : begin
+		    busy = true;			
+		    locals[10] = data_stack[dp] ;
+			++dp;
+			busy = false;			
+		end
+
 		_equal : begin
+		    busy = true;			
 			--dp;
 			data_stack[dp] = data_stack[dp+1] == data_stack[dp] ? -1 : 0;
+			busy = false;			
 		end
+		
 		_zero_equal : begin
-			data_stack[dp] = data_stack[dp] == '0 ? -1 : 0;
+		    busy = true;	
+			data_stack[dp] = (data_stack[dp] == '0) ? -1 : '0;
+			busy = false;			
 		end
-		// Demitri Peynado 30th Sept 2021
+		
+		_zero_less_than : begin
+		    busy = true;			
+			data_stack[dp] = (data_stack[dp] < '0) ? -1 : '0;
+			busy = false;			
+		end
+		
+		_not : begin
+		    busy = true;			
+			data_stack[dp] = ~data_stack[dp];
+			busy = false;			
+		end
+		
+		_negate : begin
+		    busy = true;			
+			data_stack[dp] = ~data_stack[dp]+1;
+			busy = false;			
+		end
+		
 		_io_led : begin
-			//Don 12/7/2021 testing leds 
-			n_LED_G <= !data_stack[dp][0];
-			n_LED_B <= !data_stack[dp][1];
-			n_LED_R <= !data_stack[dp][2];
+		    busy = true;			
+			//n_LED0 <= !data_stack[dp][0];
+			//n_LED1 <= !data_stack[dp][1];
+			//n_LED2 <= !data_stack[dp][2];
+			//n_LED0 <= 1;
+			//n_LED1 <= 0;
+			//n_LED2 <= 1;
+			//n_LED3 <= 0;
+			//n_LED4 <= 1;
+			//n_LED5 <= 0;
+			//n_LED6 <= 1;
+			//n_LED7 <= 0;		
 			--dp;
+			busy = false;			
 		end
+		
 		_io_button : begin
+		    busy = true;			
             data_stack[dp] = {BUTTON1,BUTTON0};
+			busy = false;			
 		end
-		_lit : begin
-			// TODO: allow to work for main memory too
-			++dp;
-			data_stack[dp] = boot_ROM[bp];
-			skip_op <= true;
+		
+		_lit : begin//Demitri I think you just set busy = true then busy = false at end
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				++dp;
+				data_stack[dp] = DataBus;
+				busy = false;
+				skip_op = true;
+			end
 		end
+		
 		_and : begin
+		    busy = true;			
 			--dp;
 			data_stack[dp] = data_stack[dp] & data_stack[dp+1];
+			busy = false;			
 		end
+		
 		_or : begin
+		    busy = true;			
 			--dp;
 			data_stack[dp] = data_stack[dp] | data_stack[dp+1];
+			busy = false;			
 		end
+		
 		_0branch : begin
-			branch = data_stack[dp] == 0;
-			branch_addr = boot_ROM[bp];
-			skip_op <= ~branch;
-			--dp;
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				branch = (data_stack[dp] == '0) ? -1 : '0;
+				--dp;
+				branch_addr = DataBus;
+				busy = false;
+				skip_op = true;
+			end
 		end
 		 _branch : begin
-			branch = true;
-			branch_addr = boot_ROM[bp];
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				busy = false;
+				branch = true;
+				branch_addr = DataBus;
+			end
         end    
-		_if : begin
-			--dp;
-        end    
-        _else : begin
-			--dp;        
-		end
-        _then : begin
-			--dp;        
-		end        
-
         _emit : begin
 			if (busy == false) begin
-				uart_send <= 1'b1;
+				uart_send = 1'b1;//Don changed from <= to =
 				busy = true;
 				--dp;    
 			end
@@ -606,72 +1009,65 @@ task automatic t_reset;
 				tx_data   <= data_stack[dp+1][7:0];         
 			end
 			else if (!uart_busy_tx && busy == true) begin
-				uart_send <= 1'b0;
+				uart_send = 1'b0;//Don changed from <= to =
 				busy = false;
 			end
         end        
 		_execute : begin
 			busy = true;
+			xt_ready = 1'b0;
 			if (xt_valid) begin
-				branch_addr = xt[xtrp++];
-				busy = false;
+				branch_addr = xtrp;
 				branch = true;
+				busy = false;//DG shouldn't this be at end?
+				skip_op = true;
+				rp++;
+				return_stack[rp] = mp;
+				xt_ready = 1'b1;
 			end
 		end
-		_number : begin
-			++dp;
-			data_stack[dp] = number;
+		
+		_exit : begin
+		    busy = true;			
+			branch_addr = return_stack[rp];
+			branch = true;
+			skip_op = true;
+			rp--;
 		end
-		default : ;
+		
+		default: begin
+		    busy = true;			
+			branch_addr = -opcode;
+			branch = true;
+			rp++;
+			return_stack[rp] = mp;
+		end
 	  endcase
       
   endtask : t_execute
-
- //Execute Opcodes task
-   //task automatic t_boot_to_SRAM; 
-//
-    //LSRAM_WEN <= low;
-    //++SRAM_CTR; 
-    //LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
-    //LSRAM_WADDR <= SRAM_CTR;
-    //LSRAM_WEN <= high;
-    //
-    ////LSRAM_RADDR <= 'd0;
-    ////LSRAM_REN <= low;
-//
-    ////S_DATA <= 'd0;  
-    ////SRAM_CTR <= 'd0; 
-    ////SRAM_over_flow <= false; 
-    ////SRAM_RW <= high;
-    ////mp <= 'd0;
-  //
-    //endtask : t_boot_to_SRAM
-  
-  
-//  assign n_main_clk = main_clk;
-  
-//Forth Inner Intrepreter
+			
+//Forth Inner Interpreter (Fetch/Execute Unit)
 always_ff @(posedge clk) begin
 
     if (reset == 1'b0) begin
         t_reset;
-    end    
+    end
+
     else begin
-		if (busy == false) begin
-			t_Fetch_opcode;
-		end
+		skip_op = skip_op || branch;
+		branch = false;
 		if (skip_op == false) begin
 			t_execute;
 		end
 		else begin
-			skip_op <= false;
+			skip_op = false;
 		end
-        
+		t_Fetch_opcode;
         n_BUTTON0 <= BUTTON0;
         n_BUTTON1 <= BUTTON1;         
-		LED_G <= n_LED_G;
- 		LED_B <= n_LED_B; 
- 		LED_R <= n_LED_R;		  
+		//LED0 <= n_LED0;  //DG 6-7-23 testing leds!
+ 		//LED1 <= n_LED1; 
+ 		//LED2 <= n_LED2;		  
     end 
 end
 
@@ -801,308 +1197,68 @@ always_ff @(posedge clk) begin
 	end	
 end	
 
-//Do we need to instantiate any of this Lattice stuff?
-//pmi_complex_mult 
-//#(
-  //.pmi_dataa_width         ( ), // integer
-  //.pmi_datab_width         ( ), // integer
-  //.pmi_sign                ( ), // "on"|"off"
-  //.pmi_additional_pipeline ( ), // integer
-  //.pmi_input_reg           ( ), // "on"|"off"
-  //.pmi_output_reg          ( ), // "on"|"off"
-  //.pmi_family              ( ), // "iCE40UP" | "common"
-  //.pmi_implementation      ( )  // "DSP"|"LUT"
-//) <your_inst_label> (
-  //.DataA_Re  ( ),  // I:
-  //.DataA_Im  ( ),  // I:
-  //.DataB_Re  ( ),  // I:
-  //.DataB_Im  ( ),  // I:
-  //.Clock     ( ),  // I:
-  //.ClkEn     ( ),  // I:
-  //.Aclr      ( ),  // I:
-  //.Result_Re ( ),  // O:
-  //.Result_Im ( )   // O:
-//);
-//pmi_multaddsub
-//#(
-  //.pmi_dataa_width         ( ), // integer
-  //.pmi_datab_width         ( ), // integer
-  //.pmi_sign                ( ), // "on"|"off"
-  //.pmi_additional_pipeline ( ), // integer
-  //.pmi_add_sub             ( ), // "add"|"sub"
-  //.pmi_input_reg           ( ), // "on"|"off"
-  //.pmi_output_reg          ( ), // "on"|"off"
-  //.pmi_family              ( ), // "iCE40UP" | "common"
-  //.pmi_implementation      ( )  // "DSP"|"LUT"
-//) <your_inst_label> (
-  //.DataA0 ( ),  // I:
-  //.DataA1 ( ),  // I:
-  //.DataB0 ( ),  // I:
-  //.DataB1 ( ),  // I:
-  //.Clock  ( ),  // I:
-  //.ClkEn  ( ),  // I:
-  //.Aclr   ( ),  // I:
-  //.Result ( )   // O:
-//);
+logic [15:0] counter;
 
-//pmi_ram_dp
-//#(
-  //.pmi_wr_addr_depth    ( ), // integer
-  //.pmi_wr_addr_width    ( ), // integer
-  //.pmi_wr_data_width    ( ), // integer
-  //.pmi_rd_addr_depth    ( ), // integer
-  //.pmi_rd_addr_width    ( ), // integer
-  //.pmi_rd_data_width    ( ), // integer
-  //.pmi_regmode          ( ), // "reg"|"noreg"
-  //.pmi_resetmode        ( ), // "async"|"sync"
-  //.pmi_init_file        ( ), // string
-  //.pmi_init_file_format ( ), // "binary"|"hex"
-  //.pmi_family           ( )  // "iCE40UP"|"common"
-//) <your_inst_label> (
-  //.Data      ( ),  // I:
-  //.WrAddress ( ),  // I:
-  //.RdAddress ( ),  // I:
-  //.WrClock   ( ),  // I:
-  //.RdClock   ( ),  // I:
-  //.WrClockEn ( ),  // I:
-  //.RdClockEn ( ),  // I:
-  //.WE        ( ),  // I:
-  //.Reset     ( ),  // I:
-  //.Q         ( )   // O:
-//);
+always_ff @(posedge clk) begin
+	counter++;
+	if(counter == 0) begin
 
-//pmi_rom 
-//#(
-	//.pmi_addr_depth       ( ), // integer       
-    //.pmi_addr_width       ( ), // integer       
-    //.pmi_data_width       ( ), // integer       
-    //.pmi_regmode          ( ), // "reg"|"noreg"
-    //.pmi_resetmode        ( ), // "async" | "sync"	
-    //.pmi_init_file        ( ), // string		
-    //.pmi_init_file_format ( ), // "binary"|"hex"    
-	//.pmi_family           ( )  // "common"
-//) <your_inst_label> (
-	//.Address    ( ),  // I:
-	//.OutClock   ( ),  // I:
-	//.OutClockEn ( ),  // I:
-	//.Reset      ( ),  // I:
-	//.Q          ( )   // O:
-//);
+			n_LED0 <= ~n_LED0;
+			n_LED1 <= ~n_LED1;
+			n_LED2 <= ~n_LED2;
+			n_LED3 <= ~n_LED3;
+			n_LED4 <= ~n_LED4;
+			n_LED5 <= ~n_LED5;
+			n_LED6 <= ~n_LED6;
+			n_LED7 <= ~n_LED7;
+    end			
+	
+			LED0 <= n_LED0;
+			LED1 <= n_LED1;
+			LED2 <= n_LED2;
+			LED3 <= n_LED3;
+			LED4 <= n_LED4;
+			LED5 <= n_LED5;
+			LED6 <= n_LED6;
+			LED7 <= n_LED7;	
+			clk_enable	<= n_clk_enable;		
+end			
+			
+	
+//DG Experimental - creating 2 SRAMs and testing them//logic [Int_SRAM_ADDR_size:0] SRAM1_ctr = 0;
+//logic [Int_SRAM_ADDR_size:0] SRAM2_ctr = 0;
 
 
-    //Outer Interpreter
-//always_ff  @(posedge clk) begin
-  //if (reset == 0) begin
-        //char_buf_rd_ptr <= 0;
-    //end    
-    //else begin
-        //valid <= false;
-    //end
-        //
-    //if (UARTread && char_buf_rd_ptr-1 ) begin
-    //
-        //rdata <= char_buf[char_buf_rd_ptr];
-        //char_buf_rd_ptr <= char_buf_rd_ptr + 1;
-        //valid <=  true;
-    //end
+//always_ff @(posedge clk) begin
+    //SRAM1.Clock <= clk;
+	//SRAM1.ClockEn <= true;
+	//SRAM1.Reset <= false;		
+	//SRAM1.WE <= true;
+	//SRAM1_ctr++;
+	//if (SRAM1_ctr >= Int_SRAM_MAX_CELLS) begin	
+	    //SRAM1.Address <= SRAM1_ctr; //SRAM1_Address;	
+	    //SRAM1.Data <= SRAM1_ctr;//SRAM1_Data;	
+	    //SRAM1.Q <= SRAM1_Q;
+    //end	
+	//else
+		//SRAM1_ctr = 0;
 //end
 
-//I need to work on this a bit, I need to add UART control lines, wdata, etc.
-//always_ff  @(posedge clk) begin
-
-  //if (reset == 0) begin
-    //char_buf_rd_ptr <= 0;
-    //BAUD_VAL <= 'd434;// 50mhz/115,200 = 434 (115,200 baud)
-    //CSN <= low; //enable UART
-    //WEN <= high;
-    //OEN <= high;
-  //end
-    
-  //else begin
-    //if(TXRDY == true)
-        //DATA_OUT <= wdata;
-    //end
-    
-    //if(RXRDY == true) begin
-      //rdata <= char_buf[char_buf_rd_ptr];
-      //char_buf_rd_ptr <= char_buf_rd_ptr + 1;
-    //end
-  //end
-
-//Read and Write to SRAM test
-//always_ff  @(posedge clk || reset) begin
-  //
-  //if (reset == 0) begin
-//
-    //LSRAM_DATA_OUT <= 'd0;
-    //LSRAM_WADDR <= 'd0;
-    //LSRAM_RADDR <= 'd0;
-    //LSRAM_REN <= low;
-    //LSRAM_WEN <= low;
-    //S_DATA <= 'd0;  
-    //SRAM_CTR <= 'd0; 
-    //SRAM_over_flow <= false; 
-    //SRAM_RW <= high;
-    //mp = 'd0;
-   //end
-    //
-  //else begin
-    //if (SRAM_RW == high) begin       
-        //LSRAM_WADDR <= 'd0;
-        //LSRAM_DATA_OUT <= 'hff; 
-        //LSRAM_WEN <= high;         
-        //SRAM_RW <= low; 
-        //LSRAM_WEN <= low;        
-    //end 
-    //
-    //else begin
-   //
-        //LSRAM_RADDR <= 'd1;
-        //LSRAM_REN <= high;         
-        //S_DATA <= LSRAM_DATA_IN;
-        //LSRAM_REN <= low;
-        //SRAM_RW <= high;         
-    //end
-  //end
+//always_ff @(posedge clk) begin
+	//SRAM2.Clock <= clk;
+	//SRAM2.ClockEn <= true;
+	//SRAM2.Reset <= false;		
+	//SRAM2.WE <= true;
+	//SRAM2_ctr++;	
+    //if (SRAM2_ctr >= Int_SRAM_MAX_CELLS) begin		
+		//SRAM2.Address <= SRAM2_ctr; //SRAM2_Address;	
+		//SRAM2.Data <= SRAM2_ctr;//SRAM2_Data;	
+		//SRAM2.Q <= SRAM2_Q;
+	//end	
+	//else
+		//SRAM2_ctr = 0;
 //end
-
-//always @(posedge clk)
-  //begin
-    //din <='d100;
-    //
-    //en <= high;
-    //we <= high;
-    //
-    //if (en == high) begin
-        //if(we == high) begin
-            //mem[addr] <= din;
-                //we <= low;
-        //end
-        //
-        //else begin
-            //dout <= mem[addr];
-            //we <= high;
-        //end    
-        //end
-        //en <= low;    
-    //end 
-
-//Booting processor
-  //always_ff @(posedge clk)
-    //begin
-      //if (reset == 0) begin
-        //SRAM_CTR <= 0;
-        //active_mem <= _ROM_active; 
-        //boot_flag <= true;
-      //end
-    
-      //else begin
-   
-        //LSRAM_WEN <= high;
-        //LSRAM_WADDR <= SRAM_CTR;  
-        //LSRAM_DATA_OUT <= boot_ROM[SRAM_CTR];
-    
-            //if (SRAM_CTR >= end_boot_ROM) begin
-                //active_mem <= _SRAM_active;
-                    //boot_flag <= false; 
-            //end        
-            //else begin
-                //active_mem <= _ROM_active; 
-                  //boot_flag <= true;    
-            //end
-         //++SRAM_CTR; 
-      //end         
-    //end
-
-
-  
-//logic	[31:0] S_DATA;
-//logic   S_RW;
-//logic [Int_SRAM_size-1:0] SRAM_CTR;
-//logic SRAM_over_flow;  
-  ////Read to SRAM
-  //always_ff  @(posedge clk) begin
-//
-  //if (reset == 0) begin
- ////       S_RW <= low;
-        //C_DIN <= 'd0;
-        //C_ADDR <= 'd0;
-        //C_BLK <= low;//before C_WEN    
-        //C_WEN <= low; 
-   //end 
-    //else begin  
-        //if(S_RW == low) begin
-            //A_ADDR <= 'd0;
-            //S_DATA <= A_DOUT;
-        //end
-    //end   
-  //end  
-  
-  
-  
 endmodule
-
-//module ram (WAddress, RAddress, Data, WClock, WE,
- //RE, Rclock, Q);
-//input [8:0] WAddress, RAddress;
-//input [31:0] Data;
-//input Rclock, WClock;
-//input WE, RE;
-//output [31:0] Q;
-//ram R_32_16 (.Data(Data), .WE(WE), .RE(RE), .WClock(WClock),
-//.Rclock(Rclock), .Q(Q), .WAddress(WAddress),
-//.RAddress(RAddress));
-//endmodule
-
-//Ideas code to implement later
-
-//Masks
-//Parsed numbers (LITERALS in Forth) will not require a compiled LITERAL token but
-// parsed WORDS will be identified as the most significant bit will denote an
-// executable WORD.  The second most significant bit will denote an IMMEDIATE
-// word to be executed during compliation.
-//for example...
-// expand databus width from 31 to 33 bits wide
-//   1111111111111111 32 bit word
-// 001111111111111111 is a LITERAL
-// 000011111111111111 is a LITERAL
-// 100000000000101010 is an executable WORD (token) like CFA
-// 110000000000101010 is an executable WORD as above plus with the IMMEDIATE bit set
-
-  //immediateMASK     <= 31'b010000000000000,
-  //OpCodeMASK        <= 31'b100000000000000
-  
-//module memory(
-//input logic clk ,
-//input logic write
-//Write enable
-//write ,
-//input logic [3:0] address
-//4-bit address
-//address ,
-//input logic [7:0] data_in 8-bit input bus data_in ,
-//output logic [7:0] data_out); data_out 8-bit output bus
-//logic [7:0] mem
-//The memory array: 16 8-bit bytes
-//mem [15:0];
-//always_ff @(posedge clk
-//Clocked
-//posedge clk)
-//begin
-//if (write)
-//mem[address] <= data_in
-//Write to array when asked
-//data_in;
-//data_out <= mem[address]
-//Always read (old) value from array
-//mem[address];
-//end
-//endmodule
-
-//logic [data_size:0] mem [memory_size:0];
-//mem[address] <= data_in;
-//data_out <= mem[address];
-
 
 //REFERENCE!
 
@@ -1132,55 +1288,5 @@ endmodule
 //REPEAT  STATE  THEN  UNTIL  VARIABLE  VOCABULARY  WHILE   
 //[']  [COMPILE]  ] 
 
-//  By editing the code in the Entity declariations, you can add serial ports, parallel
-//  ports, adc's or just about anything you can imagine.
-//# Peter Jackie RISC V MAP Forth functions to logicisters
-//.eqv ip tp # Instruction ptr
-//.eqv rp s0 # Return thread stack ptr
-//.eqv lp s1 # Loop stack ptr
-//.eqv dp gp # data stack ptr
-//.eqv xx t0 # main working logicisters
-//.eqv yy t1
-//.eqv zz t2
-//.eqv aa a0 # top of data stack
-//.eqv bb a1 # second item
-//.eqv cc a2 # third item
-//.eqv dd a3 # fourth item
-//.eqv index a4 # top of loop stack parameters
-//.eqv limit a5 # loop limit or count
-//.eqv loopip a6 # loop address
-//.eqv threaded s10 #constant for decoding address
 
-//4?d0: y=a+b;
-//4?d1: y=a-b;
-//4?d2: y=a*b;
-//4?d3: y={4? bww, ~a};
-//4?d4: y={4? d0, (a & b)};
-//4?d5: y={4? d0, (a | b)};
-//4?d6: y={4? d0, (a ^ b)};
-//4?d7: y={4? d0, ~(a & b)};
-//4?d8: y={4? d0, ~(a | b)};
-//4?d9: y={4? d0, ~(a ^ b)};
-//
-
-//bit [MEM_WIDTH-1:0] mem_data; // memory might by
-//
-//mem_data <= 'b1010;           
-//
-//opcode_t ins <= opcode_t'(mem_data);
-//
- //
-//
-//if (ins.is_immediate) begin
-
-// Execute
-
-//end
-//
-//else
-//
-//begin
-//
-//// Compile
-//
 //End
