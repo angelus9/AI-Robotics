@@ -1,0 +1,102 @@
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+
+# Written on Sat Mar  2 15:36:29 2024
+
+##### DESIGN INFO #######################################################
+
+Top View:                "ForthProc"
+Constraint File(s):      (none)
+
+
+
+
+##### SUMMARY ############################################################
+
+Found 0 issues in 0 out of 0 constraints
+
+
+##### DETAILS ############################################################
+
+
+
+Clock Relationships
+*******************
+
+Starting          Ending            |     rise to rise     |     fall to fall     |     rise to fall     |     fall to rise                     
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ForthProc|clk     ForthProc|clk     |     5.000            |     No paths         |     No paths         |     No paths                         
+===============================================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+Unconstrained Start/End Points
+******************************
+
+p:BUTTON0
+p:BUTTON1
+p:LED0
+p:LED1
+p:LED2
+p:LED3
+p:LED4
+p:LED5
+p:LED6
+p:LED7
+p:LED_B
+p:LED_G
+p:LED_R
+p:OSC_50MHA_EN
+p:PWM_CH1
+p:PWM_CH2
+p:PWM_CH3
+p:PWM_CH4
+p:RX
+p:SPI1_8_clk
+p:SPI1_8_in
+p:SPI1_8_out
+p:SPI1_8_ss
+p:SPI2_16_clk
+p:SPI2_16_in
+p:SPI2_16_out
+p:SPI2_16_ss
+p:TEST_OUT
+p:TX
+
+
+Inapplicable constraints
+************************
+
+(none)
+
+
+Applicable constraints with issues
+**********************************
+
+(none)
+
+
+Constraints with matching wildcard expressions
+**********************************************
+
+(none)
+
+
+Library Report
+**************
+
+
+# End of Constraint Checker Report

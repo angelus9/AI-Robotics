@@ -1,0 +1,153 @@
+[ START MERGED ]
+[ END MERGED ]
+[ START CLIPPED ]
+GND
+VCC
+mem_adreg_0_I_21_0_S1
+mem_adreg_0_I_21_0_S0
+mem_adreg_0_I_9_0_S1
+mem_adreg_0_I_9_0_S0
+mem_adreg_0_I_1_0_S1
+mem_adreg_0_I_1_0_S0
+N_1
+un1_data_stack[15]_0_I_45_0_S0
+un1_data_stack[15]_0_I_45_0_COUT
+un1_data_stack[15]_0_I_81_0_S1
+un1_data_stack[15]_0_I_81_0_S0
+un1_data_stack[15]_0_I_21_0_S1
+un1_data_stack[15]_0_I_21_0_S0
+un1_data_stack[15]_0_I_57_0_S1
+un1_data_stack[15]_0_I_57_0_S0
+un1_data_stack[15]_0_I_27_0_S1
+un1_data_stack[15]_0_I_27_0_S0
+un1_data_stack[15]_0_I_33_0_S1
+un1_data_stack[15]_0_I_33_0_S0
+un1_data_stack[15]_0_I_51_0_S1
+un1_data_stack[15]_0_I_51_0_S0
+un1_data_stack[15]_0_I_9_0_S1
+un1_data_stack[15]_0_I_9_0_S0
+un1_data_stack[15]_0_I_1_0_S1
+un1_data_stack[15]_0_I_1_0_S0
+N_2
+t_execute_0.un310_data_stack_511_I_45_0_S0
+t_execute_0.un310_data_stack_511_I_45_0_COUT
+t_execute_0.un310_data_stack_511_I_81_0_S1
+t_execute_0.un310_data_stack_511_I_81_0_S0
+t_execute_0.un310_data_stack_511_I_21_0_S1
+t_execute_0.un310_data_stack_511_I_21_0_S0
+t_execute_0.un310_data_stack_511_I_57_0_S1
+t_execute_0.un310_data_stack_511_I_57_0_S0
+t_execute_0.un310_data_stack_511_I_27_0_S1
+t_execute_0.un310_data_stack_511_I_27_0_S0
+t_execute_0.un310_data_stack_511_I_33_0_S1
+t_execute_0.un310_data_stack_511_I_33_0_S0
+t_execute_0.un310_data_stack_511_I_51_0_S1
+t_execute_0.un310_data_stack_511_I_51_0_S0
+t_execute_0.un310_data_stack_511_I_9_0_S1
+t_execute_0.un310_data_stack_511_I_9_0_S0
+t_execute_0.un310_data_stack_511_I_1_0_S1
+t_execute_0.un310_data_stack_511_I_1_0_S0
+N_3
+xtwp11_cry_6_0_S1
+xtwp11_cry_6_0_COUT
+xtwp11_cry_5_0_S1
+xtwp11_cry_5_0_S0
+xtwp11_cry_3_0_S1
+xtwp11_cry_3_0_S0
+xtwp11_cry_1_0_S1
+xtwp11_cry_1_0_S0
+xtwp11_cry_0_0_S1
+xtwp11_cry_0_0_S0
+N_4
+mem_addr_1_s_5_0_S1
+mem_addr_1_s_5_0_COUT
+mem_addr_1_cry_0_0_S1
+mem_addr_1_cry_0_0_S0
+N_5
+un15_branch_addr_1_s_9_0_S1
+un15_branch_addr_1_s_9_0_COUT
+un15_branch_addr_1_cry_0_0_S1
+un15_branch_addr_1_cry_0_0_S0
+N_8
+un1_clk_count_72_s_9_0_S1
+un1_clk_count_72_s_9_0_COUT
+un1_clk_count_72_cry_0_0_S0
+N_9
+un1_clk_count_s_9_0_S1
+un1_clk_count_s_9_0_COUT
+un1_clk_count_cry_0_0_S0
+N_10
+seconds_ctr_1_cry_19_0_COUT
+seconds_ctr_1_cry_0_0_S1
+seconds_ctr_1_cry_0_0_S0
+N_11
+Reset_ctr_1_cry_9_0_COUT
+Reset_ctr_1_cry_0_0_S1
+Reset_ctr_1_cry_0_0_S0
+N_12
+un1_wp_361_s_31_0_S1
+un1_wp_361_s_31_0_COUT
+un1_wp_361_cry_0_0_S1
+un1_wp_361_cry_0_0_S0
+N_13
+un520_data_stack_s_31_0_S1
+un520_data_stack_s_31_0_COUT
+un520_data_stack_cry_0_0_S1
+un520_data_stack_cry_0_0_S0
+N_14
+data_stack_s_31_0_S1
+data_stack_s_31_0_COUT
+data_stack_cry_0_0_S1
+data_stack_cry_0_0_S0
+N_15
+un45_data_stack_s_31_0_S1
+un45_data_stack_s_31_0_COUT
+un45_data_stack_cry_0_0_S1
+un45_data_stack_cry_0_0_S0
+N_16
+un107_data_stack_s_31_0_S1
+un107_data_stack_s_31_0_COUT
+un107_data_stack_cry_0_0_S1
+un107_data_stack_cry_0_0_S0
+N_17
+wp_s_0_S1[9]
+wp_s_0_COUT[9]
+wp_cry_0_S0[0]
+N_18
+mp_5_0_s_9_0_S1
+mp_5_0_s_9_0_COUT
+mp_5_0_cry_0_0_S0
+N_19
+xtwp_12_s_9_0_S1
+xtwp_12_s_9_0_COUT
+xtwp_12_cry_0_0_S0
+N_20
+return_stack_ram_1_DO2
+return_stack_ram_1_DO3
+mem_adreg_0_I_27_0_S1
+mem_adreg_0_I_27_0_COUT
+mem_mem_0_0_DO17
+mem_mem_0_0_DO16
+mem_mem_0_0_DO15
+mem_mem_0_0_DO14
+[ END CLIPPED ]
+[ START DESIGN PREFS ]
+SCHEMATIC START ;
+# map:  version Diamond (64-bit) 3.12.1.454 -- WARNING: Map write only section -- Sat Mar 02 15:37:32 2024
+
+SYSCONFIG SLAVE_SPI_PORT=DISABLE MASTER_SPI_PORT=DISABLE SLAVE_PARALLEL_PORT=DISABLE BACKGROUND_RECONFIG=OFF DONE_EX=OFF DONE_OD=ON DONE_PULL=ON MCCLK_FREQ=2.4 TRANSFR=OFF CONFIG_IOVOLTAGE=2.5 CONFIG_SECURE=OFF WAKE_UP=21 COMPRESS_CONFIG=OFF CONFIG_MODE=JTAG INBUF=OFF ;
+LOCATE COMP "TX" SITE "C14" ;
+LOCATE COMP "clk" SITE "A10" ;
+LOCATE COMP "OSC_50MHA_EN" SITE "C11" ;
+LOCATE COMP "TEST_OUT" SITE "E14" ;
+LOCATE COMP "LED7" SITE "B17" ;
+LOCATE COMP "LED6" SITE "A17" ;
+LOCATE COMP "LED5" SITE "C17" ;
+LOCATE COMP "LED4" SITE "B18" ;
+LOCATE COMP "LED3" SITE "A18" ;
+LOCATE COMP "LED2" SITE "B19" ;
+LOCATE COMP "LED1" SITE "A12" ;
+LOCATE COMP "LED0" SITE "A13" ;
+LOCATE COMP "RX" SITE "D14" ;
+SCHEMATIC END ;
+[ END DESIGN PREFS ]

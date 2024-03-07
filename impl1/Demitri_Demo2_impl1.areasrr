@@ -1,0 +1,34 @@
+----------------------------------------------------------------------
+Report for cell ForthProc.verilog
+
+Register bits: 1048 of 83640 (1%)
+PIC Latch:       0
+I/O cells:       29
+                                          Cell usage:
+                               cell       count    Res Usage(%)
+                              CCU2C      169       100.0
+                           DPR16X4C        3       100.0
+                            FD1P3AX      167       100.0
+                            FD1P3IX      153       100.0
+                            FD1P3JX      508       100.0
+                            FD1S3AX      129       100.0
+                            FD1S3AY        1       100.0
+                            FD1S3IX       71       100.0
+                            FD1S3JX       10       100.0
+                                GSR        1       100.0
+                                 IB        5       100.0
+                           IFS1P3DX        1       100.0
+                           IFS1P3IX        1       100.0
+                                INV        4       100.0
+                            L6MUX21       24       100.0
+                                 OB       24       100.0
+                           OFS1P3DX        6       100.0
+                           OFS1P3JX        1       100.0
+                           ORCALUT4     5258       100.0
+                           PDPW16KD        1       100.0
+                              PFUMX      191       100.0
+                                PUR        1       100.0
+                                VHI        1       100.0
+                                VLO        1       100.0
+                            
+                         TOTAL          6731           

@@ -1,0 +1,32 @@
+NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
+NOTE All Rights Reserved *
+NOTE DATE CREATED: Sat Feb 24 18:49:43 2024 *
+NOTE DESIGN NAME: ForthProc *
+NOTE DEVICE NAME: LFE5UM5G-85F-8CABGA381 *
+NOTE PIN ASSIGNMENTS *
+NOTE PINS TX : C14 : out *
+NOTE PINS clk : A10 : in *
+NOTE PINS OSC_50MHA_EN : C11 : out *
+NOTE PINS TEST_OUT : E14 : out *
+NOTE PINS SPI2_16_clk : P4 : out *
+NOTE PINS SPI1_8_clk : W2 : out *
+NOTE PINS SPI2_16_ss : L3 : out *
+NOTE PINS SPI1_8_ss : G20 : out *
+NOTE PINS SPI2_16_out : B4 : out *
+NOTE PINS SPI1_8_out : L17 : out *
+NOTE PINS PWM_CH4 : U2 : out *
+NOTE PINS PWM_CH3 : M20 : out *
+NOTE PINS PWM_CH2 : M3 : out *
+NOTE PINS PWM_CH1 : P16 : out *
+NOTE PINS LED7 : B17 : out *
+NOTE PINS LED6 : A17 : out *
+NOTE PINS LED5 : C17 : out *
+NOTE PINS LED4 : B18 : out *
+NOTE PINS LED3 : A18 : out *
+NOTE PINS LED2 : B19 : out *
+NOTE PINS LED1 : A12 : out *
+NOTE PINS LED0 : A13 : out *
+NOTE PINS SPI2_16_in : B3 : in *
+NOTE PINS RX : D14 : in *
+NOTE CONFIGURATION MODE: JTAG *
+NOTE COMPRESSION: off *

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE		ispXCF	SYSTEM	"IspXCF.dtd" >
+<ispXCF version="3.12">
+	<Comment></Comment>
+	<Chain>
+		<Comm>JTAG</Comm>
+		<Device>
+			<SelectedProg value="TRUE"/>
+			<Pos>1</Pos>
+			<Vendor>Macronix</Vendor>
+			<Family>ECP5UM5G</Family>
+			<Name>LFE5UM5G-85F</Name>
+			<Package>All</Package>
+			<Bypass>
+				<InstrLen>8</InstrLen>
+				<InstrVal>11111111</InstrVal>
+				<BScanLen>1</BScanLen>
+				<BScanVal>0</BScanVal>
+			</Bypass>
+			<File>D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Demitri_Demo2_impl1.bit</File>
+			<FileTime>03/02/24 15:38:55</FileTime>
+			<JedecChecksum>0xB184</JedecChecksum>
+			<Operation>SPI Flash Erase,Program,Verify</Operation>
+			<Option>
+				<SVFVendor>JTAG STANDARD</SVFVendor>
+				<SVFProcessor>SVF Processor</SVFProcessor>
+				<Usercode>0x00000000</Usercode>
+				<AccessMode>SPI Flash Background Programming</AccessMode>
+			</Option>
+			<FPGALoader>
+			<CPLDDevice>
+				<Device>
+					<Pos>1</Pos>
+					<Vendor>Lattice</Vendor>
+					<Family>ECP5UM5G</Family>
+					<Name>LFE5UM5G-85F</Name>
+					<IDCode>0x81113043</IDCode>
+					<Package>All</Package>
+					<PON>LFE5UM5G-85F</PON>
+					<Bypass>
+						<InstrLen>8</InstrLen>
+						<InstrVal>11111111</InstrVal>
+						<BScanLen>1</BScanLen>
+						<BScanVal>0</BScanVal>
+					</Bypass>
+					<MaskFile>C:/lscc/diamond/3.12/data/vmdata/database\xpga\ecp5\LFE5UM-85F.msk</MaskFile>
+					<Operation>Bypass</Operation>
+					<Option>
+						<SVFVendor>JTAG STANDARD</SVFVendor>
+						<IOState>HighZ</IOState>
+						<PreloadLength>750</PreloadLength>
+						<IOVectorData>0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IOVectorData>
+						<SVFProcessor>SVF Processor</SVFProcessor>
+						<AccessMode>JTAG</AccessMode>
+					</Option>
+				</Device>
+			</CPLDDevice>
+			<FlashDevice>
+				<Device>
+					<Pos>1</Pos>
+					<Vendor>Macronix</Vendor>
+					<Family>SPI Serial Flash</Family>
+					<Name>MX25L12833F</Name>
+					<IDCode>0x18</IDCode>
+					<Package>16-pin SOP</Package>
+					<Operation>SPI Flash Erase,Program,Verify</Operation>
+					<File>D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Demitri_Demo2_impl1.bit</File>
+					<AddressBase>0x00000000</AddressBase>
+					<EndAddress>0x001D0000</EndAddress>
+					<DeviceSize>128</DeviceSize>
+					<DataSize>1928041</DataSize>
+					<NumberOfDevices>1</NumberOfDevices>
+					<ReInitialize value="FALSE"/>
+				</Device>
+			</FlashDevice>
+			<FPGADevice>
+				<Device>
+					<Pos>1</Pos>
+					<Name></Name>
+					<File>D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Demitri_Demo2_impl1.bit</File>
+					<LocalChainList>
+						<LocalDevice index="-99"
+							name="Unknown"
+							file="D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Demitri_Demo2_impl1.bit"/>
+					</LocalChainList>
+					<Option>
+						<SVFVendor>JTAG STANDARD</SVFVendor>
+						<SVFProcessor>SVF Processor</SVFProcessor>
+					</Option>
+				</Device>
+			</FPGADevice>
+			</FPGALoader>
+		</Device>
+	</Chain>
+	<ProjectOptions>
+		<Program>SEQUENTIAL</Program>
+		<Process>ENTIRED CHAIN</Process>
+		<OperationOverride>No Override</OperationOverride>
+		<StartTAP>TLR</StartTAP>
+		<EndTAP>TLR</EndTAP>
+		<VerifyUsercode value="FALSE"/>
+		<TCKDelay>1</TCKDelay>
+	</ProjectOptions>
+	<CableOptions>
+		<CableName>USB2</CableName>
+		<PortAdd>FTUSB-0</PortAdd>
+		<USBID>Lattice ECP5 Evaluation Board A Location 0000 Serial FT57SGPUA</USBID>
+		<JTAGPinSetting>
+			TRST	ABSENT;
+			ISPEN	ABSENT;
+		</JTAGPinSetting>
+	</CableOptions>
+</ispXCF>

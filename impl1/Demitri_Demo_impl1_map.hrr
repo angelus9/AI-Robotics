@@ -1,0 +1,12 @@
+---------------------------------------------------
+Report for cell ForthProc
+   Instance path: ForthProc
+                     Cell usage:
+                                  cell	      count    Res Usage(%)
+                                  SLIC	      17.00        100.0
+                                 IOLGC	       3.00        100.0
+                                  LUT4	      10.00        100.0
+                                 IOREG	          3        100.0
+                                 IOBUF	         24        100.0
+                                PFUREG	         23        100.0
+                                RIPPLE	         11        100.0

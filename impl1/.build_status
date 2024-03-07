@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BuildStatus>
+    <Strategy name="Strategy1">
+        <Milestone name="Export" build_result="0" build_time="0">
+            <Task name="IBIS" build_result="0" update_result="3" update_time="0"/>
+            <Task name="TimingSimFileVlg" build_result="0" update_result="3" update_time="0"/>
+            <Task name="TimingSimFileVHD" build_result="0" update_result="3" update_time="0"/>
+            <Task name="Bitgen" build_result="2" update_result="0" update_time="1709411935"/>
+            <Task name="Promgen" build_result="2" update_result="0" update_time="1709411938"/>
+        </Milestone>
+        <Milestone name="Map" build_result="2" build_time="1709411852">
+            <Task name="Map" build_result="2" update_result="0" update_time="1709411852"/>
+            <Task name="MapTrace" build_result="0" update_result="3" update_time="0"/>
+            <Task name="MapVerilogSimFile" build_result="0" update_result="3" update_time="0"/>
+            <Task name="MapVHDLSimFile" build_result="0" update_result="3" update_time="0"/>
+        </Milestone>
+        <Milestone name="PAR" build_result="2" build_time="1709411911">
+            <Task name="PAR" build_result="2" update_result="0" update_time="1709411911"/>
+            <Task name="PARTrace" build_result="2" update_result="0" update_time="1709411921"/>
+            <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
+        </Milestone>
+        <Milestone name="Synthesis" build_result="2" build_time="1709411846">
+            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1709411846"/>
+        </Milestone>
+        <Milestone name="TOOL_Report" build_result="0" build_time="0">
+            <Task name="HDLE" build_result="0" update_result="2" update_time="1709411847"/>
+            <Task name="BKM" build_result="0" update_result="2" update_time="1709411847"/>
+            <Task name="SSO" build_result="0" update_result="3" update_time="0"/>
+            <Task name="PIODRC" build_result="0" update_result="3" update_time="0"/>
+            <Task name="DEC" build_result="0" update_result="3" update_time="0"/>
+        </Milestone>
+        <Milestone name="Translate" build_result="2" build_time="1709411848">
+            <Task name="Translate" build_result="2" update_result="0" update_time="1709411848"/>
+        </Milestone>
+        <Report name="Demitri_Demo2_impl1.bgn" last_build_time="1709411935" last_build_size="4602"/>
+        <Report name="Demitri_Demo2_impl1.bit" last_build_time="1709411935" last_build_size="1928041"/>
+        <Report name="Demitri_Demo2_impl1.edi" last_build_time="1709411843" last_build_size="4242804"/>
+        <Report name="Demitri_Demo2_impl1.mcs" last_build_time="1709411938" last_build_size="5423125"/>
+        <Report name="Demitri_Demo2_impl1.ncd" last_build_time="1709411911" last_build_size="6092079"/>
+        <Report name="Demitri_Demo2_impl1.ngd" last_build_time="1709411848" last_build_size="3647923"/>
+        <Report name="Demitri_Demo2_impl1.twr" last_build_time="1709411920" last_build_size="63196"/>
+        <Report name="Demitri_Demo2_impl1_map.ncd" last_build_time="1709411852" last_build_size="3957014"/>
+        <Report name="Demitri_Demo_impl1.bgn" last_build_time="1708818583" last_build_size="4593"/>
+        <Report name="Demitri_Demo_impl1.bit" last_build_time="1708818583" last_build_size="1928040"/>
+        <Report name="Demitri_Demo_impl1.edi" last_build_time="1708818546" last_build_size="40514"/>
+        <Report name="Demitri_Demo_impl1.mcs" last_build_time="1708818587" last_build_size="5423123"/>
+        <Report name="Demitri_Demo_impl1.ncd" last_build_time="1708818571" last_build_size="43626"/>
+        <Report name="Demitri_Demo_impl1.ngd" last_build_time="1708818548" last_build_size="39094"/>
+        <Report name="Demitri_Demo_impl1.twr" last_build_time="1708818574" last_build_size="45535"/>
+        <Report name="Demitri_Demo_impl1_map.ncd" last_build_time="1708818550" last_build_size="35036"/>
+    </Strategy>
+</BuildStatus>
+                   

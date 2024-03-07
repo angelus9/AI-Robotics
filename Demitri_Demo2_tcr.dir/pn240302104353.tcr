@@ -1,0 +1,6 @@
+#Start recording tcl command: 3/2/2024 10:42:10
+#Project Location: D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo; Project name: Demitri_Demo2
+prj_project open "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/Demitri_Demo2.ldf"
+prj_src add "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Forth_Proc.sv"
+prj_src remove "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Forth_Proc.sv"
+#Stop recording: 3/2/2024 10:43:53

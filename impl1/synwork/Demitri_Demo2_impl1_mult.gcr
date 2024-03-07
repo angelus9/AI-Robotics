@@ -1,0 +1,8 @@
+i clk
+m 0 0
+u 107 994
+p {p:clk}{t:state[11].C}
+e ckid0_0 {t:state[11].C} dffr
+c ckid0_0 {p:clk} port Unsupported/too complex instance on clock path
+l 0 0 0 0 0 0
+r 0 0 0 0 0 0 0 0

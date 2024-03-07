@@ -1,0 +1,2 @@
+@E: CG906 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":746:21:746:27|Reference to unknown variable BUTTON0.
+

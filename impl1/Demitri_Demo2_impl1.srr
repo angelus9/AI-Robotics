@@ -1,0 +1,1540 @@
+#Build: Synplify Pro (R) R-2021.03L-SP1, Build 093R, Aug 10 2021
+#install: C:\lscc\diamond\3.12\synpbase
+#OS: Windows 8 6.2
+#Hostname: MSI
+
+# Sat Mar  2 15:36:13 2024
+
+#Implementation: impl1
+
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys HDL Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Verilog Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\ecp5um5g.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\pmi_def.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\hypermods.v" (library __hyper__lib__)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\umr_capim.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_objects.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_pipes.svh" (library snps_haps)
+@I::"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv" (library work)
+Verilog syntax check successful!
+File D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv changed - recompiling
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":67:0:67:8|Synthesizing module work_D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv_unit in library work.
+Selecting top level module ForthProc
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":132:7:132:15|Synthesizing module ForthProc in library work.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":185:13:185:19|Object PWM_CH1 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":186:13:186:19|Object PWM_CH2 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":187:13:187:19|Object PWM_CH3 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":188:13:188:19|Object PWM_CH4 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":201:6:201:15|Object n_main_clk is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":202:12:202:21|Object active_mem is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":203:12:203:20|Object errorcode is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":205:12:205:21|Object successful is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":208:12:208:25|Object clock_1MHZ_ctr is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":212:12:212:21|Object clock_1MHZ is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":213:13:213:22|Object clock_1KHZ is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":214:13:214:23|Object clock_500MS is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":217:23:217:37|Object PWM_div_counter is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":218:23:218:41|Object PWM_CH1_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":219:23:219:41|Object PWM_CH2_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":220:23:220:41|Object PWM_CH3_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":221:23:221:41|Object PWM_CH4_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":225:12:225:26|Object SPI1_8_data_out is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":226:12:226:25|Object SPI1_8_data_in is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":229:13:229:28|Object SPI1_16_data_out is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":230:13:230:27|Object SPI1_16_data_in is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":245:23:245:32|Object AddressBus is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":255:6:255:12|Object n_LED_G is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":256:6:256:12|Object n_LED_B is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":257:6:257:12|Object n_LED_R is declared but not assigned. Either assign a value or remove the declaration.
+Running optimization stage 1 on ForthProc .......
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":906:0:906:8|Pruning unused register SPI2_16_div_counter[5:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Pruning unused register i. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused register nrp[7:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused register n_BUTTON0. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused register n_BUTTON1. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning unused register DICT_START[31:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning unused register ERROR_CFA[31:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning unused register count[3:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning unused register nwp[7:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Pruning unused register mem_diff[9:0]. Make sure that there are no unused intermediate registers.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[0][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[1][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[2][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[3][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[4][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[5][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[6][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@W: CL271 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Pruning unused bits 31 to 10 of return_stack[7][31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+@N: CL134 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Found RAM mem, depth=257, width=32
+@A: CL282 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal mem_addr[9:0]. It is possible a set/reset assignment for this is signal missing. To improve timing and area, specify a set/reset value.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[52][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[51][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[51] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[50][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[49][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[49] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[49] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[48][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[48] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[48] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[48] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[48] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[47][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[47] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[47] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[46][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[46] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[45][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[45] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[44][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[44] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[44] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[43][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[42][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[42] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[42] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[41][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[41] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[40][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[40] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[39][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[39] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[39] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[38][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[37][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[37] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[36][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[36] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[36] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[35][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[35] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[35] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[34][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[34] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[34] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[34] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[33][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[32][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[32] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[32] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[32] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[31][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[30][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[30] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[29][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[29] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[29] and merging bootROM[45]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[28][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[28] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[28] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[27][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[27] and merging bootROM[34]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[26][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[25][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[25] and merging bootROM[48]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[25] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[25] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[24][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[23][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[23] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[22][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[22] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[22] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[21][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[21] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[21] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[20][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[20] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[19][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[19] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[18][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[17][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+
+Only the first 100 messages of id 'CL177' are reported. To see all messages use 'report_messages -log D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo2_impl1_compiler.srr -id CL177' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {CL177} -count unlimited' in the Tcl shell.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[16][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[15][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[14][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[13][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[12][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[11][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[2][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[1][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Feedback mux created for signal bootROM[0][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[1][5:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[11][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[11][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[12][5:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[13][2:1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[15][31:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[16][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[16][20] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[16][19:18] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[16][14:13] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[16][6:5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[17][31:7] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[17][5:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[17][2:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[19][3:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][31:25] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][24] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][22:20] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][19:18] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][14:13] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[20][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[21][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[21][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[22][31:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[23][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[23][3:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[25][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][22:21] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][18:16] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][14:12] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][11:10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][9] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][8:7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[26][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][16:15] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][14:13] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][12] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][8:7] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][6] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[27][5:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[28][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[28][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[30][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[30][3:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[32][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][20:18] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][17] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][16:15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][14:13] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][12] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][11:10] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][9:7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][6:4] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[33][1] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[34][31:10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[34][9:8] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[34][7:6] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[34][2:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[35][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[35][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[36][31:2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[37][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[37][3:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[39][4:0] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][31:26] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][25] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][24:23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][20:19] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][18] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][14:13] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][12:11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][8] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[40][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][31:17] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][16:15] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][14:11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][10] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][9] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][8:5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][4:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[41][2] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[42][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[42][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][31:23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][22] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][21:20] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][19:18] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][17:15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][14] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][13:12] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][11] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][9:8] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][6] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[43][5:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[44][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[44][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[45][31:1] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[46][2:1] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[46][0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[47][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[48][3:2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[49][5:4] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[49][2:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[50][31:6] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[50][5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[50][4] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[50][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[50][1:0] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[51][31:5] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[51][4] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[51][3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[51][2:1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[52][31:4] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[52][3] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[52][2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[52][1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|All reachable assignments to bootROM[52][0] assign 0, register removed by optimization
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit OSC_50MHA_EN is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED6 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED7 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":906:0:906:8|Register bit SPI2_16_clk is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":906:0:906:8|Register bit SPI2_16_ss is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[10] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[11] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[12] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[13] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[14] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[15] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[16] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[17] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[18] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[19] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[20] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[21] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[22] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[23] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[24] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[25] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[26] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[27] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[28] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[29] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[30] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_out is always 0.
+@W: CL279 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning register bits 31 to 10 of newest_def[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+Finished optimization stage 1 on ForthProc (CPU Time 0h:00m:00s, Memory Used current: 154MB peak: 156MB)
+Running optimization stage 2 on ForthProc .......
+@N: CL134 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Found RAM return_stack, depth=8, width=10
+@W: CL297 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|The read address covers a larger address space than the RAM depth. Access beyond the memory depth will be treated as a "don't-care"
+@W: CL305 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Optimizing flip-flop that can only be initialized externally (flip-flop that drives itself)
+@W: CL305 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Optimizing flip-flop that can only be initialized externally (flip-flop that drives itself)
+@W: CL305 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Optimizing flip-flop that can only be initialized externally (flip-flop that drives itself)
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED6 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED7 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_div_counter[4] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit cells[7] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning register bit 7 of cells[7:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Pruning register bit 4 of SPI1_8_div_counter[4:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_ss is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit word_in[0][31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit ccell[7] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning register bit 7 of ccell[7:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Pruning register bit 31 of word_in[0][31:24]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Pruning unused register SPI1_8_div_counter[3:0]. Make sure that there are no unused intermediate registers.
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Trying to extract state machine for register state.
+Extracted state machine for register state
+State machine has 12 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+   0101
+   0110
+   0111
+   1000
+   1001
+   1010
+   1011
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Trying to extract state machine for register comp_state.
+Extracted state machine for register comp_state
+State machine has 5 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":185:13:185:19|*Unassigned bits of PWM_CH1 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":186:13:186:19|*Unassigned bits of PWM_CH2 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":187:13:187:19|*Unassigned bits of PWM_CH3 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":188:13:188:19|*Unassigned bits of PWM_CH4 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[3][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[4][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[5][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[6][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[7][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[8][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[9][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[10][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[53][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[54][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[55][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[56][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[57][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[58][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[59][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[60][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[61][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[62][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[63][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[64][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[65][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[66][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[67][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[68][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[69][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[70][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[71][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[72][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[73][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[74][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[75][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[76][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[77][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[78][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[79][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[80][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[81][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[82][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[83][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[84][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[85][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[86][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[87][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[88][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[89][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[90][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[91][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[92][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[93][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[94][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[95][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[96][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[97][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[98][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[99][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[100][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[101][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[102][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[103][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[104][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[105][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[106][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[107][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[108][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[109][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[110][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[111][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[112][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[113][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[114][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[115][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[116][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[117][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[118][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[119][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[120][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[121][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[122][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[123][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[124][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[125][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[126][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[127][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[128][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[129][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[130][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[131][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[132][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[133][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[134][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[135][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[136][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[137][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[138][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[139][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":239:20:239:26|*Unassigned bits of bootROM[140][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+
+Only the first 100 messages of id 'CL153' are reported. To see all messages use 'report_messages -log D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo2_impl1_compiler.srr -id CL153' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {CL153} -count unlimited' in the Tcl shell.
+@N: CL159 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":168:6:168:14|Input SPI1_8_in is unused.
+Finished optimization stage 2 on ForthProc (CPU Time 0h:00m:10s, Memory Used current: 201MB peak: 284MB)
+
+For a summary of runtime and memory usage per design unit, please see file:
+==========================================================
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\layer0.rt.csv
+
+
+At c_ver Exit (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:11s; Memory used current: 201MB peak: 284MB)
+
+Process took 0h:00m:12s realtime, 0h:00m:11s cputime
+
+Process completed successfully.
+# Sat Mar  2 15:36:25 2024
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+File D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\layer0.srs changed - recompiling
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 93MB peak: 94MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sat Mar  2 15:36:26 2024
+
+###########################################################]
+
+For a summary of runtime and memory usage for all design units, please see file:
+==========================================================
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_comp.rt.csv
+
+@END
+
+At c_hdl Exit (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:11s; Memory used current: 23MB peak: 23MB)
+
+Process took 0h:00m:12s realtime, 0h:00m:11s cputime
+
+Process completed successfully.
+# Sat Mar  2 15:36:26 2024
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+File D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_comp.srs changed - recompiling
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 93MB peak: 94MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sat Mar  2 15:36:27 2024
+
+###########################################################]
+# Sat Mar  2 15:36:27 2024
+
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Lattice Technology Pre-mapping, Version map202103lat, Build 070R, Built Oct  6 2021 11:12:38, @
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 118MB peak: 118MB)
+
+
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 121MB peak: 130MB)
+
+@A: MF827 |No constraint file specified.
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1_scck.rpt 
+See clock summary report "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1_scck.rpt"
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 129MB peak: 130MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 130MB peak: 130MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 142MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 144MB)
+
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[11\].
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[12\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[13\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[14\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[15\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[16\].
+@N: FX493 |Applying initial value "0" on instance reset.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Removing sequential instance word_in[0][30:24] because it is equivalent to instance cells[6:0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+Encoding state machine comp_state[4:0] (in view: work.ForthProc(verilog))
+original code -> new code
+   0000 -> 00001
+   0001 -> 00010
+   0010 -> 00100
+   0011 -> 01000
+   0100 -> 10000
+@N: FX493 |Applying initial value "1" on instance comp_state[0].
+@N: FX493 |Applying initial value "0" on instance comp_state[1].
+@N: FX493 |Applying initial value "0" on instance comp_state[2].
+@N: FX493 |Applying initial value "0" on instance comp_state[3].
+@N: FX493 |Applying initial value "0" on instance comp_state[4].
+Encoding state machine state[11:0] (in view: work.ForthProc(verilog))
+original code -> new code
+   0000 -> 000000000001
+   0001 -> 000000000010
+   0010 -> 000000000100
+   0011 -> 000000001000
+   0100 -> 000000010000
+   0101 -> 000000100000
+   0110 -> 000001000000
+   0111 -> 000010000000
+   1000 -> 000100000000
+   1001 -> 001000000000
+   1010 -> 010000000000
+   1011 -> 100000000000
+@N: FX493 |Applying initial value "1" on instance state[0].
+@N: FX493 |Applying initial value "0" on instance state[1].
+@N: FX493 |Applying initial value "0" on instance state[2].
+@N: FX493 |Applying initial value "0" on instance state[3].
+@N: FX493 |Applying initial value "0" on instance state[4].
+@N: FX493 |Applying initial value "0" on instance state[5].
+@N: FX493 |Applying initial value "0" on instance state[6].
+@N: FX493 |Applying initial value "0" on instance state[7].
+@N: FX493 |Applying initial value "0" on instance state[8].
+@N: FX493 |Applying initial value "0" on instance state[9].
+@N: FX493 |Applying initial value "0" on instance state[10].
+@N: FX493 |Applying initial value "0" on instance state[11].
+
+Starting clock optimization phase (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 180MB peak: 180MB)
+
+
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 180MB peak: 180MB)
+
+
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 180MB)
+
+
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 180MB)
+
+@N: FX1184 |Applying syn_allowed_resources blockrams=208 on top level netlist ForthProc 
+
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 181MB)
+
+
+
+Clock Summary
+******************
+
+          Start             Requested     Requested     Clock        Clock                   Clock
+Level     Clock             Frequency     Period        Type         Group                   Load 
+--------------------------------------------------------------------------------------------------
+0 -       ForthProc|clk     200.0 MHz     5.000         inferred     Inferred_clkgroup_0     1034 
+==================================================================================================
+
+
+
+Clock Load Summary
+***********************
+
+                  Clock     Source        Clock Pin       Non-clock Pin     Non-clock Pin
+Clock             Load      Pin           Seq Example     Seq Example       Comb Example 
+-----------------------------------------------------------------------------------------
+ForthProc|clk     1034      clk(port)     LED0.C          -                 -            
+=========================================================================================
+
+@W: MT529 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Found inferred clock ForthProc|clk which controls 1034 sequential elements including state[11]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+ICG Latch Removal Summary:
+Number of ICG latches removed: 0
+Number of ICG latches not removed:	0
+For details review file gcc_ICG_report.rpt
+
+
+@S |Clock Optimization Summary
+
+
+
+#### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
+
+1 non-gated/non-generated clock tree(s) driving 994 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+=========================== Non-Gated/Non-Generated Clocks ============================
+Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
+---------------------------------------------------------------------------------------
+@KP:ckid0_0       clk                 port                   994        state[11]      
+=======================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######
+
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.
+Finished Pre Mapping Phase.
+
+Starting constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 178MB peak: 181MB)
+
+
+Finished constraint checker preprocessing (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 179MB peak: 181MB)
+
+
+Finished constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 181MB peak: 181MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 94MB peak: 182MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Mar  2 15:36:29 2024
+
+###########################################################]
+# Sat Mar  2 15:36:29 2024
+
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Lattice Technology Mapper, Version map202103lat, Build 070R, Built Oct  6 2021 11:12:38, @
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 118MB peak: 118MB)
+
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 120MB peak: 130MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 120MB peak: 130MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 134MB peak: 134MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 135MB peak: 137MB)
+
+
+
+Starting Optimization and Mapping (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 172MB peak: 172MB)
+
+
+Finished RTL optimizations (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 177MB peak: 177MB)
+
+@N: MO231 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Found counter in view:work.ForthProc(verilog) instance wp[9:0] 
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Found 9 by 9 bit equality operator ('==') adreg (in view: VhdlGenLib.ForthProc_RAM_R_W_257_32_TFFF_block_ram_virtex2(netlist))
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing sequential instance mem_addr[9] (in view: work.ForthProc(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Removing sequential instance comp_state[0] (in view: work.ForthProc(verilog)) of type view:PrimLib.dffs(prim) because it does not drive other instances.
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":459:25:459:50|Found 32 by 32 bit equality operator ('==') un1_data_stack\[15\] (in view: work.ForthProc(verilog))
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":611:20:611:55|Found 32 by 32 bit equality operator ('==') t_execute_0\.un310_data_stack (in view: work.ForthProc(verilog))
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[11\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[16\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[15\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[14\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[13\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[12\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: MF794 |RAM mem[31:0] required 51 registers during mapping 
+
+Starting factoring (Real Time elapsed 0h:00m:06s; CPU Time elapsed 0h:00m:05s; Memory used current: 200MB peak: 200MB)
+
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[0] because it is equivalent to instance mem_addr[0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[1] because it is equivalent to instance mem_addr[1]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[2] because it is equivalent to instance mem_addr[2]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[3] because it is equivalent to instance mem_addr[3]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[4] because it is equivalent to instance mem_addr[4]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[5] because it is equivalent to instance mem_addr[5]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[6] because it is equivalent to instance mem_addr[6]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[7] because it is equivalent to instance mem_addr[7]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing instance mem_raddr_tmp[8] because it is equivalent to instance mem_addr[8]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+
+Finished factoring (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:10s; Memory used current: 219MB peak: 219MB)
+
+
+Available hyper_sources - for debug and ip models
+	None Found
+
+
+Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:16s; Memory used current: 230MB peak: 278MB)
+
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":726:4:726:5|Pipelining module un1_dp[3:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":724:0:724:8|Pushed in register dp[3:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":462:7:462:11|Pipelining module un1_ccell[6:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register ccell[6:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":923:12:923:12|Pipelining module seconds_ctr_1[20:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":921:0:921:8|Pushed in register seconds_ctr[20:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":474:9:474:12|Pipelining module un1_xtwp[9:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register xtwp[9:0].
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register branch_addr.
+
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:20s; CPU Time elapsed 0h:00m:18s; Memory used current: 231MB peak: 278MB)
+
+
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:28s; CPU Time elapsed 0h:00m:26s; Memory used current: 242MB peak: 278MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:29s; CPU Time elapsed 0h:00m:26s; Memory used current: 242MB peak: 278MB)
+
+
+Finished preparing to map (Real Time elapsed 0h:00m:30s; CPU Time elapsed 0h:00m:28s; Memory used current: 234MB peak: 278MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:41s; CPU Time elapsed 0h:00m:37s; Memory used current: 274MB peak: 309MB)
+
+Pass		 CPU time		Worst Slack		Luts / Registers
+------------------------------------------------------------
+   1		0h:00m:38s		    -6.17ns		5257 /      1042
+   2		0h:00m:38s		    -6.17ns		5235 /      1042
+   3		0h:00m:38s		    -6.29ns		5236 /      1042
+   4		0h:00m:38s		    -6.17ns		5235 /      1042
+
+   5		0h:00m:42s		    -6.17ns		5253 /      1042
+   6		0h:00m:42s		    -5.84ns		5256 /      1042
+   7		0h:00m:42s		    -5.63ns		5260 /      1042
+   8		0h:00m:42s		    -6.03ns		5262 /      1042
+   9		0h:00m:42s		    -5.63ns		5262 /      1042
+  10		0h:00m:43s		    -5.68ns		5264 /      1042
+  11		0h:00m:43s		    -5.37ns		5266 /      1042
+  12		0h:00m:43s		    -5.34ns		5266 /      1042
+  13		0h:00m:43s		    -5.42ns		5266 /      1042
+  14		0h:00m:43s		    -5.25ns		5268 /      1042
+  15		0h:00m:43s		    -5.35ns		5270 /      1042
+  16		0h:00m:43s		    -5.22ns		5271 /      1042
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[5] (in view: work.ForthProc(verilog)) with 37 loads 2 times to improve timing.
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[1] (in view: work.ForthProc(verilog)) with 31 loads 2 times to improve timing.
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[4] (in view: work.ForthProc(verilog)) with 31 loads 2 times to improve timing.
+Added 6 Registers via timing driven replication
+Added 0 LUTs via timing driven replication
+
+  17		0h:00m:43s		    -5.22ns		5266 /      1048
+  18		0h:00m:44s		    -5.48ns		5268 /      1048
+  19		0h:00m:44s		    -5.23ns		5270 /      1048
+  20		0h:00m:44s		    -5.15ns		5271 /      1048
+  21		0h:00m:44s		    -5.13ns		5275 /      1048
+  22		0h:00m:45s		    -5.26ns		5275 /      1048
+  23		0h:00m:45s		    -5.12ns		5275 /      1048
+  24		0h:00m:45s		    -5.26ns		5275 /      1048
+  25		0h:00m:45s		    -5.12ns		5275 /      1048
+  26		0h:00m:45s		    -5.26ns		5275 /      1048
+  27		0h:00m:45s		    -5.12ns		5275 /      1048
+
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:49s; CPU Time elapsed 0h:00m:46s; Memory used current: 277MB peak: 309MB)
+
+@N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
+@N: FO126 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":724:0:724:8|Generating RAM return_stack[9:0]
+@A: BN291 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":812:0:812:8|Boundary register TX.fb (in view: work.ForthProc(verilog)) is packed into a complex cell. To disable register packing, set syn_keep=1 on the net between the register and the complex cell. 
+
+Finished restoring hierarchy (Real Time elapsed 0h:00m:51s; CPU Time elapsed 0h:00m:47s; Memory used current: 280MB peak: 309MB)
+
+
+Start Writing Netlists (Real Time elapsed 0h:00m:51s; CPU Time elapsed 0h:00m:48s; Memory used current: 223MB peak: 309MB)
+
+Writing Analyst data base D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_m.srm
+
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:52s; CPU Time elapsed 0h:00m:48s; Memory used current: 270MB peak: 309MB)
+
+Writing EDIF Netlist and constraint files
+@N: FX1056 |Writing EDF file: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1.edi
+@N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
+
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:53s; CPU Time elapsed 0h:00m:49s; Memory used current: 276MB peak: 309MB)
+
+
+Finished Writing Netlists (Real Time elapsed 0h:00m:53s; CPU Time elapsed 0h:00m:49s; Memory used current: 276MB peak: 309MB)
+
+
+Start final timing analysis (Real Time elapsed 0h:00m:54s; CPU Time elapsed 0h:00m:50s; Memory used current: 268MB peak: 309MB)
+
+@W: MT420 |Found inferred clock ForthProc|clk with period 5.00ns. Please declare a user-defined clock on port clk.
+
+
+##### START OF TIMING REPORT #####[
+# Timing report written on Sat Mar  2 15:37:23 2024
+#
+
+
+Top view:               ForthProc
+Requested Frequency:    200.0 MHz
+Wire load mode:         top
+Paths requested:        5
+Constraint File(s):    
+@N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
+
+@N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.
+
+
+
+Performance Summary
+*******************
+
+
+Worst slack in design: -5.987
+
+                   Requested     Estimated     Requested     Estimated                Clock        Clock              
+Starting Clock     Frequency     Frequency     Period        Period        Slack      Type         Group              
+----------------------------------------------------------------------------------------------------------------------
+ForthProc|clk      200.0 MHz     91.0 MHz      5.000         10.986        -5.987     inferred     Inferred_clkgroup_0
+======================================================================================================================
+
+
+
+
+
+Clock Relationships
+*******************
+
+Clocks                        |    rise  to  rise    |    fall  to  fall   |    rise  to  fall   |    fall  to  rise 
+---------------------------------------------------------------------------------------------------------------------
+Starting       Ending         |  constraint  slack   |  constraint  slack  |  constraint  slack  |  constraint  slack
+---------------------------------------------------------------------------------------------------------------------
+ForthProc|clk  ForthProc|clk  |  5.000       -5.987  |  No paths    -      |  No paths    -      |  No paths    -    
+=====================================================================================================================
+ Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
+       'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
+
+
+
+Interface Information 
+*********************
+
+No IO constraint found
+
+
+
+====================================
+Detailed Report for Clock: ForthProc|clk
+====================================
+
+
+
+Starting Points with Worst Slack
+********************************
+
+                Starting                                                     Arrival           
+Instance        Reference         Type         Pin      Net                  Time        Slack 
+                Clock                                                                          
+-----------------------------------------------------------------------------------------------
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO30     mem_dout_tmp[12]     4.990       -5.987
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO31     mem_dout_tmp[13]     4.880       -5.958
+mem_addr[6]     ForthProc|clk     FD1S3AX      Q        mem_addr[6]          0.923       -5.942
+mem_addr[7]     ForthProc|clk     FD1S3AX      Q        mem_addr[7]          0.923       -5.942
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO18     mem_dout_tmp[0]      4.925       -5.893
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO28     mem_dout_tmp[10]     4.880       -5.890
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO33     mem_dout_tmp[15]     5.043       -5.853
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO27     mem_dout_tmp[9]      5.015       -5.825
+mem_mem_0_0     ForthProc|clk     PDPW16KD     DO26     mem_dout_tmp[8]      4.990       -5.800
+dp_pipe         ForthProc|clk     FD1S3IX      Q        dpf[0]               1.014       -5.655
+===============================================================================================
+
+
+Ending Points with Worst Slack
+******************************
+
+             Starting                                          Required           
+Instance     Reference         Type        Pin     Net         Time         Slack 
+             Clock                                                                
+----------------------------------------------------------------------------------
+mp[9]        ForthProc|clk     FD1S3IX     D       mp_5[9]     4.789        -5.987
+mp[7]        ForthProc|clk     FD1S3IX     D       mp_5[7]     4.789        -5.928
+mp[8]        ForthProc|clk     FD1S3IX     D       mp_5[8]     4.789        -5.928
+mp[5]        ForthProc|clk     FD1S3IX     D       mp_5[5]     4.789        -5.869
+mp[6]        ForthProc|clk     FD1S3IX     D       mp_5[6]     4.789        -5.869
+mp[3]        ForthProc|clk     FD1S3IX     D       mp_5[3]     4.789        -5.809
+mp[4]        ForthProc|clk     FD1S3IX     D       mp_5[4]     4.789        -5.809
+mp[1]        ForthProc|clk     FD1S3IX     D       mp_5[1]     4.789        -5.750
+mp[2]        ForthProc|clk     FD1S3IX     D       mp_5[2]     4.789        -5.750
+mp[0]        ForthProc|clk     FD1S3IX     D       mp_5[0]     4.789        -5.678
+==================================================================================
+
+
+
+Worst Path Information
+***********************
+
+
+Path information for path number 1: 
+      Requested Period:                      5.000
+    - Setup time:                            0.211
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.789
+
+    - Propagation time:                      10.775
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (critical) :                     -5.986
+
+    Number of logic level(s):                14
+    Starting point:                          mem_mem_0_0 / DO30
+    Ending point:                            mp[9] / D
+    The start point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CLKR
+    The end   point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                    Pin      Pin               Arrival      No. of    
+Name                                 Type         Name     Dir     Delay     Time         Fan Out(s)
+----------------------------------------------------------------------------------------------------
+mem_mem_0_0                          PDPW16KD     DO30     Out     4.990     4.990 r      -         
+mem_dout_tmp[12]                     Net          -        -       -         -            4         
+branch_6.mem_G_2_RNIQ1EL5            ORCALUT4     B        In      0.000     4.990 r      -         
+branch_6.mem_G_2_RNIQ1EL5            ORCALUT4     Z        Out     0.523     5.513 r      -         
+opcode_3[12]                         Net          -        -       -         -            1         
+branch_6.opcode_3_d_RNID6G98[11]     ORCALUT4     C        In      0.000     5.513 r      -         
+branch_6.opcode_3_d_RNID6G98[11]     ORCALUT4     Z        Out     0.633     6.146 r      -         
+N_3729                               Net          -        -       -         -            4         
+busy_0_sqmuxa_287_1_0_N_3L3          ORCALUT4     A        In      0.000     6.146 r      -         
+busy_0_sqmuxa_287_1_0_N_3L3          ORCALUT4     Z        Out     0.523     6.669 f      -         
+busy_0_sqmuxa_287_1_0_N_3L3          Net          -        -       -         -            1         
+busy_0_sqmuxa_287_1_0                ORCALUT4     C        In      0.000     6.669 f      -         
+busy_0_sqmuxa_287_1_0                ORCALUT4     Z        Out     0.523     7.192 f      -         
+busy_0_sqmuxa_287_1_0                Net          -        -       -         -            1         
+un1_dp_0_sqmuxa_1_0                  ORCALUT4     B        In      0.000     7.192 f      -         
+un1_dp_0_sqmuxa_1_0                  ORCALUT4     Z        Out     0.568     7.760 r      -         
+un1_dp_0_sqmuxa_1_0                  Net          -        -       -         -            2         
+mp_5_0_cry_0_RNO_0                   ORCALUT4     D        In      0.000     7.760 r      -         
+mp_5_0_cry_0_RNO_0                   ORCALUT4     Z        Out     0.523     8.283 r      -         
+mp_5_0_cry_0_RNO_0                   Net          -        -       -         -            1         
+mp_5_0_cry_0_0_RNO                   ORCALUT4     B        In      0.000     8.283 r      -         
+mp_5_0_cry_0_0_RNO                   ORCALUT4     Z        Out     0.523     8.806 r      -         
+busy_6_i                             Net          -        -       -         -            1         
+mp_5_0_cry_0_0                       CCU2C        B0       In      0.000     8.806 r      -         
+mp_5_0_cry_0_0                       CCU2C        COUT     Out     0.784     9.590 r      -         
+mp_5_0_cry_0                         Net          -        -       -         -            1         
+mp_5_0_cry_1_0                       CCU2C        CIN      In      0.000     9.590 r      -         
+mp_5_0_cry_1_0                       CCU2C        COUT     Out     0.059     9.649 r      -         
+mp_5_0_cry_2                         Net          -        -       -         -            1         
+mp_5_0_cry_3_0                       CCU2C        CIN      In      0.000     9.649 r      -         
+mp_5_0_cry_3_0                       CCU2C        COUT     Out     0.059     9.708 r      -         
+mp_5_0_cry_4                         Net          -        -       -         -            1         
+mp_5_0_cry_5_0                       CCU2C        CIN      In      0.000     9.708 r      -         
+mp_5_0_cry_5_0                       CCU2C        COUT     Out     0.059     9.767 r      -         
+mp_5_0_cry_6                         Net          -        -       -         -            1         
+mp_5_0_cry_7_0                       CCU2C        CIN      In      0.000     9.767 r      -         
+mp_5_0_cry_7_0                       CCU2C        COUT     Out     0.059     9.826 r      -         
+mp_5_0_cry_8                         Net          -        -       -         -            1         
+mp_5_0_s_9_0                         CCU2C        CIN      In      0.000     9.826 r      -         
+mp_5_0_s_9_0                         CCU2C        S0       Out     0.607     10.432 r     -         
+mp_5_0_s_9_0_S0                      Net          -        -       -         -            1         
+mp_RNO[9]                            ORCALUT4     B        In      0.000     10.432 r     -         
+mp_RNO[9]                            ORCALUT4     Z        Out     0.343     10.775 r     -         
+mp_5[9]                              Net          -        -       -         -            1         
+mp[9]                                FD1S3IX      D        In      0.000     10.775 r     -         
+====================================================================================================
+
+
+Path information for path number 2: 
+      Requested Period:                      5.000
+    - Setup time:                            0.211
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.789
+
+    - Propagation time:                      10.747
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -5.958
+
+    Number of logic level(s):                14
+    Starting point:                          mem_mem_0_0 / DO31
+    Ending point:                            mp[9] / D
+    The start point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CLKR
+    The end   point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                          Pin      Pin               Arrival      No. of    
+Name                                       Type         Name     Dir     Delay     Time         Fan Out(s)
+----------------------------------------------------------------------------------------------------------
+mem_mem_0_0                                PDPW16KD     DO31     Out     4.880     4.880 r      -         
+mem_dout_tmp[13]                           Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_o2_RNIBDAE2[13]     ORCALUT4     C        In      0.000     4.880 r      -         
+branch_6.un2_DataBus_0_o2_RNIBDAE2[13]     ORCALUT4     Z        Out     0.721     5.601 r      -         
+data_stack\[15\]_23[13]                    Net          -        -       -         -            22        
+branch_6.opcode_3_rn_RNITMGT4[14]          ORCALUT4     A        In      0.000     5.601 r      -         
+branch_6.opcode_3_rn_RNITMGT4[14]          ORCALUT4     Z        Out     0.523     6.123 r      -         
+opcode_3_rn_RNITMGT4[14]                   Net          -        -       -         -            1         
+branch_6.opcode_3_rn_RNIBRK09[14]          PFUMX        ALUT     In      0.000     6.123 r      -         
+branch_6.opcode_3_rn_RNIBRK09[14]          PFUMX        Z        Out     0.432     6.556 r      -         
+N_3730                                     Net          -        -       -         -            4         
+branch_6.un1_skip_op_366_2                 ORCALUT4     B        In      0.000     6.556 r      -         
+branch_6.un1_skip_op_366_2                 ORCALUT4     Z        Out     0.608     7.163 r      -         
+un1_skip_op_366_2                          Net          -        -       -         -            3         
+un1_skip_op_366_N_6L10                     ORCALUT4     B        In      0.000     7.163 r      -         
+un1_skip_op_366_N_6L10                     ORCALUT4     Z        Out     0.568     7.731 f      -         
+un1_skip_op_366_N_6L10                     Net          -        -       -         -            2         
+mp_5_0_cry_0_RNO_1                         ORCALUT4     C        In      0.000     7.731 f      -         
+mp_5_0_cry_0_RNO_1                         ORCALUT4     Z        Out     0.523     8.255 f      -         
+mp_5_0_cry_0_RNO_1                         Net          -        -       -         -            1         
+mp_5_0_cry_0_0_RNO                         ORCALUT4     C        In      0.000     8.255 f      -         
+mp_5_0_cry_0_0_RNO                         ORCALUT4     Z        Out     0.523     8.777 f      -         
+busy_6_i                                   Net          -        -       -         -            1         
+mp_5_0_cry_0_0                             CCU2C        B0       In      0.000     8.777 f      -         
+mp_5_0_cry_0_0                             CCU2C        COUT     Out     0.784     9.562 r      -         
+mp_5_0_cry_0                               Net          -        -       -         -            1         
+mp_5_0_cry_1_0                             CCU2C        CIN      In      0.000     9.562 r      -         
+mp_5_0_cry_1_0                             CCU2C        COUT     Out     0.059     9.620 r      -         
+mp_5_0_cry_2                               Net          -        -       -         -            1         
+mp_5_0_cry_3_0                             CCU2C        CIN      In      0.000     9.620 r      -         
+mp_5_0_cry_3_0                             CCU2C        COUT     Out     0.059     9.680 r      -         
+mp_5_0_cry_4                               Net          -        -       -         -            1         
+mp_5_0_cry_5_0                             CCU2C        CIN      In      0.000     9.680 r      -         
+mp_5_0_cry_5_0                             CCU2C        COUT     Out     0.059     9.739 r      -         
+mp_5_0_cry_6                               Net          -        -       -         -            1         
+mp_5_0_cry_7_0                             CCU2C        CIN      In      0.000     9.739 r      -         
+mp_5_0_cry_7_0                             CCU2C        COUT     Out     0.059     9.797 r      -         
+mp_5_0_cry_8                               Net          -        -       -         -            1         
+mp_5_0_s_9_0                               CCU2C        CIN      In      0.000     9.797 r      -         
+mp_5_0_s_9_0                               CCU2C        S0       Out     0.607     10.404 r     -         
+mp_5_0_s_9_0_S0                            Net          -        -       -         -            1         
+mp_RNO[9]                                  ORCALUT4     B        In      0.000     10.404 r     -         
+mp_RNO[9]                                  ORCALUT4     Z        Out     0.343     10.747 r     -         
+mp_5[9]                                    Net          -        -       -         -            1         
+mp[9]                                      FD1S3IX      D        In      0.000     10.747 r     -         
+==========================================================================================================
+
+
+Path information for path number 3: 
+      Requested Period:                      5.000
+    - Setup time:                            0.211
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.789
+
+    - Propagation time:                      10.732
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -5.943
+
+    Number of logic level(s):                21
+    Starting point:                          mem_addr[6] / Q
+    Ending point:                            mp[9] / D
+    The start point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                        Pin      Pin               Arrival      No. of    
+Name                                     Type         Name     Dir     Delay     Time         Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+mem_addr[6]                              FD1S3AX      Q        Out     0.923     0.923 r      -         
+mem_addr[6]                              Net          -        -       -         -            12        
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     A        In      0.000     0.923 r      -         
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     Z        Out     0.739     1.661 f      -         
+un2_DataBus_0_a2_10[0]                   Net          -        -       -         -            31        
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     A        In      0.000     1.661 f      -         
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     Z        Out     0.568     2.229 f      -         
+N_229                                    Net          -        -       -         -            2         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     A        In      0.000     2.229 f      -         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     Z        Out     0.523     2.752 f      -         
+N_139                                    Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     A        In      0.000     2.752 f      -         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     Z        Out     0.523     3.276 f      -         
+branch_6.un2_DataBus_0_2[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     D        In      0.000     3.276 f      -         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     Z        Out     0.523     3.799 f      -         
+branch_6.un2_DataBus_0_5[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0[0]                ORCALUT4     D        In      0.000     3.799 f      -         
+branch_6.un2_DataBus_0[0]                ORCALUT4     Z        Out     0.568     4.367 f      -         
+N_21                                     Net          -        -       -         -            2         
+opcode_3_d[0]                            ORCALUT4     A        In      0.000     4.367 f      -         
+opcode_3_d[0]                            ORCALUT4     Z        Out     0.608     4.974 f      -         
+opcode_3_d[0]                            Net          -        -       -         -            3         
+opcode_3_mb_am[0]                        ORCALUT4     D        In      0.000     4.974 f      -         
+opcode_3_mb_am[0]                        ORCALUT4     Z        Out     0.523     5.497 f      -         
+opcode_3_mb_am[0]                        Net          -        -       -         -            1         
+opcode_3_mb[0]                           PFUMX        BLUT     In      0.000     5.497 f      -         
+opcode_3_mb[0]                           PFUMX        Z        Out     0.559     6.057 f      -         
+opcode_3[0]                              Net          -        -       -         -            49        
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     C        In      0.000     6.057 f      -         
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     Z        Out     0.523     6.580 r      -         
+branch_6.un1_dp107_82_957_1              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     A        In      0.000     6.580 r      -         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     Z        Out     0.568     7.148 r      -         
+un2_DataBus_0_RNIOF4OB[5]                Net          -        -       -         -            2         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     A        In      0.000     7.148 r      -         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     Z        Out     0.568     7.716 f      -         
+un1_dp_0_sqmuxa_1_0                      Net          -        -       -         -            2         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     D        In      0.000     7.716 f      -         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     Z        Out     0.523     8.239 f      -         
+mp_5_0_cry_0_RNO_0                       Net          -        -       -         -            1         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     B        In      0.000     8.239 f      -         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     Z        Out     0.523     8.762 f      -         
+busy_6_i                                 Net          -        -       -         -            1         
+mp_5_0_cry_0_0                           CCU2C        B0       In      0.000     8.762 f      -         
+mp_5_0_cry_0_0                           CCU2C        COUT     Out     0.784     9.546 r      -         
+mp_5_0_cry_0                             Net          -        -       -         -            1         
+mp_5_0_cry_1_0                           CCU2C        CIN      In      0.000     9.546 r      -         
+mp_5_0_cry_1_0                           CCU2C        COUT     Out     0.059     9.605 r      -         
+mp_5_0_cry_2                             Net          -        -       -         -            1         
+mp_5_0_cry_3_0                           CCU2C        CIN      In      0.000     9.605 r      -         
+mp_5_0_cry_3_0                           CCU2C        COUT     Out     0.059     9.664 r      -         
+mp_5_0_cry_4                             Net          -        -       -         -            1         
+mp_5_0_cry_5_0                           CCU2C        CIN      In      0.000     9.664 r      -         
+mp_5_0_cry_5_0                           CCU2C        COUT     Out     0.059     9.723 r      -         
+mp_5_0_cry_6                             Net          -        -       -         -            1         
+mp_5_0_cry_7_0                           CCU2C        CIN      In      0.000     9.723 r      -         
+mp_5_0_cry_7_0                           CCU2C        COUT     Out     0.059     9.782 r      -         
+mp_5_0_cry_8                             Net          -        -       -         -            1         
+mp_5_0_s_9_0                             CCU2C        CIN      In      0.000     9.782 r      -         
+mp_5_0_s_9_0                             CCU2C        S0       Out     0.607     10.389 r     -         
+mp_5_0_s_9_0_S0                          Net          -        -       -         -            1         
+mp_RNO[9]                                ORCALUT4     B        In      0.000     10.389 r     -         
+mp_RNO[9]                                ORCALUT4     Z        Out     0.343     10.732 r     -         
+mp_5[9]                                  Net          -        -       -         -            1         
+mp[9]                                    FD1S3IX      D        In      0.000     10.732 r     -         
+========================================================================================================
+
+
+Path information for path number 4: 
+      Requested Period:                      5.000
+    - Setup time:                            0.211
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.789
+
+    - Propagation time:                      10.732
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -5.943
+
+    Number of logic level(s):                21
+    Starting point:                          mem_addr[7] / Q
+    Ending point:                            mp[9] / D
+    The start point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                        Pin      Pin               Arrival      No. of    
+Name                                     Type         Name     Dir     Delay     Time         Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+mem_addr[7]                              FD1S3AX      Q        Out     0.923     0.923 r      -         
+mem_addr[7]                              Net          -        -       -         -            12        
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     B        In      0.000     0.923 r      -         
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     Z        Out     0.739     1.661 f      -         
+un2_DataBus_0_a2_10[0]                   Net          -        -       -         -            31        
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     A        In      0.000     1.661 f      -         
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     Z        Out     0.568     2.229 f      -         
+N_229                                    Net          -        -       -         -            2         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     A        In      0.000     2.229 f      -         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     Z        Out     0.523     2.752 f      -         
+N_139                                    Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     A        In      0.000     2.752 f      -         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     Z        Out     0.523     3.276 f      -         
+branch_6.un2_DataBus_0_2[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     D        In      0.000     3.276 f      -         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     Z        Out     0.523     3.799 f      -         
+branch_6.un2_DataBus_0_5[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0[0]                ORCALUT4     D        In      0.000     3.799 f      -         
+branch_6.un2_DataBus_0[0]                ORCALUT4     Z        Out     0.568     4.367 f      -         
+N_21                                     Net          -        -       -         -            2         
+opcode_3_d[0]                            ORCALUT4     A        In      0.000     4.367 f      -         
+opcode_3_d[0]                            ORCALUT4     Z        Out     0.608     4.974 f      -         
+opcode_3_d[0]                            Net          -        -       -         -            3         
+opcode_3_mb_am[0]                        ORCALUT4     D        In      0.000     4.974 f      -         
+opcode_3_mb_am[0]                        ORCALUT4     Z        Out     0.523     5.497 f      -         
+opcode_3_mb_am[0]                        Net          -        -       -         -            1         
+opcode_3_mb[0]                           PFUMX        BLUT     In      0.000     5.497 f      -         
+opcode_3_mb[0]                           PFUMX        Z        Out     0.559     6.057 f      -         
+opcode_3[0]                              Net          -        -       -         -            49        
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     C        In      0.000     6.057 f      -         
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     Z        Out     0.523     6.580 r      -         
+branch_6.un1_dp107_82_957_1              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     A        In      0.000     6.580 r      -         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     Z        Out     0.568     7.148 r      -         
+un2_DataBus_0_RNIOF4OB[5]                Net          -        -       -         -            2         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     A        In      0.000     7.148 r      -         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     Z        Out     0.568     7.716 f      -         
+un1_dp_0_sqmuxa_1_0                      Net          -        -       -         -            2         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     D        In      0.000     7.716 f      -         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     Z        Out     0.523     8.239 f      -         
+mp_5_0_cry_0_RNO_0                       Net          -        -       -         -            1         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     B        In      0.000     8.239 f      -         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     Z        Out     0.523     8.762 f      -         
+busy_6_i                                 Net          -        -       -         -            1         
+mp_5_0_cry_0_0                           CCU2C        B0       In      0.000     8.762 f      -         
+mp_5_0_cry_0_0                           CCU2C        COUT     Out     0.784     9.546 r      -         
+mp_5_0_cry_0                             Net          -        -       -         -            1         
+mp_5_0_cry_1_0                           CCU2C        CIN      In      0.000     9.546 r      -         
+mp_5_0_cry_1_0                           CCU2C        COUT     Out     0.059     9.605 r      -         
+mp_5_0_cry_2                             Net          -        -       -         -            1         
+mp_5_0_cry_3_0                           CCU2C        CIN      In      0.000     9.605 r      -         
+mp_5_0_cry_3_0                           CCU2C        COUT     Out     0.059     9.664 r      -         
+mp_5_0_cry_4                             Net          -        -       -         -            1         
+mp_5_0_cry_5_0                           CCU2C        CIN      In      0.000     9.664 r      -         
+mp_5_0_cry_5_0                           CCU2C        COUT     Out     0.059     9.723 r      -         
+mp_5_0_cry_6                             Net          -        -       -         -            1         
+mp_5_0_cry_7_0                           CCU2C        CIN      In      0.000     9.723 r      -         
+mp_5_0_cry_7_0                           CCU2C        COUT     Out     0.059     9.782 r      -         
+mp_5_0_cry_8                             Net          -        -       -         -            1         
+mp_5_0_s_9_0                             CCU2C        CIN      In      0.000     9.782 r      -         
+mp_5_0_s_9_0                             CCU2C        S0       Out     0.607     10.389 r     -         
+mp_5_0_s_9_0_S0                          Net          -        -       -         -            1         
+mp_RNO[9]                                ORCALUT4     B        In      0.000     10.389 r     -         
+mp_RNO[9]                                ORCALUT4     Z        Out     0.343     10.732 r     -         
+mp_5[9]                                  Net          -        -       -         -            1         
+mp[9]                                    FD1S3IX      D        In      0.000     10.732 r     -         
+========================================================================================================
+
+
+Path information for path number 5: 
+      Requested Period:                      5.000
+    - Setup time:                            0.211
+    + Clock delay at ending point:           0.000 (ideal)
+    = Required time:                         4.789
+
+    - Propagation time:                      10.732
+    - Clock delay at starting point:         0.000 (ideal)
+    = Slack (non-critical) :                 -5.943
+
+    Number of logic level(s):                21
+    Starting point:                          mem_addr[6] / Q
+    Ending point:                            mp[9] / D
+    The start point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+    The end   point is clocked by            ForthProc|clk [rising] (rise=0.000 fall=2.500 period=5.000) on pin CK
+
+Instance / Net                                        Pin      Pin               Arrival      No. of    
+Name                                     Type         Name     Dir     Delay     Time         Fan Out(s)
+--------------------------------------------------------------------------------------------------------
+mem_addr[6]                              FD1S3AX      Q        Out     0.923     0.923 r      -         
+mem_addr[6]                              Net          -        -       -         -            12        
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     A        In      0.000     0.923 r      -         
+branch_6.un2_DataBus_0_a2_10[0]          ORCALUT4     Z        Out     0.739     1.661 f      -         
+un2_DataBus_0_a2_10[0]                   Net          -        -       -         -            31        
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     A        In      0.000     1.661 f      -         
+branch_6.un2_DataBus_0_a2_15_0_a2[0]     ORCALUT4     Z        Out     0.568     2.229 f      -         
+N_229                                    Net          -        -       -         -            2         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     A        In      0.000     2.229 f      -         
+branch_6.un2_DataBus_0_a2[0]             ORCALUT4     Z        Out     0.523     2.752 f      -         
+N_139                                    Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     A        In      0.000     2.752 f      -         
+branch_6.un2_DataBus_0_2[0]              ORCALUT4     Z        Out     0.523     3.276 f      -         
+branch_6.un2_DataBus_0_2[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     D        In      0.000     3.276 f      -         
+branch_6.un2_DataBus_0_5[0]              ORCALUT4     Z        Out     0.523     3.799 f      -         
+branch_6.un2_DataBus_0_5[0]              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0[0]                ORCALUT4     D        In      0.000     3.799 f      -         
+branch_6.un2_DataBus_0[0]                ORCALUT4     Z        Out     0.568     4.367 f      -         
+N_21                                     Net          -        -       -         -            2         
+opcode_3_d[0]                            ORCALUT4     A        In      0.000     4.367 f      -         
+opcode_3_d[0]                            ORCALUT4     Z        Out     0.608     4.974 f      -         
+opcode_3_d[0]                            Net          -        -       -         -            3         
+opcode_3_mb_bm[0]                        ORCALUT4     D        In      0.000     4.974 f      -         
+opcode_3_mb_bm[0]                        ORCALUT4     Z        Out     0.523     5.497 f      -         
+opcode_3_mb_bm[0]                        Net          -        -       -         -            1         
+opcode_3_mb[0]                           PFUMX        ALUT     In      0.000     5.497 f      -         
+opcode_3_mb[0]                           PFUMX        Z        Out     0.559     6.057 f      -         
+opcode_3[0]                              Net          -        -       -         -            49        
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     C        In      0.000     6.057 f      -         
+branch_6.un2_DataBus_0_RNI6QU84[5]       ORCALUT4     Z        Out     0.523     6.580 r      -         
+branch_6.un1_dp107_82_957_1              Net          -        -       -         -            1         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     A        In      0.000     6.580 r      -         
+branch_6.un2_DataBus_0_RNIOF4OB[5]       ORCALUT4     Z        Out     0.568     7.148 r      -         
+un2_DataBus_0_RNIOF4OB[5]                Net          -        -       -         -            2         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     A        In      0.000     7.148 r      -         
+un1_dp_0_sqmuxa_1_0                      ORCALUT4     Z        Out     0.568     7.716 f      -         
+un1_dp_0_sqmuxa_1_0                      Net          -        -       -         -            2         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     D        In      0.000     7.716 f      -         
+mp_5_0_cry_0_RNO_0                       ORCALUT4     Z        Out     0.523     8.239 f      -         
+mp_5_0_cry_0_RNO_0                       Net          -        -       -         -            1         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     B        In      0.000     8.239 f      -         
+mp_5_0_cry_0_0_RNO                       ORCALUT4     Z        Out     0.523     8.762 f      -         
+busy_6_i                                 Net          -        -       -         -            1         
+mp_5_0_cry_0_0                           CCU2C        B0       In      0.000     8.762 f      -         
+mp_5_0_cry_0_0                           CCU2C        COUT     Out     0.784     9.546 r      -         
+mp_5_0_cry_0                             Net          -        -       -         -            1         
+mp_5_0_cry_1_0                           CCU2C        CIN      In      0.000     9.546 r      -         
+mp_5_0_cry_1_0                           CCU2C        COUT     Out     0.059     9.605 r      -         
+mp_5_0_cry_2                             Net          -        -       -         -            1         
+mp_5_0_cry_3_0                           CCU2C        CIN      In      0.000     9.605 r      -         
+mp_5_0_cry_3_0                           CCU2C        COUT     Out     0.059     9.664 r      -         
+mp_5_0_cry_4                             Net          -        -       -         -            1         
+mp_5_0_cry_5_0                           CCU2C        CIN      In      0.000     9.664 r      -         
+mp_5_0_cry_5_0                           CCU2C        COUT     Out     0.059     9.723 r      -         
+mp_5_0_cry_6                             Net          -        -       -         -            1         
+mp_5_0_cry_7_0                           CCU2C        CIN      In      0.000     9.723 r      -         
+mp_5_0_cry_7_0                           CCU2C        COUT     Out     0.059     9.782 r      -         
+mp_5_0_cry_8                             Net          -        -       -         -            1         
+mp_5_0_s_9_0                             CCU2C        CIN      In      0.000     9.782 r      -         
+mp_5_0_s_9_0                             CCU2C        S0       Out     0.607     10.389 r     -         
+mp_5_0_s_9_0_S0                          Net          -        -       -         -            1         
+mp_RNO[9]                                ORCALUT4     B        In      0.000     10.389 r     -         
+mp_RNO[9]                                ORCALUT4     Z        Out     0.343     10.732 r     -         
+mp_5[9]                                  Net          -        -       -         -            1         
+mp[9]                                    FD1S3IX      D        In      0.000     10.732 r     -         
+========================================================================================================
+
+
+
+##### END OF TIMING REPORT #####]
+
+Timing exceptions that could not be applied
+
+Finished final timing analysis (Real Time elapsed 0h:00m:54s; CPU Time elapsed 0h:00m:50s; Memory used current: 270MB peak: 309MB)
+
+
+Finished timing report (Real Time elapsed 0h:00m:54s; CPU Time elapsed 0h:00m:50s; Memory used current: 270MB peak: 309MB)
+
+---------------------------------------
+Resource Usage Report
+Part: lfe5um5g_85f-8
+
+Register bits: 1048 of 83640 (1%)
+PIC Latch:       0
+I/O cells:       29
+Block Rams : 1 of 208 (0%)
+
+
+Details:
+CCU2C:          169
+DPR16X4C:       3
+FD1P3AX:        167
+FD1P3IX:        153
+FD1P3JX:        508
+FD1S3AX:        129
+FD1S3AY:        1
+FD1S3IX:        71
+FD1S3JX:        10
+GSR:            1
+IB:             5
+IFS1P3DX:       1
+IFS1P3IX:       1
+INV:            4
+L6MUX21:        24
+OB:             24
+OFS1P3DX:       6
+OFS1P3JX:       1
+ORCALUT4:       5258
+PDPW16KD:       1
+PFUMX:          191
+PUR:            1
+VHI:            1
+VLO:            1
+Mapper successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:54s; CPU Time elapsed 0h:00m:50s; Memory used current: 91MB peak: 309MB)
+
+Process took 0h:00m:54s realtime, 0h:00m:50s cputime
+# Sat Mar  2 15:37:24 2024
+
+###########################################################]

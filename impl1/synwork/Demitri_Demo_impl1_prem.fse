@@ -1,0 +1,42 @@
+
+fsm_encoding {637703772} onehot
+
+fsm_state_encoding {637703772} INTERPRET {00001}
+
+fsm_state_encoding {637703772} COLON {00010}
+
+fsm_state_encoding {637703772} WORD {00100}
+
+fsm_state_encoding {637703772} COMPILING {01000}
+
+fsm_state_encoding {637703772} END_COMPILE {10000}
+
+fsm_registers {637703772} {comp_state[4]}  {comp_state[3]}  {comp_state[2]}  {comp_state[1]}  {comp_state[0]} 
+
+fsm_encoding {637703771} onehot
+
+fsm_state_encoding {637703771} IDLE {000000000001}
+
+fsm_state_encoding {637703771} PARSE {000000000010}
+
+fsm_state_encoding {637703771} SEARCH {000000000100}
+
+fsm_state_encoding {637703771} BEFORE_LINK {000000001000}
+
+fsm_state_encoding {637703771} GET_LINK {000000010000}
+
+fsm_state_encoding {637703771} GET_XT {000000100000}
+
+fsm_state_encoding {637703771} ADD_EXIT {000001000000}
+
+fsm_state_encoding {637703771} EXECUTE {000010000000}
+
+fsm_state_encoding {637703771} NUMBER {000100000000}
+
+fsm_state_encoding {637703771} COMPILE {001000000000}
+
+fsm_state_encoding {637703771} NEW_LINK {010000000000}
+
+fsm_state_encoding {637703771} NEW_DEF {100000000000}
+
+fsm_registers {637703771} {state[11]}  {state[10]}  {state[9]}  {state[8]}  {state[7]}  {state[6]}  {state[5]}  {state[4]}  {state[3]}  {state[2]}  {state[1]}  {state[0]} 

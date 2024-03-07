@@ -1,0 +1,18 @@
+#Start recording tcl command: 2/17/2024 14:31:03
+#Project Location: D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo; Project name: Demitri_Demo
+prj_project new -name "Demitri_Demo" -impl "impl1" -dev LFE5UM5G-85F-8BG381I -synthesis "synplify"
+file copy -force -- "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/Code/Demitri Orig Interpreter Forth_Proc.sv" "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/source"
+prj_src add "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/source/Demitri Orig Interpreter Forth_Proc.sv"
+prj_project save
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_strgy set_value -strategy Strategy1 syn_vhdl2008=True
+prj_strgy set_value -strategy Strategy1 lse_ram_style=Block_RAM lse_rom_style=EBR lse_vhdl2008=True
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_src remove "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/source/Demitri Orig Interpreter Forth_Proc.sv"
+prj_src add "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/impl1/Forth_Proc.sv"
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_run Export -impl impl1 -task Promgen -forceAll
+prj_run Export -impl impl1 -task Promgen -forceAll
+#Stop recording: 2/17/2024 15:06:16

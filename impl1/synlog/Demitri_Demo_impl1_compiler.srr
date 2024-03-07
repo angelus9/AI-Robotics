@@ -1,0 +1,637 @@
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys HDL Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Verilog Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\ecp5um5g.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\pmi_def.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\hypermods.v" (library __hyper__lib__)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\umr_capim.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_objects.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_pipes.svh" (library snps_haps)
+@I::"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv" (library work)
+@W: CS133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":137:30:137:41|Ignoring property syn_preserve
+Verilog syntax check successful!
+File D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv changed - recompiling
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":72:0:72:8|Synthesizing module work_D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv_unit in library work.
+Selecting top level module ForthProc
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":137:7:137:15|Synthesizing module ForthProc in library work.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":186:13:186:19|Object PWM_CH1 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":187:13:187:19|Object PWM_CH2 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":188:13:188:19|Object PWM_CH3 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":189:13:189:19|Object PWM_CH4 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":203:6:203:15|Object n_main_clk is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":204:12:204:21|Object active_mem is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":205:12:205:20|Object errorcode is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":207:12:207:21|Object successful is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":208:5:208:10|Object opcode is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":210:12:210:25|Object clock_1MHZ_ctr is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":214:12:214:21|Object clock_1MHZ is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":215:13:215:22|Object clock_1KHZ is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":216:13:216:23|Object clock_500MS is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":219:23:219:37|Object PWM_div_counter is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":220:23:220:41|Object PWM_CH1_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":221:23:221:41|Object PWM_CH2_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":222:23:222:41|Object PWM_CH3_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":223:23:223:41|Object PWM_CH4_compare_reg is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":227:12:227:26|Object SPI1_8_data_out is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":228:12:228:25|Object SPI1_8_data_in is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":231:13:231:28|Object SPI1_16_data_out is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":232:13:232:27|Object SPI1_16_data_in is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":247:23:247:32|Object AddressBus is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":253:23:253:33|Object branch_addr is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":255:6:255:14|Object n_BUTTON0 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":256:6:256:14|Object n_BUTTON1 is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":257:6:257:12|Object n_LED_G is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":258:6:258:12|Object n_LED_B is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":259:6:259:12|Object n_LED_R is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":272:12:272:18|Object tx_data is declared but not assigned. Either assign a value or remove the declaration.
+@W: CG133 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":285:6:285:13|Object xt_ready is declared but not assigned. Either assign a value or remove the declaration.
+Running optimization stage 1 on ForthProc .......
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":874:0:874:8|Pruning unused register SPI2_16_div_counter[5:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Pruning unused register i. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning unused register uart_busy_tx. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Pruning unused register dp[3:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Pruning unused register rp[3:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Pruning unused register nrp[7:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Pruning unused register skip_op. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Pruning unused register branch. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register DICT_START[31:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register ERROR_CFA[31:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register xt_valid. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register count[3:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register nwp[7:0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Pruning unused register mem_diff[9:0]. Make sure that there are no unused intermediate registers.
+@N: CL134 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Found RAM mem, depth=257, width=32
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[0]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[1]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[2]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[3]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[4]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[5]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[6]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[7]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[8]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[9]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[10]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[11]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[12]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[13]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[14]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[15]. Make sure that there are no unused intermediate registers.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Pruning unused register Reset_ctr[16]. Make sure that there are no unused intermediate registers.
+@A: CL282 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal mem_addr[9:0]. It is possible a set/reset assignment for this is signal missing. To improve timing and area, specify a set/reset value.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[52][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[51][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[51] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[50][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[49][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[49] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[49] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[48][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[48] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[48] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[48] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[48] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[47][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[47] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[47] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[46][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[46] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[46] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[45][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[45] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[44][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[44] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[44] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[43][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[42][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[42] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[42] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[41][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[41] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[40][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[40] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[39][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[39] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[39] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[38][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[38] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[37][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[37] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[36][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[36] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[36] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[35][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[35] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[35] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[34][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[34] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[34] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[34] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[33][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[33] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[32][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[32] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[32] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[32] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[31][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[31] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[30][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[30] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[29][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[29] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[29] and merging bootROM[45]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[28][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[28] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[28] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[27][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[27] and merging bootROM[34]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[27] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[26][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[46]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[26] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[25][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[25] and merging bootROM[48]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[25] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[25] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[24][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[24] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[23][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[23] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[22][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[22] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[22] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[21][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[21] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[21] and merging bootROM[51]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[20][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[50]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[43]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[41]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[40]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[20] and merging bootROM[33]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[19][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[19] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[18][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL177 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Sharing sequential element bootROM[18] and merging bootROM[52]. Add a syn_preserve attribute to the element to prevent sharing.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[17][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+
+Only the first 100 messages of id 'CL177' are reported. To see all messages use 'report_messages -log D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo_impl1_compiler.srr -id CL177' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {CL177} -count unlimited' in the Tcl shell.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[16][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[15][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[14][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[13][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[12][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[11][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[2][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[1][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL113 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|Feedback mux created for signal bootROM[0][31:0]. To avoid the feedback mux, assign values explicitly under all conditions of conditional assignment statements.
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[1][5:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[11][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[11][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[12][5:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[13][2:1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[15][31:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[16][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[16][20] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[16][19:18] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[16][14:13] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[16][6:5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[17][31:7] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[17][5:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[17][2:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[19][3:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][31:25] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][24] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][22:20] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][19:18] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][14:13] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[20][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[21][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[21][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[22][31:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[23][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[23][3:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[25][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][22:21] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][18:16] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][14:12] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][11:10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][9] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][8:7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[26][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][16:15] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][14:13] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][12] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][8:7] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][6] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[27][5:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[28][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[28][1:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[30][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[30][3:0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[32][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][20:18] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][17] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][16:15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][14:13] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][12] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][11:10] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][9:7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][6:4] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[33][1] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[34][31:10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[34][9:8] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[34][7:6] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[34][2:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[35][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[35][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[36][31:2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[37][31:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[37][3:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[39][4:0] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][31:26] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][25] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][24:23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][22:21] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][20:19] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][18] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][14:13] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][12:11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][8] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][6:5] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[40][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][31:17] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][16:15] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][14:11] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][10] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][9] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][8:5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][4:3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[41][2] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[42][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[42][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][31:23] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][22] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][21:20] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][19:18] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][17:15] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][14] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][13:12] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][11] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][10] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][9:8] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][7] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][6] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[43][5:0] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[44][4:3] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[44][1:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[45][31:1] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[46][2:1] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[46][0] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[47][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[48][3:2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[49][5:4] assign 1, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[49][2:0] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[50][31:6] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[50][5] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[50][4] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[50][3:2] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[50][1:0] assign 0, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[51][31:5] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[51][4] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[51][3] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[51][2:1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[52][31:4] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[52][3] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[52][2] assign 0, register removed by optimization
+@W: CL251 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[52][1] assign 1, register removed by optimization
+@W: CL250 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":350:0:350:8|All reachable assignments to bootROM[52][0] assign 0, register removed by optimization
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":914:0:914:8|Register bit OSC_50MHA_EN is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":874:0:874:8|Register bit SPI2_16_clk is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":874:0:874:8|Register bit SPI2_16_ss is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit busy is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit n_LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit n_LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit n_LED3 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit n_LED4 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":721:0:721:8|Register bit n_LED5 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[10] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[11] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[12] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[13] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[14] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[15] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[16] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[17] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[18] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[19] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[20] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[21] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[22] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[23] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[24] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[25] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[26] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[27] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[28] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[29] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[30] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit newest_def[31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Register bit SPI1_8_out is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit txd[7] is always 0.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning unused register xtrp[9:0]. Make sure that there are no unused intermediate registers.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 7 of txd[7:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL279 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning register bits 31 to 10 of newest_def[31:0]. If this is not the intended behavior, drive the inputs with valid values, or inputs from the top level.
+Finished optimization stage 1 on ForthProc (CPU Time 0h:00m:00s, Memory Used current: 103MB peak: 108MB)
+Running optimization stage 2 on ForthProc .......
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":898:0:898:8|Register bit LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":898:0:898:8|Register bit LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":898:0:898:8|Register bit LED3 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":898:0:898:8|Register bit LED4 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":898:0:898:8|Register bit LED5 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit txd[6] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Register bit SPI1_8_div_counter[4] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit cells[7] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning register bit 7 of cells[7:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Pruning register bit 4 of SPI1_8_div_counter[4:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 6 of txd[6:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Register bit SPI1_8_ss is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit txd[5] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit word_in[0][31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Register bit ccell[7] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning register bit 7 of ccell[7:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Pruning register bit 31 of word_in[0][31:24]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 5 of txd[5:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":841:0:841:8|Pruning unused register SPI1_8_div_counter[3:0]. Make sure that there are no unused intermediate registers.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit txd[4] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 4 of txd[4:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Trying to extract state machine for register state.
+Extracted state machine for register state
+State machine has 12 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+   0101
+   0110
+   0111
+   1000
+   1001
+   1010
+   1011
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":377:0:377:8|Trying to extract state machine for register comp_state.
+Extracted state machine for register comp_state
+State machine has 5 reachable states with original encodings of:
+   0000
+   0001
+   0010
+   0011
+   0100
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit txd[3] is always 0.
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 3 of txd[3:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL257 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit 2 always 0, optimizing ...
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 2 of txd[2:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL257 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit 1 always 0, optimizing ...
+@W: CL260 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning register bit 1 of txd[1:0]. If this is not the intended behavior, drive the input with valid values, or an input from the top level.
+@W: CL257 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Register bit 0 always 0, optimizing ...
+@W: CL169 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":795:0:795:8|Pruning unused register txd[0]. Make sure that there are no unused intermediate registers.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":186:13:186:19|*Unassigned bits of PWM_CH1 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":187:13:187:19|*Unassigned bits of PWM_CH2 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":188:13:188:19|*Unassigned bits of PWM_CH3 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":189:13:189:19|*Unassigned bits of PWM_CH4 are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[3][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[4][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[5][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[6][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[7][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[8][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[9][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[10][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[53][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[54][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[55][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[56][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[57][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[58][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[59][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[60][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[61][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[62][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[63][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[64][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[65][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[66][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[67][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[68][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[69][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[70][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[71][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[72][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[73][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[74][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[75][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[76][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[77][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[78][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[79][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[80][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[81][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[82][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[83][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[84][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[85][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[86][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[87][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[88][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[89][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[90][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[91][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[92][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[93][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[94][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[95][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[96][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[97][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[98][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[99][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[100][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[101][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[102][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[103][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[104][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[105][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[106][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[107][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[108][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[109][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[110][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[111][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[112][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[113][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[114][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[115][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[116][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[117][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[118][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[119][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[120][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[121][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[122][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[123][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[124][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[125][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[126][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[127][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[128][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[129][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[130][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[131][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[132][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[133][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[134][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[135][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[136][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[137][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[138][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[139][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+@A: CL153 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":241:20:241:26|*Unassigned bits of bootROM[140][31:0] are referenced and tied to 0 -- simulation mismatch possible.
+
+Only the first 100 messages of id 'CL153' are reported. To see all messages use 'report_messages -log D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo_impl1_compiler.srr -id CL153' in the Tcl shell. To see all messages in future runs, use the command 'message_override -limit {CL153} -count unlimited' in the Tcl shell.
+Finished optimization stage 2 on ForthProc (CPU Time 0h:00m:01s, Memory Used current: 160MB peak: 190MB)
+
+For a summary of runtime and memory usage per design unit, please see file:
+==========================================================
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\layer0.rt.csv
+
+
+At c_ver Exit (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 160MB peak: 190MB)
+
+Process took 0h:00m:02s realtime, 0h:00m:02s cputime
+
+Process completed successfully.
+# Sat Feb 24 18:48:56 2024
+
+###########################################################]
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Synopsys Netlist Linker, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+File D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\layer0.srs changed - recompiling
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":137:7:137:15|Selected library: work cell: ForthProc view verilog as top level
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":137:7:137:15|Selected library: work cell: ForthProc view verilog as top level
+
+At syn_nfilter Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 91MB peak: 92MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+
+Process completed successfully.
+# Sat Feb 24 18:48:57 2024
+
+###########################################################]
+
+For a summary of runtime and memory usage for all design units, please see file:
+==========================================================
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo_impl1_comp.rt.csv
+
+@END
+
+At c_hdl Exit (Real Time elapsed 0h:00m:03s; CPU Time elapsed 0h:00m:02s; Memory used current: 23MB peak: 23MB)
+
+Process took 0h:00m:03s realtime, 0h:00m:02s cputime
+
+Process completed successfully.
+# Sat Feb 24 18:48:57 2024
+
+###########################################################]

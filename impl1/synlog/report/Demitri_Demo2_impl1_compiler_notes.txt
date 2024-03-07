@@ -1,0 +1,52 @@
+@N|Running in 64-bit mode
+@N|Running in 64-bit mode
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":67:0:67:8|Synthesizing module work_D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv_unit in library work.
+@N: CG364 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":132:7:132:15|Synthesizing module ForthProc in library work.
+@N: CL134 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":348:0:348:8|Found RAM mem, depth=257, width=32
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit OSC_50MHA_EN is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED6 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Register bit n_LED7 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":906:0:906:8|Register bit SPI2_16_clk is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":906:0:906:8|Register bit SPI2_16_ss is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[10] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[11] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[12] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[13] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[14] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[15] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[16] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[17] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[18] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[19] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[20] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[21] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[22] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[23] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[24] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[25] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[26] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[27] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[28] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[29] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[30] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit newest_def[31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_out is always 0.
+@N: CL134 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":724:0:724:8|Found RAM return_stack, depth=8, width=10
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED1 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED2 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED6 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":937:0:937:8|Register bit LED7 is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_div_counter[4] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit cells[7] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":873:0:873:8|Register bit SPI1_8_ss is always 1.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit word_in[0][31] is always 0.
+@N: CL189 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Register bit ccell[7] is always 0.
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Trying to extract state machine for register state.
+@N: CL201 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":375:0:375:8|Trying to extract state machine for register comp_state.
+@N: CL159 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":168:6:168:14|Input SPI1_8_in is unused.
+@N|Running in 64-bit mode
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+@N: NF107 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":132:7:132:15|Selected library: work cell: ForthProc view verilog as top level
+

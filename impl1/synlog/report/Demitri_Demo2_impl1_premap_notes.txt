@@ -1,0 +1,29 @@
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[11\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[12\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[13\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[14\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[15\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[16\].
+@N: FX493 |Applying initial value "0" on instance reset.
+@N: FX493 |Applying initial value "1" on instance comp_state[0].
+@N: FX493 |Applying initial value "0" on instance comp_state[1].
+@N: FX493 |Applying initial value "0" on instance comp_state[2].
+@N: FX493 |Applying initial value "0" on instance comp_state[3].
+@N: FX493 |Applying initial value "0" on instance comp_state[4].
+@N: FX493 |Applying initial value "1" on instance state[0].
+@N: FX493 |Applying initial value "0" on instance state[1].
+@N: FX493 |Applying initial value "0" on instance state[2].
+@N: FX493 |Applying initial value "0" on instance state[3].
+@N: FX493 |Applying initial value "0" on instance state[4].
+@N: FX493 |Applying initial value "0" on instance state[5].
+@N: FX493 |Applying initial value "0" on instance state[6].
+@N: FX493 |Applying initial value "0" on instance state[7].
+@N: FX493 |Applying initial value "0" on instance state[8].
+@N: FX493 |Applying initial value "0" on instance state[9].
+@N: FX493 |Applying initial value "0" on instance state[10].
+@N: FX493 |Applying initial value "0" on instance state[11].
+@N: FX1184 |Applying syn_allowed_resources blockrams=208 on top level netlist ForthProc 
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.

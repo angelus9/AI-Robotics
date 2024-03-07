@@ -1,0 +1,173 @@
+# Sat Mar  2 15:36:27 2024
+
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Lattice Technology Pre-mapping, Version map202103lat, Build 070R, Built Oct  6 2021 11:12:38, @
+
+
+Mapper Startup Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 118MB peak: 118MB)
+
+
+Done reading skeleton netlist (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 121MB peak: 130MB)
+
+@A: MF827 |No constraint file specified.
+@L: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1_scck.rpt 
+See clock summary report "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1_scck.rpt"
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+
+Design Input Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 129MB peak: 130MB)
+
+
+Mapper Initialization Complete (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 130MB peak: 130MB)
+
+
+Start loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 142MB)
+
+
+Finished loading timing files (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 142MB peak: 144MB)
+
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[11\].
+@W: FX474 |User-specified initial value defined for some sequential elements which can prevent optimum synthesis results from being achieved. 
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[12\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[13\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[14\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[15\].
+@N: FX493 |Applying initial value "0" on instance Reset_ctr\[16\].
+@N: FX493 |Applying initial value "0" on instance reset.
+@W: BN132 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Removing sequential instance word_in[0][30:24] because it is equivalent to instance cells[6:0]. To keep the instance, apply constraint syn_preserve=1 on the instance.
+Encoding state machine comp_state[4:0] (in view: work.ForthProc(verilog))
+original code -> new code
+   0000 -> 00001
+   0001 -> 00010
+   0010 -> 00100
+   0011 -> 01000
+   0100 -> 10000
+@N: FX493 |Applying initial value "1" on instance comp_state[0].
+@N: FX493 |Applying initial value "0" on instance comp_state[1].
+@N: FX493 |Applying initial value "0" on instance comp_state[2].
+@N: FX493 |Applying initial value "0" on instance comp_state[3].
+@N: FX493 |Applying initial value "0" on instance comp_state[4].
+Encoding state machine state[11:0] (in view: work.ForthProc(verilog))
+original code -> new code
+   0000 -> 000000000001
+   0001 -> 000000000010
+   0010 -> 000000000100
+   0011 -> 000000001000
+   0100 -> 000000010000
+   0101 -> 000000100000
+   0110 -> 000001000000
+   0111 -> 000010000000
+   1000 -> 000100000000
+   1001 -> 001000000000
+   1010 -> 010000000000
+   1011 -> 100000000000
+@N: FX493 |Applying initial value "1" on instance state[0].
+@N: FX493 |Applying initial value "0" on instance state[1].
+@N: FX493 |Applying initial value "0" on instance state[2].
+@N: FX493 |Applying initial value "0" on instance state[3].
+@N: FX493 |Applying initial value "0" on instance state[4].
+@N: FX493 |Applying initial value "0" on instance state[5].
+@N: FX493 |Applying initial value "0" on instance state[6].
+@N: FX493 |Applying initial value "0" on instance state[7].
+@N: FX493 |Applying initial value "0" on instance state[8].
+@N: FX493 |Applying initial value "0" on instance state[9].
+@N: FX493 |Applying initial value "0" on instance state[10].
+@N: FX493 |Applying initial value "0" on instance state[11].
+
+Starting clock optimization phase (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 180MB peak: 180MB)
+
+
+Finished clock optimization phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:00s; Memory used current: 180MB peak: 180MB)
+
+
+Starting clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 180MB)
+
+
+Finished clock optimization report phase (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 180MB)
+
+@N: FX1184 |Applying syn_allowed_resources blockrams=208 on top level netlist ForthProc 
+
+Finished netlist restructuring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 180MB peak: 181MB)
+
+
+
+Clock Summary
+******************
+
+          Start             Requested     Requested     Clock        Clock                   Clock
+Level     Clock             Frequency     Period        Type         Group                   Load 
+--------------------------------------------------------------------------------------------------
+0 -       ForthProc|clk     200.0 MHz     5.000         inferred     Inferred_clkgroup_0     1034 
+==================================================================================================
+
+
+
+Clock Load Summary
+***********************
+
+                  Clock     Source        Clock Pin       Non-clock Pin     Non-clock Pin
+Clock             Load      Pin           Seq Example     Seq Example       Comb Example 
+-----------------------------------------------------------------------------------------
+ForthProc|clk     1034      clk(port)     LED0.C          -                 -            
+=========================================================================================
+
+@W: MT529 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Found inferred clock ForthProc|clk which controls 1034 sequential elements including state[11]. This clock has no specified timing constraint which may prevent conversion of gated or generated clocks and may adversely impact design performance. 
+
+ICG Latch Removal Summary:
+Number of ICG latches removed: 0
+Number of ICG latches not removed:	0
+For details review file gcc_ICG_report.rpt
+
+
+@S |Clock Optimization Summary
+
+
+
+#### START OF PREMAP CLOCK OPTIMIZATION REPORT #####[
+
+1 non-gated/non-generated clock tree(s) driving 994 clock pin(s) of sequential element(s)
+0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
+0 instances converted, 0 sequential instances remain driven by gated/generated clocks
+
+=========================== Non-Gated/Non-Generated Clocks ============================
+Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
+---------------------------------------------------------------------------------------
+@KP:ckid0_0       clk                 port                   994        state[11]      
+=======================================================================================
+
+
+##### END OF CLOCK OPTIMIZATION REPORT ######
+
+@N: FX1143 |Skipping assigning INTERNAL_VREF to iobanks, because the table of mapping from pin to iobank is not initialized.
+Finished Pre Mapping Phase.
+
+Starting constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 178MB peak: 181MB)
+
+
+Finished constraint checker preprocessing (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 179MB peak: 181MB)
+
+
+Finished constraint checker (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 181MB peak: 181MB)
+
+Pre-mapping successful!
+
+At Mapper Exit (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 94MB peak: 182MB)
+
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Mar  2 15:36:29 2024
+
+###########################################################]

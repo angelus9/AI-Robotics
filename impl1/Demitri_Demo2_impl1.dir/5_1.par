@@ -1,0 +1,244 @@
+
+Lattice Place and Route Report for Design "Demitri_Demo2_impl1_map.ncd"
+Sat Mar 02 15:37:32 2024
+
+PAR: Place And Route Diamond (64-bit) 3.12.1.454.
+Command Line: par -w -l 5 -i 6 -t 1 -c 0 -e 0 -gui -msgset "D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/promote.xml" -exp parUseNBR=1:parCDP=auto:parCDR=1:parPathBased=OFF:parASE=1 Demitri_Demo2_impl1_map.ncd Demitri_Demo2_impl1.dir/5_1.ncd Demitri_Demo2_impl1.prf
+Preference file: Demitri_Demo2_impl1.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file Demitri_Demo2_impl1_map.ncd.
+Design name: ForthProc
+NCD version: 3.3
+Vendor:      LATTICE
+Device:      LFE5UM5G-85F
+Package:     CABGA381
+Performance: 8
+Loading device for application par from file 'sa5p85m.nph' in environment: C:/lscc/diamond/3.12/ispfpga.
+Package Status:                     Final          Version 1.43.
+Performance Hardware Data Status:   Final          Version 55.1.
+License checked out.
+
+
+Ignore Preference Error(s):  True
+Device utilization summary:
+
+   PIO (prelim)      29/365           7% used
+                     29/205          14% bonded
+   IOLOGIC            9/365           2% used
+
+   SLICE           3804/41820         9% used
+
+   EBR                1/208          <1% used
+
+
+Number of Signals: 6616
+Number of Connections: 23482
+
+Pin Constraint Summary:
+   13 out of 29 pins locked (44% locked).
+
+The following 1 signal is selected to use the primary clock routing resources:
+    clk_c (driver: clk, clk/ce/sr load #: 566/0/0)
+
+
+No signal is selected as Global Set/Reset.
+.
+Starting Placer Phase 0.
+...........
+Finished Placer Phase 0.  REAL time: 9 secs 
+
+Starting Placer Phase 1.
+.............................
+Placer score = 2990894.
+Finished Placer Phase 1.  REAL time: 21 secs 
+
+Starting Placer Phase 2.
+.
+Placer score =  2943193
+Finished Placer Phase 2.  REAL time: 25 secs 
+
+
+------------------ Clock Report ------------------
+
+Global Clock Resources:
+  CLK_PIN    : 1 out of 12 (8%)
+  GR_PCLK    : 0 out of 12 (0%)
+  PLL        : 0 out of 4 (0%)
+  DCS        : 0 out of 2 (0%)
+  DCC        : 0 out of 60 (0%)
+  CLKDIV     : 0 out of 4 (0%)
+
+Quadrant TL Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "A10 (PT63A)", CLK/CE/SR load = 95
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Quadrant TR Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "A10 (PT63A)", CLK/CE/SR load = 85
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Quadrant BL Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "A10 (PT63A)", CLK/CE/SR load = 180
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Quadrant BR Clocks:
+  PRIMARY "clk_c" from comp "clk" on CLK_PIN site "A10 (PT63A)", CLK/CE/SR load = 206
+
+  PRIMARY  : 1 out of 16 (6%)
+
+Edge Clocks:
+
+  No edge clock selected.
+
+
+--------------- End of Clock Report ---------------
+
+
++
+I/O Usage Summary (final):
+   29 out of 365 (7.9%) PIO sites used.
+   29 out of 205 (14.1%) bonded PIO sites used.
+   Number of PIO comps: 29; differential: 0.
+   Number of Vref pins used: 0.
+
+I/O Bank Usage Summary:
++----------+----------------+------------+------------+------------+
+| I/O Bank | Usage          | Bank Vccio | Bank Vref1 | Bank Vref2 |
++----------+----------------+------------+------------+------------+
+| 0        | 7 / 27 ( 25%)  | 2.5V       | -          | -          |
+| 1        | 11 / 33 ( 33%) | 2.5V       | -          | -          |
+| 2        | 2 / 34 (  5%)  | 2.5V       | -          | -          |
+| 3        | 3 / 33 (  9%)  | 2.5V       | -          | -          |
+| 6        | 3 / 33 (  9%)  | 2.5V       | -          | -          |
+| 7        | 1 / 32 (  3%)  | 2.5V       | -          | -          |
+| 8        | 2 / 13 ( 15%)  | 2.5V       | -          | -          |
++----------+----------------+------------+------------+------------+
+
+Total placer CPU time: 23 secs 
+
+Dumping design to file Demitri_Demo2_impl1.dir/5_1.ncd.
+
+
+-----------------------------------------------------------------
+INFO - par: ASE feature is off due to non timing-driven settings.  
+-----------------------------------------------------------------
+
+0 connections routed; 23482 unrouted.
+Starting router resource preassignment
+
+Completed router resource preassignment. Real time: 37 secs 
+
+Start NBR router at 15:38:09 03/02/24
+
+*****************************************************************
+Info: NBR allows conflicts(one node used by more than one signal)
+      in the earlier iterations. In each iteration, it tries to  
+      solve the conflicts while keeping the critical connections 
+      routed as short as possible. The routing process is said to
+      be completed when no conflicts exist and all connections   
+      are routed.                                                
+Note: NBR uses a different method to calculate timing slacks. The
+      worst slack and total negative slack may not be the same as
+      that in TRCE report. You should always run TRCE to verify  
+      your design.                                               
+*****************************************************************
+
+Start NBR special constraint process at 15:38:10 03/02/24
+
+Start NBR section for initial routing at 15:38:10 03/02/24
+Level 4, iteration 1
+3013(0.08%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 42 secs 
+
+Info: Initial congestion level at 75% usage is 0
+Info: Initial congestion area  at 75% usage is 0 (0.00%)
+
+Start NBR section for normal routing at 15:38:14 03/02/24
+Level 4, iteration 1
+2300(0.06%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 45 secs 
+Level 4, iteration 2
+1773(0.04%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 46 secs 
+Level 4, iteration 3
+1243(0.03%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 48 secs 
+Level 4, iteration 4
+872(0.02%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 49 secs 
+Level 4, iteration 5
+535(0.01%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 50 secs 
+Level 4, iteration 6
+353(0.01%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 51 secs 
+Level 4, iteration 7
+200(0.01%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 52 secs 
+Level 4, iteration 8
+100(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 52 secs 
+Level 4, iteration 9
+70(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 52 secs 
+Level 4, iteration 10
+43(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 52 secs 
+Level 4, iteration 11
+26(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+Level 4, iteration 12
+14(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+Level 4, iteration 13
+7(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+Level 4, iteration 14
+4(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+Level 4, iteration 15
+0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+
+Start NBR section for re-routing at 15:38:25 03/02/24
+Level 4, iteration 1
+0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; real time: 53 secs 
+
+Start NBR section for post-routing at 15:38:25 03/02/24
+
+End NBR router with 0 unrouted connection
+
+NBR Summary
+-----------
+  Number of unrouted connections : 0 (0.00%)
+  Number of connections with timing violations : 0 (0.00%)
+  Estimated worst slack<setup> : <n/a>
+  Timing score<setup> : 0
+-----------
+Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
+
+
+
+Total CPU time 39 secs 
+Total REAL time: 55 secs 
+Completely routed.
+End of route.  23482 routed (100.00%); 0 unrouted.
+
+Hold time timing score: 0, hold timing errors: 0
+
+Timing score: 0 
+
+Dumping design to file Demitri_Demo2_impl1.dir/5_1.ncd.
+
+
+All signals are completely routed.
+
+
+PAR_SUMMARY::Run status = Completed
+PAR_SUMMARY::Number of unrouted conns = 0
+PAR_SUMMARY::Worst  slack<setup/<ns>> = <n/a>
+PAR_SUMMARY::Timing score<setup/<ns>> = <n/a>
+PAR_SUMMARY::Worst  slack<hold /<ns>> = <n/a>
+PAR_SUMMARY::Timing score<hold /<ns>> = <n/a>
+PAR_SUMMARY::Number of errors = 0
+
+Total CPU  time to completion: 42 secs 
+Total REAL time to completion: 59 secs 
+
+par done!
+
+Note: user must run 'Trace' for timing closure signoff.
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.

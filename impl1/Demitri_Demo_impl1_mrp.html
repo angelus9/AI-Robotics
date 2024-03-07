@@ -1,0 +1,311 @@
+<HTML>
+<HEAD><TITLE>Project Summary</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Mrp"></A>
+          Lattice Mapping Report File for Design Module 'ForthProc'
+
+
+
+<A name="mrp_di"></A><B><U><big>Design Information</big></U></B>
+
+Command line:   map -a ECP5UM5G -p LFE5UM5G-85F -t CABGA381 -s 8 -oc Industrial
+     Demitri_Demo_impl1.ngd -o Demitri_Demo_impl1_map.ncd -pr
+     Demitri_Demo_impl1.prf -mp Demitri_Demo_impl1.mrp -lpf
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/impl1/Demitri_Demo_impl1_synplify.lpf -lpf
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/Demitri_Demo.lpf -gui -msgset
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/promote.xml 
+Target Vendor:  LATTICE
+Target Device:  LFE5UM5G-85FCABGA381
+Target Performance:   8
+Mapper:  sa5p00g,  version:  Diamond (64-bit) 3.12.1.454
+Mapped on:  02/24/24  18:49:08
+
+
+<A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
+   Number of registers:     26 out of 84255 (0%)
+      PFU registers:           23 out of 83640 (0%)
+      PIO registers:            3 out of   615 (0%)
+   Number of SLICEs:        17 out of 41820 (0%)
+      SLICEs as Logic/ROM:     17 out of 41820 (0%)
+      SLICEs as RAM:            0 out of 31365 (0%)
+      SLICEs as Carry:         11 out of 41820 (0%)
+   Number of LUT4s:         32 out of 83640 (0%)
+      Number used as logic LUTs:         10
+      Number used as distributed RAM:     0
+      Number used as ripple logic:       22
+      Number used as shift registers:     0
+   Number of PIO sites used: 24 out of 205 (12%)
+   Number of block RAMs:  0 out of 208 (0%)
+   Number of GSRs:  0 out of 1 (0%)
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   DTR used :   No
+   Number of Dynamic Bank Controller (BCINRD):  0 out of 4 (0%)
+   Number of Dynamic Bank Controller (BCLVDSOB):  0 out of 4 (0%)
+   Number of DCC:  0 out of 60 (0%)
+   Number of DCS:  0 out of 2 (0%)
+   Number of PLLs:  0 out of 4 (0%)
+   Number of DDRDLLs:  0 out of 4 (0%)
+   Number of CLKDIV:  0 out of 4 (0%)
+   Number of ECLKSYNC:  0 out of 10 (0%)
+   Number of ECLKBRIDGECS:  0 out of 2 (0%)
+   Number of DCUs:  0 out of 2 (0%)
+   Number of DCU Channels:  0 out of 4 (0%)
+   Number of EXTREFs:  0 out of 2 (0%)
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
+     distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and
+     ripple logic.
+
+
+        Number Of Mapped DSP Components:
+   --------------------------------
+   MULT18X18D          0
+   MULT9X9D            0
+   ALU54B              0
+   ALU24B              0
+   PRADD18A            0
+   PRADD9A             0
+   --------------------------------
+   Number of Used DSP MULT Sites:  0 out of 312 (0 %)
+   Number of Used DSP ALU Sites:  0 out of 156 (0 %)
+   Number of Used DSP PRADD Sites:  0 out of 312 (0 %)
+   Number of clocks:  1
+     Net clk_c: 16 loads, 16 rising, 0 falling (Driver: PIO clk )
+   Number of Clock Enables:  0
+   Number of LSRs:  0
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net seconds_ctr_1[0]: 3 loads
+     Net n_LED0: 2 loads
+     Net seconds_ctr_1[12]: 2 loads
+     Net seconds_ctr_1[19]: 2 loads
+     Net seconds_ctr_1[20]: 2 loads
+     Net seconds_ctr_1[3]: 2 loads
+     Net seconds_ctr_1[5]: 2 loads
+     Net seconds_ctr_1[6]: 2 loads
+     Net seconds_ctr_1[7]: 2 loads
+     Net seconds_ctr_1[8]: 2 loads
+
+
+
+
+   Number of warnings:  0
+   Number of errors:    0
+     
+
+
+
+
+<A name="mrp_dwe"></A><B><U><big>Design Errors/Warnings</big></U></B>
+
+   No errors or warnings present.
+
+
+
+<A name="mrp_ioa"></A><B><U><big>IO (PIO) Attributes</big></U></B>
+
++---------------------+-----------+-----------+------------+
+| IO Name             | Direction | Levelmode | IO         |
+|                     |           |  IO_TYPE  | Register   |
++---------------------+-----------+-----------+------------+
+| TX                  | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| clk                 | INPUT     | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| OSC_50MHA_EN        | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| TEST_OUT            | OUTPUT    | LVCMOS25  |            |
+
++---------------------+-----------+-----------+------------+
+| SPI2_16_clk         | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_clk          | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI2_16_ss          | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_ss           | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI2_16_out         | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_out          | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH4             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH3             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH2             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH1             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED7                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED6                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED5                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED4                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED3                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED2                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED1                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED0                | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| SPI2_16_in          | INPUT     | LVCMOS25  | IN         |
++---------------------+-----------+-----------+------------+
+| RX                  | INPUT     | LVCMOS25  | IN         |
++---------------------+-----------+-----------+------------+
+
+
+
+<A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
+
+Block GSR_INST undriven or does not drive anything - clipped.
+Signal clk_ibuf.false undriven or does not drive anything - clipped.
+Signal clk_ibuf.true undriven or does not drive anything - clipped.
+Signal seconds_ctr_1_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal seconds_ctr_1_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_1 undriven or does not drive anything - clipped.
+Signal seconds_ctr_1_cry_19_0_COUT undriven or does not drive anything -
+     clipped.
+Block GND was optimized away.
+Block VCC was optimized away.
+
+
+     
+
+
+
+<A name="mrp_runtime"></A><B><U><big>Run Time and Memory Usage</big></U></B>
+-------------------------
+
+   Total CPU Time: 1 secs  
+   Total REAL Time: 2 secs  
+   Peak Memory Usage: 243 MB
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights
+     reserved.
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

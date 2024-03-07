@@ -1,0 +1,601 @@
+<HTML>
+<HEAD><TITLE>Project Summary</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Mrp"></A>
+          Lattice Mapping Report File for Design Module 'ForthProc'
+
+
+
+<A name="mrp_di"></A><B><U><big>Design Information</big></U></B>
+
+Command line:   map -a ECP5UM5G -p LFE5UM5G-85F -t CABGA381 -s 8 -oc Commercial
+     Demitri_Demo2_impl1.ngd -o Demitri_Demo2_impl1_map.ncd -pr
+     Demitri_Demo2_impl1.prf -mp Demitri_Demo2_impl1.mrp -lpf
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/impl1/Demitri_Demo2_impl1_synplify.lpf -lpf
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/Demitri_Demo2.lpf -gui -msgset
+     D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri
+     Demo/promote.xml 
+Target Vendor:  LATTICE
+Target Device:  LFE5UM5G-85FCABGA381
+Target Performance:   8
+Mapper:  sa5p00g,  version:  Diamond (64-bit) 3.12.1.454
+Mapped on:  03/02/24  15:37:28
+
+
+<A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
+   Number of registers:   1048 out of 84255 (1%)
+      PFU registers:         1039 out of 83640 (1%)
+      PIO registers:            9 out of   615 (1%)
+   Number of SLICEs:      3804 out of 41820 (9%)
+      SLICEs as Logic/ROM:   3795 out of 41820 (9%)
+      SLICEs as RAM:            9 out of 31365 (0%)
+      SLICEs as Carry:        169 out of 41820 (0%)
+   Number of LUT4s:        5618 out of 83640 (7%)
+      Number used as logic LUTs:        5262
+      Number used as distributed RAM:    18
+      Number used as ripple logic:      338
+      Number used as shift registers:     0
+   Number of PIO sites used: 29 out of 205 (14%)
+   Number of block RAMs:  1 out of 208 (0%)
+   Number of GSRs:  0 out of 1 (0%)
+   JTAG used :      No
+   Readback used :  No
+   Oscillator used :  No
+   Startup used :   No
+   DTR used :   No
+   Number of Dynamic Bank Controller (BCINRD):  0 out of 4 (0%)
+   Number of Dynamic Bank Controller (BCLVDSOB):  0 out of 4 (0%)
+   Number of DCC:  0 out of 60 (0%)
+   Number of DCS:  0 out of 2 (0%)
+   Number of PLLs:  0 out of 4 (0%)
+   Number of DDRDLLs:  0 out of 4 (0%)
+   Number of CLKDIV:  0 out of 4 (0%)
+   Number of ECLKSYNC:  0 out of 10 (0%)
+   Number of ECLKBRIDGECS:  0 out of 2 (0%)
+   Number of DCUs:  0 out of 2 (0%)
+   Number of DCU Channels:  0 out of 4 (0%)
+   Number of EXTREFs:  0 out of 2 (0%)
+   Notes:-
+      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of
+     distributed RAMs) + 2*(Number of ripple logic)
+      2. Number of logic LUT4s does not include count of distributed RAM and
+     ripple logic.
+
+
+        Number Of Mapped DSP Components:
+   --------------------------------
+   MULT18X18D          0
+   MULT9X9D            0
+   ALU54B              0
+   ALU24B              0
+   PRADD18A            0
+   PRADD9A             0
+   --------------------------------
+   Number of Used DSP MULT Sites:  0 out of 312 (0 %)
+   Number of Used DSP ALU Sites:  0 out of 156 (0 %)
+   Number of Used DSP PRADD Sites:  0 out of 312 (0 %)
+   Number of clocks:  1
+     Net clk_c: 566 loads, 566 rising, 0 falling (Driver: PIO clk )
+   Number of Clock Enables:  57
+     Net N_61_i: 1 loads, 0 LSLICEs
+     Net un1_newest_def9_323_i: 16 loads, 16 LSLICEs
+     Net un1_TX20_i: 1 loads, 0 LSLICEs
+     Net un1_INTERPRET_71_i: 8 loads, 8 LSLICEs
+     Net TX19: 7 loads, 7 LSLICEs
+     Net count_1_sqmuxa: 5 loads, 4 LSLICEs
+     Net reset_3_i: 5 loads, 5 LSLICEs
+     Net un1_newest_def9_9_0: 1 loads, 1 LSLICEs
+     Net busy_RNITN8V: 8 loads, 8 LSLICEs
+     Net un1_byte_in_0_sqmuxa: 1 loads, 1 LSLICEs
+     Net uart_send: 1 loads, 1 LSLICEs
+     Net _decfrac3_RNI3A5U2: 4 loads, 4 LSLICEs
+     Net un2_cchar_1_axbxc1_RNI75TK1: 4 loads, 4 LSLICEs
+     Net _decfrac0_RNI3SBM1: 4 loads, 4 LSLICEs
+     Net _decfrac0_RNI3SBM1_2: 4 loads, 4 LSLICEs
+     Net _decfrac0_RNI3SBM1_1: 4 loads, 4 LSLICEs
+     Net _decfrac0_RNI3SBM1_0: 4 loads, 4 LSLICEs
+     Net _decfrac1_RNI4SBM1: 4 loads, 4 LSLICEs
+     Net _decfrac1_RNI4SBM1_2: 4 loads, 4 LSLICEs
+     Net _decfrac1_RNI4SBM1_1: 4 loads, 4 LSLICEs
+     Net _decfrac1_RNI4SBM1_0: 4 loads, 4 LSLICEs
+     Net _decfrac2_RNI5SBM1: 4 loads, 4 LSLICEs
+     Net _decfrac2_RNI5SBM1_2: 4 loads, 4 LSLICEs
+     Net _decfrac2_RNI5SBM1_1: 4 loads, 4 LSLICEs
+     Net _decfrac2_RNI5SBM1_0: 4 loads, 4 LSLICEs
+     Net xt_ready_1_sqmuxa: 1 loads, 1 LSLICEs
+     Net tx_data_1_sqmuxa: 8 loads, 8 LSLICEs
+     Net clk_count_1_sqmuxa: 1 loads, 0 LSLICEs
+     Net N_547_i: 1 loads, 1 LSLICEs
+     Net un1_newest_def9_66_i: 5 loads, 5 LSLICEs
+     Net _decfrac3_RNIP2RG2: 4 loads, 4 LSLICEs
+     Net un1_skip_op_i: 1 loads, 1 LSLICEs
+     Net count_2_sqmuxa: 4 loads, 4 LSLICEs
+     Net un1_newest_def9_9_0_a2: 1 loads, 1 LSLICEs
+     Net count_1_sqmuxa_28: 4 loads, 4 LSLICEs
+     Net state_2_sqmuxa: 5 loads, 5 LSLICEs
+     Net N_5823_idup: 4 loads, 4 LSLICEs
+     Net state[10]: 5 loads, 5 LSLICEs
+     Net n_LED3_1_sqmuxa: 2 loads, 2 LSLICEs
+     Net mem_access_outer_en_0: 1 loads, 1 LSLICEs
+
+     Net state_10_sqmuxa: 18 loads, 18 LSLICEs
+     Net wp_4_sqmuxa: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_332_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_331_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_338_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_326_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_328_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_327_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_334_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_330_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_324_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_333_i: 17 loads, 17 LSLICEs
+     Net un1_newest_def9_329_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_336_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_335_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_337_i: 16 loads, 16 LSLICEs
+     Net un1_newest_def9_325_i: 16 loads, 16 LSLICEs
+   Number of LSRs:  25
+     Net ccell_1_sqmuxa: 5 loads, 5 LSLICEs
+     Net data_stack[0]_32_iv_0_o2_RNIMQU31[0]: 16 loads, 16 LSLICEs
+     Net un1_INTERPRET_57_0_a2_RNI987J: 5 loads, 5 LSLICEs
+     Net TX19: 49 loads, 47 LSLICEs
+     Net skip_op_RNIG3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNII3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNIK3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNIM3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNIO3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNIQ3OS1: 15 loads, 15 LSLICEs
+     Net skip_op_RNIM06N2: 15 loads, 15 LSLICEs
+     Net data_stack[1]_32_iv_9_0_o3_RNIH5241[1]: 16 loads, 16 LSLICEs
+     Net data_stack[8]_32_iv_5_RNI3TKP[0]: 16 loads, 16 LSLICEs
+     Net data_stack[9]_32_0_iv_0_o11_RNIIF511[3]: 16 loads, 16 LSLICEs
+     Net data_stack[10]_32_iv_5_RNIC5QV[0]: 16 loads, 16 LSLICEs
+     Net data_stack[11]_32_iv_5_RNIDHST[0]: 16 loads, 16 LSLICEs
+     Net data_stack[12]_32_iv_5_0_o2_RNITF3R[0]: 16 loads, 16 LSLICEs
+     Net data_stack[13]_32_iv_5_0_o3_RNIV3FO[0]: 16 loads, 16 LSLICEs
+     Net data_stack[15]_32_0_iv_0_o3_RNIUGIT[2]: 16 loads, 16 LSLICEs
+     Net clk_count13_15lto9_RNIR7PM: 6 loads, 6 LSLICEs
+     Net TX13_c4_RNI16531: 2 loads, 2 LSLICEs
+     Net state_srsts_0_a2_RNIM5341[0]: 48 loads, 48 LSLICEs
+     Net un1_newest_def9_29: 16 loads, 16 LSLICEs
+     Net count_RNIMDU5[3]: 2 loads, 2 LSLICEs
+     Net un1_uart_receive_31_i_a2_RNI2044: 6 loads, 6 LSLICEs
+   Number of nets driven by tri-state buffers:  0
+   Top 10 highest fanout non-clock nets:
+     Net dp[0]: 297 loads
+     Net dp[3]: 241 loads
+     Net dp[2]: 225 loads
+     Net dp[1]: 201 loads
+     Net TX19: 174 loads
+     Net t_execute_0.dp94_14: 143 loads
+     Net dpf[0]: 72 loads
+     Net un1_skip_op_362f[0]: 72 loads
+     Net un107_data_stack_axb_0: 69 loads
+     Net boot_enable: 60 loads
+
+
+
+
+
+   Number of warnings:  1
+   Number of errors:    0
+     
+
+
+
+
+<A name="mrp_dwe"></A><B><U><big>Design Errors/Warnings</big></U></B>
+
+WARNING - map: IO buffer missing for top level port SPI1_8_in...logic will be
+     discarded.
+
+
+
+<A name="mrp_ioa"></A><B><U><big>IO (PIO) Attributes</big></U></B>
+
++---------------------+-----------+-----------+------------+
+| IO Name             | Direction | Levelmode | IO         |
+|                     |           |  IO_TYPE  | Register   |
++---------------------+-----------+-----------+------------+
+| TX                  | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| clk                 | INPUT     | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| OSC_50MHA_EN        | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| TEST_OUT            | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| SPI2_16_clk         | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_clk          | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| SPI2_16_ss          | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_ss           | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI2_16_out         | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI1_8_out          | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH4             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH3             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH2             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| PWM_CH1             | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED7                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED6                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED5                | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| LED4                | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| LED3                | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+
+| LED2                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED1                | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED0                | OUTPUT    | LVCMOS25  | OUT        |
++---------------------+-----------+-----------+------------+
+| LED_R               | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED_B               | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| LED_G               | OUTPUT    | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| SPI2_16_in          | INPUT     | LVCMOS25  | IN         |
++---------------------+-----------+-----------+------------+
+| BUTTON1             | INPUT     | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| BUTTON0             | INPUT     | LVCMOS25  |            |
++---------------------+-----------+-----------+------------+
+| RX                  | INPUT     | LVCMOS25  | IN         |
++---------------------+-----------+-----------+------------+
+
+
+
+<A name="mrp_rm"></A><B><U><big>Removed logic</big></U></B>
+
+Block GSR_INST undriven or does not drive anything - clipped.
+Block return_stack_ram_1/RAM1 undriven or does not drive anything - clipped.
+Signal GND undriven or does not drive anything - clipped.
+Signal VCC undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_21_0_S1 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_21_0_S0 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_9_0_S1 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_9_0_S0 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_1_0_S1 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_1_0_S0 undriven or does not drive anything - clipped.
+Signal N_1 undriven or does not drive anything - clipped.
+Signal un1_data_stack[15]_0_I_45_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_45_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_81_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_81_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_21_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_21_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_57_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_57_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_27_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_27_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_33_0_S1 undriven or does not drive anything -
+
+     clipped.
+Signal un1_data_stack[15]_0_I_33_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_51_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_51_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_9_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_9_0_S0 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_1_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un1_data_stack[15]_0_I_1_0_S0 undriven or does not drive anything -
+     clipped.
+Signal N_2 undriven or does not drive anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_45_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_45_0_COUT undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_81_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_81_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_21_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_21_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_57_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_57_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_27_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_27_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_33_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_33_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_51_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_51_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_9_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_9_0_S0 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_1_0_S1 undriven or does not drive
+     anything - clipped.
+Signal t_execute_0.un310_data_stack_511_I_1_0_S0 undriven or does not drive
+     anything - clipped.
+Signal N_3 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_6_0_S1 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_6_0_COUT undriven or does not drive anything - clipped.
+Signal xtwp11_cry_5_0_S1 undriven or does not drive anything - clipped.
+
+Signal xtwp11_cry_5_0_S0 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_3_0_S1 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_3_0_S0 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_1_0_S1 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_1_0_S0 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal xtwp11_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_4 undriven or does not drive anything - clipped.
+Signal mem_addr_1_s_5_0_S1 undriven or does not drive anything - clipped.
+Signal mem_addr_1_s_5_0_COUT undriven or does not drive anything - clipped.
+Signal mem_addr_1_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal mem_addr_1_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_5 undriven or does not drive anything - clipped.
+Signal un15_branch_addr_1_s_9_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un15_branch_addr_1_s_9_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un15_branch_addr_1_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un15_branch_addr_1_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal N_8 undriven or does not drive anything - clipped.
+Signal un1_clk_count_72_s_9_0_S1 undriven or does not drive anything - clipped.
+Signal un1_clk_count_72_s_9_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un1_clk_count_72_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal N_9 undriven or does not drive anything - clipped.
+Signal un1_clk_count_s_9_0_S1 undriven or does not drive anything - clipped.
+Signal un1_clk_count_s_9_0_COUT undriven or does not drive anything - clipped.
+Signal un1_clk_count_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_10 undriven or does not drive anything - clipped.
+Signal seconds_ctr_1_cry_19_0_COUT undriven or does not drive anything -
+     clipped.
+Signal seconds_ctr_1_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal seconds_ctr_1_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_11 undriven or does not drive anything - clipped.
+Signal Reset_ctr_1_cry_9_0_COUT undriven or does not drive anything - clipped.
+Signal Reset_ctr_1_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal Reset_ctr_1_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_12 undriven or does not drive anything - clipped.
+Signal un1_wp_361_s_31_0_S1 undriven or does not drive anything - clipped.
+Signal un1_wp_361_s_31_0_COUT undriven or does not drive anything - clipped.
+Signal un1_wp_361_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal un1_wp_361_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_13 undriven or does not drive anything - clipped.
+Signal un520_data_stack_s_31_0_S1 undriven or does not drive anything - clipped.
+     
+Signal un520_data_stack_s_31_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un520_data_stack_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un520_data_stack_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal N_14 undriven or does not drive anything - clipped.
+Signal data_stack_s_31_0_S1 undriven or does not drive anything - clipped.
+
+Signal data_stack_s_31_0_COUT undriven or does not drive anything - clipped.
+Signal data_stack_cry_0_0_S1 undriven or does not drive anything - clipped.
+Signal data_stack_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_15 undriven or does not drive anything - clipped.
+Signal un45_data_stack_s_31_0_S1 undriven or does not drive anything - clipped.
+Signal un45_data_stack_s_31_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un45_data_stack_cry_0_0_S1 undriven or does not drive anything - clipped.
+     
+Signal un45_data_stack_cry_0_0_S0 undriven or does not drive anything - clipped.
+     
+Signal N_16 undriven or does not drive anything - clipped.
+Signal un107_data_stack_s_31_0_S1 undriven or does not drive anything - clipped.
+     
+Signal un107_data_stack_s_31_0_COUT undriven or does not drive anything -
+     clipped.
+Signal un107_data_stack_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal un107_data_stack_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal N_17 undriven or does not drive anything - clipped.
+Signal wp_s_0_S1[9] undriven or does not drive anything - clipped.
+Signal wp_s_0_COUT[9] undriven or does not drive anything - clipped.
+Signal wp_cry_0_S0[0] undriven or does not drive anything - clipped.
+Signal N_18 undriven or does not drive anything - clipped.
+Signal mp_5_0_s_9_0_S1 undriven or does not drive anything - clipped.
+Signal mp_5_0_s_9_0_COUT undriven or does not drive anything - clipped.
+Signal mp_5_0_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_19 undriven or does not drive anything - clipped.
+Signal xtwp_12_s_9_0_S1 undriven or does not drive anything - clipped.
+Signal xtwp_12_s_9_0_COUT undriven or does not drive anything - clipped.
+Signal xtwp_12_cry_0_0_S0 undriven or does not drive anything - clipped.
+Signal N_20 undriven or does not drive anything - clipped.
+Signal return_stack_ram_1_DO2 undriven or does not drive anything - clipped.
+Signal return_stack_ram_1_DO3 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_27_0_S1 undriven or does not drive anything - clipped.
+Signal mem_adreg_0_I_27_0_COUT undriven or does not drive anything - clipped.
+Signal mem_mem_0_0_DO17 undriven or does not drive anything - clipped.
+Signal mem_mem_0_0_DO16 undriven or does not drive anything - clipped.
+Signal mem_mem_0_0_DO15 undriven or does not drive anything - clipped.
+Signal mem_mem_0_0_DO14 undriven or does not drive anything - clipped.
+Block GND was optimized away.
+Block VCC was optimized away.
+
+
+
+<A name="mrp_mem"></A><B><U><big>Memory Usage</big></U></B>
+
+/:
+    EBRs: 1
+    RAM SLICEs: 0
+    Logic SLICEs: 3617
+    PFU Registers: 1039
+    -Contains EBR mem_mem_0_0:  TYPE= PDPW16KD,  Width= 32,  Depth_R= 512,
+         Depth_W= 512,  REGMODE= NOREG,  RESETMODE= SYNC,  GSR= DISABLED
+/return_stack_ram:
+    EBRs: 0
+
+    RAM SLICEs: 3
+    Logic SLICEs: 0
+    PFU Registers: 0
+/return_stack_ram_0:
+    EBRs: 0
+    RAM SLICEs: 3
+    Logic SLICEs: 0
+    PFU Registers: 0
+/return_stack_ram_1:
+    EBRs: 0
+    RAM SLICEs: 2
+    Logic SLICEs: 0
+    PFU Registers: 0
+/return_stack_ram_1/RAMW:
+    EBRs: 0
+    RAM SLICEs: 1
+    Logic SLICEs: 0
+    PFU Registers: 0
+
+     
+
+
+
+<A name="mrp_asic"></A><B><U><big>ASIC Components</big></U></B>
+---------------
+
+Instance Name: mem_mem_0_0
+         Type: PDPW16KD
+
+
+
+<A name="mrp_runtime"></A><B><U><big>Run Time and Memory Usage</big></U></B>
+-------------------------
+
+   Total CPU Time: 3 secs  
+   Total REAL Time: 4 secs  
+   Peak Memory Usage: 278 MB
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+     Copyright (c) 1995 AT&T Corp.   All rights reserved.
+     Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+     Copyright (c) 2001 Agere Systems   All rights reserved.
+     Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights
+     reserved.
+
+
+
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

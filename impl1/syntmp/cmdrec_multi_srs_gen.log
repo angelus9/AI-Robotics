@@ -1,0 +1,7 @@
+C:\lscc\diamond\3.12\synpbase\bin64\syn_nfilter.exe  -link  -multisrs  "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_comp.srs"  -osyn  "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_mult.srs"  -log  "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo2_impl1_multi_srs_gen.srr" 
+relcom:C:\lscc\diamond\3.12\synpbase\bin64\syn_nfilter.exe -link -multisrs "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_comp.srs" -osyn "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synwork\Demitri_Demo2_impl1_mult.srs" -log "D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\synlog\Demitri_Demo2_impl1_multi_srs_gen.srr"
+rc:0 success:1 runtime:0
+file:..\synwork\Demitri_Demo2_impl1_comp.srs|io:i|time:1709411785|size:41437|exec:0|csum:C133AAA3267AE4BEFCE80FA088699594
+file:..\synwork\Demitri_Demo2_impl1_mult.srs|io:o|time:1709411787|size:41254|exec:0|csum:
+file:..\synlog\Demitri_Demo2_impl1_multi_srs_gen.srr|io:o|time:1709411787|size:1551|exec:0|csum:
+file:C:\lscc\diamond\3.12\synpbase\bin64\syn_nfilter.exe|io:i|time:1628601758|size:8899584|exec:1|csum:163057E8B8449A642661642A20A2247D

@@ -1,0 +1,2 @@
+@E: CL172 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Forth_Proc.sv":264:6:264:11|Only one always block can assign a given variable n_LED6
+

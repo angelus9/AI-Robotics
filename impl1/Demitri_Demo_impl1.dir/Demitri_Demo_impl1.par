@@ -1,0 +1,28 @@
+PAR: Place And Route Diamond (64-bit) 3.12.1.454.
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2020 Lattice Semiconductor Corporation,  All rights reserved.
+Sat Feb 24 18:49:10 2024
+
+C:/lscc/diamond/3.12/ispfpga\bin\nt64\par -f Demitri_Demo_impl1.p2t
+Demitri_Demo_impl1_map.ncd Demitri_Demo_impl1.dir Demitri_Demo_impl1.prf -gui
+-msgset
+D:/MyStuff/Projects/Forth_Processor2-Lattice - dg/Diamond/Demitri Demo/promote.xml
+
+
+Preference file: Demitri_Demo_impl1.prf.
+
+Level/       Number       Worst        Timing       Worst        Timing       Run          NCD
+Cost [ncd]   Unrouted     Slack        Score        Slack(hold)  Score(hold)  Time         Status
+----------   --------     -----        ------       -----------  -----------  ----         ------
+5_1   *      0            -            -            -            -            21           Completed
+
+* : Design saved.
+
+Total (real) run time for 1-seed: 21 secs 
+
+par done!
+
+Note: user must run 'Trace' for timing closure signoff.

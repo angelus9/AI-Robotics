@@ -1,0 +1,65 @@
+#Build: Synplify Pro (R) R-2021.03L-SP1, Build 093R, Aug 10 2021
+#install: C:\lscc\diamond\3.12\synpbase
+#OS: Windows 8 6.2
+#Hostname: MSI
+
+# Sat Feb 17 14:31:41 2024
+
+#Implementation: impl1
+
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys HDL Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+###########################################################[
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+Synopsys Verilog Compiler, Version comp202103synp2, Build 093R, Built Aug 10 2021 09:15:36, @
+
+@N|Running in 64-bit mode
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\ecp5um5g.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\lucent\pmi_def.v" (library work)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\hypermods.v" (library __hyper__lib__)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\umr_capim.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_objects.v" (library snps_haps)
+@I::"C:\lscc\diamond\3.12\synpbase\lib\vlog\scemi_pipes.svh" (library snps_haps)
+@I::"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Demitri Orig Interpreter Forth_Proc.sv" (library work)
+@W: CG921 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Demitri Orig Interpreter Forth_Proc.sv":319:14:319:15|wp is already declared in this scope.
+@W: CG921 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Demitri Orig Interpreter Forth_Proc.sv":323:19:323:25|word_in is already declared in this scope.
+@E: CG285 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Demitri Orig Interpreter Forth_Proc.sv":442:2:442:8|Expecting statement
+@E: CS187 :"D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\source\Demitri Orig Interpreter Forth_Proc.sv":978:0:978:8|Expecting endmodule
+2 syntax errors
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Feb 17 14:31:41 2024
+
+###########################################################]
+@END
+Process took 0h:00m:01s realtime, 0h:00m:01s cputime
+# Sat Feb 17 14:31:41 2024
+
+###########################################################]

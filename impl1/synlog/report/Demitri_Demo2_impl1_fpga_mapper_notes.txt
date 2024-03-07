@@ -1,0 +1,34 @@
+@N: MF916 |Option synthesis_strategy=base is enabled. 
+@N: MF248 |Running in 64-bit mode.
+@N: MF666 |Clock conversion enabled. (Command "set_option -fix_gated_and_generated_clocks 1" in the project file.)
+@N: MO231 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Found counter in view:work.ForthProc(verilog) instance wp[9:0] 
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Found 9 by 9 bit equality operator ('==') adreg (in view: VhdlGenLib.ForthProc_RAM_R_W_257_32_TFFF_block_ram_virtex2(netlist))
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Removing sequential instance mem_addr[9] (in view: work.ForthProc(verilog)) of type view:PrimLib.dff(prim) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Removing sequential instance comp_state[0] (in view: work.ForthProc(verilog)) of type view:PrimLib.dffs(prim) because it does not drive other instances.
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":459:25:459:50|Found 32 by 32 bit equality operator ('==') un1_data_stack\[15\] (in view: work.ForthProc(verilog))
+@N: MF179 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":611:20:611:55|Found 32 by 32 bit equality operator ('==') t_execute_0\.un310_data_stack (in view: work.ForthProc(verilog))
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[11\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[16\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[15\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[14\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[13\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: BN362 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":955:0:955:8|Removing sequential instance Reset_ctr\[12\] (in view: work.ForthProc(verilog)) because it does not drive other instances.
+@N: MF794 |RAM mem[31:0] required 51 registers during mapping 
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":726:4:726:5|Pipelining module un1_dp[3:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":724:0:724:8|Pushed in register dp[3:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":462:7:462:11|Pipelining module un1_ccell[6:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register ccell[6:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":923:12:923:12|Pipelining module seconds_ctr_1[20:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":921:0:921:8|Pushed in register seconds_ctr[20:0].
+@N: FA113 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":474:9:474:12|Pipelining module un1_xtwp[9:0]. For more information, search for "pipelining" in Online Help.
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register xtwp[9:0].
+@N: MF169 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":375:0:375:8|Pushed in register branch_addr.
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[5] (in view: work.ForthProc(verilog)) with 37 loads 2 times to improve timing.
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[1] (in view: work.ForthProc(verilog)) with 31 loads 2 times to improve timing.
+@N: FX271 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":348:0:348:8|Replicating instance mem_addr[4] (in view: work.ForthProc(verilog)) with 31 loads 2 times to improve timing.
+@N: FX164 |The option to pack registers in the IOB has not been specified. Please set syn_useioff attribute.  
+@N: FO126 :"d:\mystuff\projects\forth_processor2-lattice - dg\diamond\demitri demo\impl1\source\forth_proc.sv":724:0:724:8|Generating RAM return_stack[9:0]
+@N: FX1056 |Writing EDF file: D:\MyStuff\Projects\Forth_Processor2-Lattice - dg\Diamond\Demitri Demo\impl1\Demitri_Demo2_impl1.edi
+@N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
+@N: MT320 |This timing report is an estimate of place and route data. For final timing results, use the FPGA vendor place and route report.
+@N: MT322 |Clock constraints include only register-to-register paths associated with each individual clock.

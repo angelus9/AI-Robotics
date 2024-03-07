@@ -1,0 +1,47 @@
+
+Copyright (C) 1994-2021 Synopsys, Inc.
+This Synopsys software and all associated documentation are proprietary to Synopsys, Inc.
+and may only be used pursuant to the terms and conditions of a written license agreement
+with Synopsys, Inc. All other use, reproduction, modification, or distribution of the
+Synopsys software or the associated documentation is strictly prohibited.
+Tool: Synplify Pro (R)
+Build: R-2021.03L-SP1
+Install: C:\lscc\diamond\3.12\synpbase
+OS: Windows 6.2
+
+Hostname: MSI
+
+Implementation : impl1
+
+# Written on Sat Mar  2 15:36:27 2024
+
+##### FILES SYNTAX CHECKED ##############################################
+Constraint File(s):      (none)
+
+#Run constraint checker to find more issues with constraints.
+#########################################################################
+
+
+
+No issues found in constraint syntax.
+
+
+
+Clock Summary
+*************
+
+          Start             Requested     Requested     Clock        Clock                   Clock
+Level     Clock             Frequency     Period        Type         Group                   Load 
+--------------------------------------------------------------------------------------------------
+0 -       ForthProc|clk     200.0 MHz     5.000         inferred     Inferred_clkgroup_0     1034 
+==================================================================================================
+
+
+Clock Load Summary
+******************
+
+                  Clock     Source        Clock Pin       Non-clock Pin     Non-clock Pin
+Clock             Load      Pin           Seq Example     Seq Example       Comb Example 
+-----------------------------------------------------------------------------------------
+ForthProc|clk     1034      clk(port)     LED0.C          -                 -            
+=========================================================================================
