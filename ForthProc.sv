@@ -367,7 +367,7 @@ always_ff @(posedge clk) begin
 	else begin
 		case (state)
 			IDLE : begin
-				xt_valid = 1'b0;
+				xt_valid <= 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
 				wp = newest_def;
@@ -523,8 +523,8 @@ end
         rp='0;
         mp ='0;
 		nrp = '0;
-        busy <= false;
-        skip_op <= false;
+        busy = false;
+        skip_op = false;
 		uart_send <= 1'b0;
 	endtask
 
