@@ -27,7 +27,9 @@ Longer term, we will add AI Words to extend the high level language to include A
 
 Getting started with the CORE  I project:  Watch the three videos on the CORE I project.
 
-Latest: Overall view, current state of development and the goals of the project...
+Laterest Video: Forth in space is required: https://www.youtube.com/watch?v=9FH6kltGspM
+
+Video: Overall view, current state of development and the goals of the project...
 https://www.youtube.com/watch?v=wVRH25-lrrs&t=653s
 
 [https://www.youtube.com/watch?v=hm6YzarM08Q&t=459s](https://www.youtube.com/watch?v=hm6YzarM08Q&t=459s)
