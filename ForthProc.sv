@@ -123,6 +123,8 @@ _and, _or, _xor, _not, _zero_less_than, _zero_greater_than, _zero_equals,
 //Communications
 _key, _emit,
 
+// Outer interpreter
+_parse, _search,
 //I/O Processing                
 _io_led, _io_button, _io_fetch, _io_store
 
@@ -153,8 +155,8 @@ module ForthProc
 
 //Module I/O 
 (  
-    input logic reset,
     input logic clk,
+	input logic rst,
 	output logic TX,
 	input logic RX,
 
@@ -265,12 +267,25 @@ logic [address_size:0] mem_addr;
 logic [Int_SRAM_ADDR_size:0] dict_wdata;
 logic [address_size:0] wp; // dictionary pointer wp
 
+logic reset;
+logic [7:0] reset_cnt='0;
+always_ff @(posedge clk) begin
+	if (reset_cnt != 8'hff) begin
+		reset_cnt <= reset_cnt + 1;
+		reset <= 1'b0;
+	end 
+	else begin 
+		reset <= rst;
+	end
+end
+
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	bootROM[0] <=  _execute;
-	bootROM[1] <=  _branch;
-	bootROM[2] <=  0;
+	bootROM[0] <=  -55;
+	bootROM[1] <=  -65;
+	bootROM[2] <=  _branch;
+	bootROM[3] <=  0;
 	bootROM[11] <=  _lit;
 	bootROM[12] <=  "?";
 	bootROM[13] <=  _emit;
@@ -313,6 +328,29 @@ task automatic t_init_dictionary_code;
 	bootROM[50] <= 44;
 	bootROM[51] <= _drop;
 	bootROM[52] <= _exit;
+	bootROM[53] <= -39;
+	bootROM[54] <= {8'd1,"o","k","\0","\0"};
+	bootROM[55] <= _lit;
+	bootROM[56] <= "o";
+	bootROM[57] <= _emit;
+	bootROM[58] <= _lit;
+	bootROM[59] <= "k";
+	bootROM[60] <= _emit;
+	bootROM[61] <= _lit;
+	bootROM[62] <= 13;
+	bootROM[63] <= _emit;
+	bootROM[64] <= _exit;
+	bootROM[65] <= _key;
+	bootROM[66] <= _dup;
+	bootROM[67] <= _emit;
+	bootROM[68] <= _dup;
+	bootROM[69] <= _parse;
+	bootROM[70] <= _lit;
+	bootROM[71] <= 13;
+	bootROM[72] <= _equal;
+	bootROM[73] <= _0branch;
+	bootROM[74] <= 65;
+	bootROM[75] <= _exit;
 endtask : t_init_dictionary_code
 
 logic [address_size:0] mem_diff;
@@ -342,10 +380,10 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
 	NEW_LINK, NEW_DEF} state;
 	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
-
+/**
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	localparam DICT_START = 39;
+	localparam DICT_START = 53;
 	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
@@ -367,6 +405,7 @@ always_ff @(posedge clk) begin
 	else begin
 		case (state)
 			IDLE : begin
+
 				xt_valid <= 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
@@ -382,6 +421,9 @@ always_ff @(posedge clk) begin
 			PARSE : begin
 				state = IDLE;
 				if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
+					n_LED_G <= '0;
+					n_LED_B <= '0;
+					n_LED_R <= '0;
 					if (comp_state == COLON) begin
 						comp_state = WORD;
 					end
@@ -517,6 +559,7 @@ always_ff @(posedge clk) begin
 		endcase
 	end
 end
+*/
 
 	task automatic t_reset;
         dp='0;
@@ -587,13 +630,10 @@ end
 			data_stack[dp] = ~data_stack[dp]+1;
 		end
 		_io_led : begin
-			n_LED_G <= !data_stack[dp][0];
-			n_LED_B <= !data_stack[dp][1];
-			n_LED_R <= !data_stack[dp][2];
+			n_LED_G <= data_stack[dp][0];
+			n_LED_B <= data_stack[dp][1];
+			n_LED_R <= data_stack[dp][2];
 			--dp;
-		end
-		_io_button : begin
-            data_stack[dp] = {BUTTON1,BUTTON0};
 		end
 		_lit : begin
 			if (busy == false) begin
@@ -635,7 +675,19 @@ end
 				branch = true;
 				branch_addr = DataBus;
 			end
-        end    
+        end
+		_key : begin
+			if (busy == false) begin
+				uart_receive <= 1'b1;
+				busy = true;
+				++dp;
+			end
+			else if (uart_rx_valid && busy == true) begin
+				uart_receive <= 1'b0;
+				data_stack[dp][7:0] = uart_rx_data;
+				busy = false;
+			end
+        end     
         _emit : begin
 			if (busy == false) begin
 				uart_send <= 1'b1;
@@ -649,18 +701,42 @@ end
 				uart_send <= 1'b0;
 				busy = false;
 			end
-        end        
-		_execute : begin
-			busy = true;
-			xt_ready = 1'b0;
-			if (xt_valid) begin
-				branch_addr = xtrp;
-				branch = true;
-				busy = false;
-				skip_op = true;
-				rp++;
-				return_stack[rp] = mp;
-				xt_ready = 1'b1;
+        end
+		_parse : begin
+			if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
+				if (comp_state == COLON) begin
+					comp_state = WORD;
+				end
+				else if (comp_state == WORD) begin
+					comp_state = COMPILING;
+					state = NEW_LINK;
+				end
+				else if (comp_state == END_COMPILE) begin
+					comp_state = INTERPRET;
+					xtrp = xtwp;
+				end
+				else begin
+					state = BEFORE_LINK;
+				end
+			end
+			else if (byte_in == ":") begin
+				comp_state = COLON;
+			end
+			else if (byte_in == ";") begin
+				state = ADD_EXIT;
+				comp_state = END_COMPILE;
+			end
+			else begin
+				cchar++;
+				case (cchar % 4)
+					0 : word_in[cchar / 4][31:24] = byte_in;
+					1 : word_in[cchar / 4][23:16] = byte_in;
+					2 : word_in[cchar / 4][15:8] = byte_in;
+					3 : word_in[cchar / 4][7:0] = byte_in;
+					default :;
+				endcase
+				cells = 1 + (cchar / 4);
+				word_in[0][31:24] = cells;
 			end
 		end
 		_exit : begin
@@ -684,6 +760,9 @@ always_ff @(posedge clk) begin
 
     if (reset == 1'b0) begin
         t_reset;
+		n_LED_R <= 1'b1;
+		n_LED_B <= 1'b1;
+		n_LED_G <= 1'b1;
     end    
     else begin
 		skip_op = skip_op || branch;
@@ -696,12 +775,28 @@ always_ff @(posedge clk) begin
 		end
 		t_Fetch_opcode;
         n_BUTTON0 <= BUTTON0;
-        n_BUTTON1 <= BUTTON1;         
-		LED_G <= n_LED_G;
- 		LED_B <= n_LED_B; 
- 		LED_R <= n_LED_R;		  
+        n_BUTTON1 <= BUTTON1;
     end 
 end
+
+//----------------------------------------------------------------------------
+//                                                                          --
+//                       Instantiate RGB primitive                          --
+//                                                                          --
+//----------------------------------------------------------------------------
+  RGB RGB_DRIVER (
+    .RGBLEDEN(1'b1),
+    .RGB0PWM (n_LED_G),
+    .RGB1PWM (n_LED_B),
+    .RGB2PWM (n_LED_R),
+    .CURREN  (1'b1),
+    .RGB0    (LED_G), //Actual Hardware connection
+    .RGB1    (LED_B),
+    .RGB2    (LED_R)
+  );
+  defparam RGB_DRIVER.RGB0_CURRENT = "0b000001";
+  defparam RGB_DRIVER.RGB1_CURRENT = "0b000001";
+  defparam RGB_DRIVER.RGB2_CURRENT = "0b000001";
 
 // UART RX
 always_ff @(posedge clk) begin
