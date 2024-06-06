@@ -587,9 +587,9 @@ end
 			data_stack[dp] = ~data_stack[dp]+1;
 		end
 		_io_led : begin
-			n_LED_G <= !data_stack[dp][0];
-			n_LED_B <= !data_stack[dp][1];
-			n_LED_R <= !data_stack[dp][2];
+			n_LED_G <= data_stack[dp][0];
+			n_LED_B <= data_stack[dp][1];
+			n_LED_R <= data_stack[dp][2];
 			--dp;
 		end
 		_io_button : begin
@@ -679,6 +679,25 @@ end
       
   endtask : t_execute
  
+//----------------------------------------------------------------------------
+//                                                                          --
+//                       Instantiate RGB primitive                          --
+//                                                                          --
+//----------------------------------------------------------------------------
+  RGB RGB_DRIVER (
+    .RGBLEDEN(1'b1),
+    .RGB0PWM (n_LED_G),
+    .RGB1PWM (n_LED_B),
+    .RGB2PWM (n_LED_R),
+    .CURREN  (1'b1),
+    .RGB0    (LED_G), //Actual Hardware connection
+    .RGB1    (LED_B),
+    .RGB2    (LED_R)
+  );
+  defparam RGB_DRIVER.RGB0_CURRENT = "0b000001";
+  defparam RGB_DRIVER.RGB1_CURRENT = "0b000001";
+  defparam RGB_DRIVER.RGB2_CURRENT = "0b000001";
+
 //Forth Inner Interpreter (Fetch/Execute Unit)
 always_ff @(posedge clk) begin
 
@@ -696,10 +715,7 @@ always_ff @(posedge clk) begin
 		end
 		t_Fetch_opcode;
         n_BUTTON0 <= BUTTON0;
-        n_BUTTON1 <= BUTTON1;         
-		LED_G <= n_LED_G;
- 		LED_B <= n_LED_B; 
- 		LED_R <= n_LED_R;		  
+        n_BUTTON1 <= BUTTON1;
     end 
 end
 
