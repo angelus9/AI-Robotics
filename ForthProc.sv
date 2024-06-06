@@ -153,8 +153,8 @@ module ForthProc
 
 //Module I/O 
 (  
-    input logic reset,
     input logic clk,
+	input logic rst,
 	output logic TX,
 	input logic RX,
 
@@ -264,6 +264,18 @@ logic mem_access_outer;
 logic [address_size:0] mem_addr;
 logic [Int_SRAM_ADDR_size:0] dict_wdata;
 logic [address_size:0] wp; // dictionary pointer wp
+
+logic reset;
+logic [7:0] reset_cnt='0;
+always_ff @(posedge clk) begin
+	if (reset_cnt != 8'hff) begin
+		reset_cnt <= reset_cnt + 1;
+		reset <= 1'b0;
+	end 
+	else begin 
+		reset <= rst;
+	end
+end
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
