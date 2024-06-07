@@ -240,13 +240,19 @@ logic n_LED_B;
 logic n_LED_R;
 
 // UART registers
+logic [7:0] tx_data_outer;
+logic [7:0] tx_data_inner;
 logic [7:0] tx_data;
 logic uart_busy_tx;
+logic uart_send_outer;
+logic uart_send_inner;
 logic uart_send;
 logic uart_busy_rx;
 logic uart_receive;
 logic uart_rx_valid;
 logic [7:0] uart_rx_data;
+assign tx_data = tx_data_outer | tx_data_inner;
+assign uart_send = uart_send_outer | uart_send_inner;
 
 // Execution Token
 localparam XTQ_START = 200;
@@ -366,6 +372,8 @@ always_ff @(posedge clk) begin
 		state = IDLE;
 		count = '0;
 		uart_receive <= 1'b1;
+		uart_send_outer <= 1'b0;
+		tx_data_outer <= '0;
 		xtwp = XTQ_START;
 		xtrp = XTQ_START;
 		nwp = '0;
@@ -388,7 +396,13 @@ always_ff @(posedge clk) begin
 					mem_access_outer = 1'b1;
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
+					uart_send_outer <= 1'b1;
+					tx_data_outer   <= byte_in;
 					state = PARSE;
+				end
+				else if (!uart_busy_tx) begin
+					uart_send_outer <= 1'b0;
+					tx_data_outer <= '0;
 				end
 			end
 			PARSE : begin
@@ -537,7 +551,8 @@ end
 		nrp = '0;
         busy = false;
         skip_op = false;
-		uart_send <= 1'b0;
+		uart_send_inner <= 1'b0;
+		tx_data_inner <= '0;
 	endtask
 
 	task automatic t_Fetch_opcode;
@@ -650,15 +665,16 @@ end
         end    
         _emit : begin
 			if (busy == false) begin
-				uart_send <= 1'b1;
+				uart_send_inner <= 1'b1;
 				busy = true;
 				--dp;    
 			end
 			else if (uart_busy_tx && busy == true) begin
-				tx_data   <= data_stack[dp+1][7:0];         
+				tx_data_inner   <= data_stack[dp+1][7:0];         
 			end
 			else if (!uart_busy_tx && busy == true) begin
-				uart_send <= 1'b0;
+				uart_send_inner <= 1'b0;
+				tx_data_inner <= '0;
 				busy = false;
 			end
         end        
