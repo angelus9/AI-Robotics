@@ -137,7 +137,7 @@ module ForthProc
   port_size         = 7,//size-1
   code_size         = 15,//size-1
   io_size           = 7,//size-1  
-  data_stack_depth  = 16,
+  data_stack_depth  = 8,
   return_stack_depth = 8,
   ram_depth         = 500,
   high		        = 1'b1,
@@ -213,13 +213,13 @@ logic [15:0] SPI1_16_data_out;
 logic [15:0] SPI1_16_data_in;
 
 //Circular stacks
-logic [data_size:0] data_stack[data_stack_depth] ;
-logic [data_size:0] return_stack[return_stack_depth];
+logic [data_size:0] data_stack[data_stack_depth]; /* synthesis syn_ramstyle="block_ram" */;
+logic [data_size:0] return_stack[return_stack_depth]; /* synthesis syn_ramstyle="block_ram" */;
 logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
 logic boot_enable;
-logic [data_size:0] bootROM [200:0]; /* synthesis syn_ramstyle="EBR" */
+logic [data_size:0] bootROM [200:0]; /* synthesis syn_ramstyle="block_ram" */;
 //Lattice Internal memory
  logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
@@ -285,60 +285,12 @@ end
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
-task automatic t_init_dictionary_code;
-	bootROM[0] <=  _execute;
-	bootROM[1] <=  _branch;
-	bootROM[2] <=  0;
-	bootROM[11] <=  _lit;
-	bootROM[12] <=  "?";
-	bootROM[13] <=  _emit;
-	bootROM[14] <= _exit;
-	bootROM[15] <= 0; 					// Link to next dictionary entry
-	bootROM[16] <= {8'd1,"l","e","d"};	// Name field (NFA)
-	bootROM[17] <= _io_led;				// code field
-	bootROM[18] <= _exit;					// end of code field
-	bootROM[19] <= 15;
-	bootROM[20] <= {8'd1,"r","e","d"};				
-	bootROM[21] <= _lit;
-	bootROM[22] <= 4;
-	bootROM[23] <= -17;
-	bootROM[24] <= _exit;				
-	bootROM[25] <= 19;
-	bootROM[26] <= {8'd2,"g","r","e"};
-	bootROM[27] <= {"e","n","\0","\0"};
-	bootROM[28] <= _lit;
-	bootROM[29] <= 1;
-	bootROM[30] <= -17;
-	bootROM[31] <= _exit;
-	bootROM[32] <= 25;
-	bootROM[33] <= {8'd2,"b","l","u"};
-	bootROM[34] <= {"e","\0","\0","\0"};
-	bootROM[35] <= _lit;
-	bootROM[36] <= 2;
-	bootROM[37] <= -17;
-	bootROM[38] <= _exit;
-	bootROM[39] <= 32;
-	bootROM[40] <= {8'd2,"d","e","l"};
-	bootROM[41] <= {"a","y","\0","\0"};
-	bootROM[42] <= _lit;
-	bootROM[43] <= 5000000;
-	bootROM[44] <= _lit;
-	bootROM[45] <= 1;
-	bootROM[46] <= _minus;
-	bootROM[47] <= _dup;
-	bootROM[48] <= _zero_equal;
-	bootROM[49] <= _0branch;
-	bootROM[50] <= 44;
-	bootROM[51] <= _drop;
-	bootROM[52] <= _exit;
-endtask : t_init_dictionary_code
 
 logic [address_size:0] mem_diff;
 assign boot_enable = (mem_access_outer ? wp : mp) < XTQ_START;
 // memory manager
 always_ff @(posedge clk or negedge reset) begin
 	if (reset == 1'b0) begin
-		t_init_dictionary_code;
 	end
 	else begin
 		mem_diff = boot_enable ? '0 : -XTQ_START;
@@ -933,6 +885,54 @@ always_ff @(posedge clk) begin
 		++SPI2_16_div_counter;
 	end	
 end	
+
+initial begin
+	bootROM[0] =  _execute;
+	bootROM[1] =  _branch;
+	bootROM[2] =  0;
+	bootROM[11] =  _lit;
+	bootROM[12] =  "?";
+	bootROM[13] =  _emit;
+	bootROM[14] = _exit;
+	bootROM[15] = 0; 					// Link to next dictionary entry
+	bootROM[16] = {8'd1,"l","e","d"};	// Name field (NFA)
+	bootROM[17] = _io_led;				// code field
+	bootROM[18] = _exit;					// end of code field
+	bootROM[19] = 15;
+	bootROM[20] = {8'd1,"r","e","d"};				
+	bootROM[21] = _lit;
+	bootROM[22] = 4;
+	bootROM[23] = -17;
+	bootROM[24] = _exit;				
+	bootROM[25] = 19;
+	bootROM[26] = {8'd2,"g","r","e"};
+	bootROM[27] = {"e","n","\0","\0"};
+	bootROM[28] = _lit;
+	bootROM[29] = 1;
+	bootROM[30] = -17;
+	bootROM[31] = _exit;
+	bootROM[32] = 25;
+	bootROM[33] = {8'd2,"b","l","u"};
+	bootROM[34] = {"e","\0","\0","\0"};
+	bootROM[35] = _lit;
+	bootROM[36] = 2;
+	bootROM[37] = -17;
+	bootROM[38] = _exit;
+	bootROM[39] = 32;
+	bootROM[40] = {8'd2,"d","e","l"};
+	bootROM[41] = {"a","y","\0","\0"};
+	bootROM[42] = _lit;
+	bootROM[43] = 5000000;
+	bootROM[44] = _lit;
+	bootROM[45] = 1;
+	bootROM[46] = _minus;
+	bootROM[47] = _dup;
+	bootROM[48] = _zero_equal;
+	bootROM[49] = _0branch;
+	bootROM[50] = 44;
+	bootROM[51] = _drop;
+	bootROM[52] = _exit;
+end
   
 endmodule
 
