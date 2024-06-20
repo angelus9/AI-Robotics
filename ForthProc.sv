@@ -105,7 +105,7 @@ _question_dup, _drop, _roll, _to_return, _from_return, _copy_return,
 _lit,
 
 //Memory Operators              
-_8store, _8fetch, _8plus_store, _16store, _16fetch, _32store, _32fetch, _cmove, _fill,
+_cstore, _cfetch,  _store, _fetch, _cmove, _fill,
 _ROM_active, _SRAM_active, _EXSRAM_active,
 
 //Arithmetic
@@ -219,7 +219,7 @@ logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
 logic boot_enable;
-logic [data_size:0] bootROM [200:0];
+logic [data_size:0] bootROM [200:0]; /* synthesis syn_ramstyle="EBR" */
 //Lattice Internal memory
  logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
@@ -358,8 +358,16 @@ assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 	logic [data_size:0] local_xt;
 	logic [3:0] count ;
 	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
-	NEW_LINK, NEW_DEF} state;
+	NEW_LINK, NEW_DEF, MEM_OP, LOAD} state;
 	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
+
+	logic i_data_req = 1'b0; // inner interpreter sends
+	logic i_data_gnt = 1'b0; // outer interpeter sends
+	enum {FETCH, STORE, I} i_data_op;
+	logic [data_size:0] i_data;
+	logic [address_size:0] i_data_addr;
+	logic [data_size:0] o_rdata;
+	
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
@@ -383,6 +391,7 @@ always_ff @(posedge clk) begin
 		cchar = '0;
 		mem_access_outer = 1'b0;
 		comp_state = INTERPRET;
+		i_data_gnt <= 1'b0;
 	end
 	else begin
 		case (state)
@@ -390,6 +399,7 @@ always_ff @(posedge clk) begin
 				xt_valid <= 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
+				i_data_gnt <= 1'b1;
 				wp = newest_def;
 				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
@@ -403,6 +413,9 @@ always_ff @(posedge clk) begin
 				else if (!uart_busy_tx) begin
 					uart_send_outer <= 1'b0;
 					tx_data_outer <= '0;
+				end
+				else if (i_data_req) begin
+					state = MEM_OP;
 				end
 			end
 			PARSE : begin
@@ -539,6 +552,22 @@ always_ff @(posedge clk) begin
 					state = IDLE;
 				end
 			end
+			MEM_OP : begin
+				if (i_data_op == STORE) begin // STORE
+					wp = i_data_addr;
+					dict_write = 1'b1;
+					dict_wdata = i_data;
+					i_data_gnt <= 1'b1;
+				end
+				else if (i_data_op == FETCH) begin
+					wp = i_data_addr;
+					state = LOAD;
+				end
+			end
+			LOAD : begin
+				o_rdata = DataBus;
+				i_data_gnt <= 1'b1;
+			end
 		default : state = IDLE;
 		endcase
 	end
@@ -553,6 +582,7 @@ end
         skip_op = false;
 		uart_send_inner <= 1'b0;
 		tx_data_inner <= '0;
+		i_data_req <= 1'b0;
 	endtask
 
 	task automatic t_Fetch_opcode;
@@ -571,6 +601,37 @@ end
 		opcode = op_e'(DataBus[code_size:0]);
 	  end
 	  case (opcode)
+		_store : begin
+			if (busy == false) begin
+				busy = true;
+				i_data_addr <= data_stack[dp];
+				--dp;
+			end
+			else begin
+				i_data_req <= 1'b1;
+				i_data <= data_stack[dp];
+				i_data_op <= STORE;
+				if (i_data_gnt == 1'b1) begin
+					i_data_req <= 1'b0;
+					--dp;
+					busy = false;
+				end
+			end
+		end
+		_fetch : begin
+			if (busy == false) begin
+				busy = true;
+				i_data_req <= 1'b1;
+				i_data_op <= FETCH;
+				i_data_addr <= data_stack[dp];
+			end
+			else begin
+				if (i_data_gnt == 1'b1) begin
+					data_stack[dp] = o_rdata;
+					busy = false;
+				end
+			end
+		end
         _minus : begin
 				--dp;
 				data_stack[dp] = data_stack[dp] - data_stack[dp+1];
