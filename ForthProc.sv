@@ -137,7 +137,7 @@ module ForthProc
   port_size         = 7,//size-1
   code_size         = 15,//size-1
   io_size           = 7,//size-1  
-  data_stack_depth  = 8,
+  data_stack_depth  = 16,
   return_stack_depth = 8,
   ram_depth         = 500,
   high		        = 1'b1,
@@ -213,6 +213,7 @@ logic [15:0] SPI1_16_data_out;
 logic [15:0] SPI1_16_data_in;
 
 //Circular stacks
+logic [data_size:0] top_data_stack;
 logic [data_size:0] data_stack[data_stack_depth]; /* synthesis syn_ramstyle="block_ram" */;
 logic [data_size:0] return_stack[return_stack_depth]; /* synthesis syn_ramstyle="block_ram" */;
 logic [$clog2(data_stack_depth)-1:0] dp;
@@ -556,14 +557,16 @@ end
 		_store : begin
 			if (busy == false) begin
 				busy = true;
-				i_data_addr <= data_stack[dp];
+				i_data_addr <= top_data_stack;
+				top_data_stack <= data_stack[dp];
 				--dp;
 			end
 			else begin
 				i_data_req <= 1'b1;
-				i_data <= data_stack[dp];
+				i_data <= top_data_stack;
 				i_data_op <= STORE;
 				if (i_data_gnt == 1'b1) begin
+					top_data_stack <= data_stack[dp];
 					i_data_req <= 1'b0;
 					--dp;
 					busy = false;
@@ -575,65 +578,76 @@ end
 				busy = true;
 				i_data_req <= 1'b1;
 				i_data_op <= FETCH;
-				i_data_addr <= data_stack[dp];
+				i_data_addr <= top_data_stack;
 			end
 			else begin
 				if (i_data_gnt == 1'b1) begin
-					data_stack[dp] = o_rdata;
+					top_data_stack <= o_rdata;
 					busy = false;
 				end
 			end
 		end
         _minus : begin
-				--dp;
-				data_stack[dp] = data_stack[dp] - data_stack[dp+1];
+			top_data_stack <= top_data_stack - data_stack[dp];
+			--dp;
         end
         
         _plus : begin
-		  --dp;
-				data_stack[dp] = data_stack[dp] + data_stack[dp+1];
+			top_data_stack <= top_data_stack + data_stack[dp];
+			--dp;
         end
         _one_plus : begin
-			++data_stack[dp];
+			top_data_stack <= top_data_stack + 1;
 		end			
 		_dup : begin
 			++dp;
-			data_stack[dp] = data_stack[dp-1];
+			data_stack[dp] <= top_data_stack;
 			
 		end
 		_over : begin
-			data_stack[dp+1] = data_stack[dp-1];
-          ++dp;
+			++dp;
+			data_stack[dp] <= top_data_stack;
+			top_data_stack <= data_stack[dp-1];
 		end
-        
 		_drop : begin
+			top_data_stack <= data_stack[dp];
 			--dp;
 		end
-        
 		_equal : begin
+			top_data_stack <= top_data_stack == data_stack[dp] ? -1 : 0;
 			--dp;
-			data_stack[dp] = data_stack[dp+1] == data_stack[dp] ? -1 : 0;
 		end
 		_zero_equal : begin
-			data_stack[dp] = (data_stack[dp] == '0) ? -1 : '0;
+			top_data_stack <= (top_data_stack == '0) ? -1 : '0;
 		end
 		_zero_less_than : begin
-			data_stack[dp] = (data_stack[dp] < '0) ? -1 : '0;
+			top_data_stack <= (top_data_stack < '0) ? -1 : '0;
 		end
 		_not : begin
-			data_stack[dp] = ~data_stack[dp];
+			top_data_stack <= ~top_data_stack;
 		end
 		_negate : begin
-			data_stack[dp] = ~data_stack[dp]+1;
+			top_data_stack <= ~top_data_stack+1;
 		end
-		_io_led : begin
-			n_LED_G <= data_stack[dp][0];
-			n_LED_B <= data_stack[dp][1];
-			n_LED_R <= data_stack[dp][2];
+		_and : begin
+			top_data_stack <= top_data_stack & data_stack[dp];
 			--dp;
 		end
+		_or : begin
+			top_data_stack <= top_data_stack | data_stack[dp];
+			--dp;
+		end
+		_io_led : begin
+			n_LED_G <= top_data_stack[0];
+			n_LED_B <= top_data_stack[1];
+			n_LED_R <= top_data_stack[2];
+			top_data_stack <= data_stack[dp];
+			--dp;	
+		end
 		_io_button : begin
-            data_stack[dp] = {BUTTON1,BUTTON0};
+			++dp;
+            top_data_stack <= {BUTTON1,BUTTON0};
+			data_stack[dp] <= top_data_stack;
 		end
 		_lit : begin
 			if (busy == false) begin
@@ -641,25 +655,19 @@ end
 			end
 			else begin
 				++dp;
-				data_stack[dp] = DataBus;
+				data_stack[dp] <= top_data_stack;
+				top_data_stack <= DataBus;
 				busy = false;
 				skip_op = true;
 			end
-		end
-		_and : begin
-			--dp;
-			data_stack[dp] = data_stack[dp] & data_stack[dp+1];
-		end
-		_or : begin
-			--dp;
-			data_stack[dp] = data_stack[dp] | data_stack[dp+1];
 		end
 		_0branch : begin
 			if (busy == false) begin
 				busy = true;
 			end
 			else begin
-				branch = (data_stack[dp] == '0) ? -1 : '0;
+				branch = (top_data_stack == '0) ? -1 : '0;
+				top_data_stack <= data_stack[dp];
 				--dp;
 				branch_addr = DataBus;
 				busy = false;
@@ -679,15 +687,16 @@ end
         _emit : begin
 			if (busy == false) begin
 				uart_send_inner <= 1'b1;
-				busy = true;
-				--dp;    
+				busy = true;    
 			end
 			else if (uart_busy_tx && busy == true) begin
-				tx_data_inner   <= data_stack[dp+1][7:0];         
+				tx_data_inner   <= top_data_stack[7:0];         
 			end
 			else if (!uart_busy_tx && busy == true) begin
 				uart_send_inner <= 1'b0;
 				tx_data_inner <= '0;
+				top_data_stack <= data_stack[dp];
+				--dp;
 				busy = false;
 			end
         end        
