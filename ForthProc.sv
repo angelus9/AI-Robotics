@@ -79,20 +79,6 @@ parameter data_width = 9;
 parameter address_width = 10;
 parameter ext_ram_size = 1024;
 
-parameter clock_1MHZ_divider = 6;
-parameter clock_1KHZ_divider = 500;
-parameter clock_500MS_divider = 2000;
-parameter clock_SPI1_divider = 12;
-parameter clock_SPI2_divider = 12;
-
-//PWM
-parameter PWM_reg_size = 16;
-parameter PWM_range = 200;
-
-//SPI
-parameter SPI_8_reg_size = 4;// ss = low, 8 data pulses, ss = high
-parameter SPI_16_reg_size = 5;//16 data pulses 
-
 //Define System Architecture
 typedef enum logic [15:0]{
 
@@ -121,12 +107,18 @@ _begin, _again, _until, _for, _next,
 _and, _or, _xor, _not, _zero_less_than, _zero_greater_than, _zero_equals,
 
 //Communications
-_key, _emit,
+_key, _emit, _atoi,
 
 //I/O Processing                
 _io_led, _io_button, _io_fetch, _io_store
 
 } op_e;
+
+typedef struct packed {
+    logic is_cfa;
+	logic is_token;
+	logic [DataWidthSystem:0] data;
+} cell_t;
 
 module ForthProc
 
@@ -161,56 +153,18 @@ module ForthProc
 //Dev Board Specific I/O
 input  BUTTON0,
 input  BUTTON1,
-input SPI1_8_in,
-input SPI2_16_in,
 
 output logic LED_G,
 output logic LED_B,
-output logic LED_R,
-
-//Devices
-output logic PWM_CH1,
-output logic PWM_CH2,
-output logic PWM_CH3,
-output logic PWM_CH4,
-output logic SPI1_8_out,
-output logic SPI2_16_out,
-output logic SPI1_8_ss,
-output logic SPI2_16_ss,
-output logic SPI1_8_clk,
-output logic SPI2_16_clk
+output logic LED_R
 );
 
 logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
-logic [3:0] errorcode ; 
+logic [3:0] errorcode ;
 logic	[address_size:0] mp;      // memory pointer
 logic	[1:0] successful;
 op_e opcode;
-
-logic [4:0] clock_1MHZ_ctr;
-logic [10:0] clock_1KHZ_ctr = 12;//from 1MHZ clock
-logic [10:0] clock_500MS_ctr = 12;//from 1KHZ clock
-
-logic [4:0] clock_1MHZ;
-logic [10:0] clock_1KHZ;//from 1MHZ clock
-logic [10:0] clock_500MS;//from 1KHZ clock
-
-//PWM Registers
-logic [PWM_reg_size:0] PWM_div_counter;
-logic [PWM_reg_size:0] PWM_CH1_compare_reg;
-logic [PWM_reg_size:0] PWM_CH2_compare_reg;
-logic [PWM_reg_size:0] PWM_CH3_compare_reg;
-logic [PWM_reg_size:0] PWM_CH4_compare_reg;
-
-//SPI Registers
-logic [SPI_8_reg_size:0] SPI1_8_div_counter;
-logic [7:0] SPI1_8_data_out;
-logic [7:0] SPI1_8_data_in;
-
-logic [SPI_16_reg_size:0] SPI2_16_div_counter;
-logic [15:0] SPI1_16_data_out;
-logic [15:0] SPI1_16_data_in;
 
 //Circular stacks
 logic [data_size:0] top_data_stack;
@@ -222,10 +176,10 @@ logic [$clog2(data_stack_depth)-1:0] rp;
 logic boot_enable;
 logic [data_size:0] bootROM [200:0]; /* synthesis syn_ramstyle="block_ram" */;
 //Lattice Internal memory
- logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
+logic [data_size:0] [Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
 //External Memory
-logic [data_size:0] DataBus;
+cell_t DataBus;
 logic [address_size:0] AddressBus;
 
 //Forth Registers
@@ -262,9 +216,6 @@ logic [address_size:0] xtwp;
 logic xt_valid;
 logic xt_ready;
 
-logic [7:0] nrp;
-logic [7:0] nwp;
-
 // Dictionary
 logic dict_write;
 logic mem_access_outer;
@@ -272,6 +223,7 @@ logic [address_size:0] mem_addr;
 logic [Int_SRAM_ADDR_size:0] dict_wdata;
 logic [address_size:0] wp; // dictionary pointer wp
 
+// Power on Reset
 logic reset;
 logic [7:0] reset_cnt='0;
 always_ff @(posedge clk) begin
@@ -301,30 +253,31 @@ always_ff @(posedge clk or negedge reset) begin
 		end
 	end
 end
-assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
+assign DataBus.data = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
 
 	logic [7:0] byte_in;
 	logic [31:0] link_addr;
 	logic [31:0] newest_def;
 	logic [7:0] ccell, cchar, cells;
 	logic [3:0][31:0] word_in;
-	logic [data_size:0] local_xt;
+	cell_t local_xt;
 	logic [3:0] count ;
 	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
-	NEW_LINK, NEW_DEF, MEM_OP, LOAD} state;
+	NEW_LINK, NEW_DEF, MEM_OP, LOAD, MEM_OP_DONE} state, i_state;
 	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
 
 	logic i_data_req = 1'b0; // inner interpreter sends
 	logic i_data_gnt = 1'b0; // outer interpeter sends
 	enum {FETCH, STORE, I} i_data_op;
-	logic [data_size:0] i_data;
-	logic [address_size:0] i_data_addr;
-	logic [data_size:0] o_rdata;
+	cell_t [data_size:0] i_data;
+	cell_t [address_size:0] i_data_addr;
+	cell_t [data_size:0] o_rdata;
+	logic i_state_valid;
 	
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	localparam DICT_START = 39;
+	localparam DICT_START = 71;
 	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
@@ -337,7 +290,6 @@ always_ff @(posedge clk) begin
 		tx_data_outer <= '0;
 		xtwp = XTQ_START;
 		xtrp = XTQ_START;
-		nwp = '0;
 		local_xt=0;
 		word_in = '0;
 		cells = '0;
@@ -352,7 +304,7 @@ always_ff @(posedge clk) begin
 				xt_valid <= 1'b0;
 				mem_access_outer = 1'b0;
 				dict_write = 1'b0;
-				i_data_gnt <= 1'b1;
+				i_data_gnt <= 1'b0;
 				wp = newest_def;
 				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
@@ -363,12 +315,19 @@ always_ff @(posedge clk) begin
 					tx_data_outer   <= byte_in;
 					state = PARSE;
 				end
-				else if (!uart_busy_tx) begin
-					uart_send_outer <= 1'b0;
-					tx_data_outer <= '0;
-				end
-				else if (i_data_req) begin
-					state = MEM_OP;
+				else begin 
+					if (!uart_busy_tx) begin
+						uart_send_outer <= 1'b0;
+						tx_data_outer <= '0;
+					end
+					if (i_data_req) begin
+						wp = i_data_addr;
+						mem_access_outer = 1'b1;
+						state = MEM_OP;
+					end
+					if (i_state_valid) begin
+						state = i_state;
+					end
 				end
 			end
 			PARSE : begin
@@ -414,13 +373,13 @@ always_ff @(posedge clk) begin
 				state = GET_LINK;
 			end
 			GET_LINK :  begin
-				link_addr = DataBus;
+				link_addr = DataBus.data;
 				++wp;
 				ccell = '0;
 				state = SEARCH;
 			end
 			SEARCH : begin
-				if (ccell < cells && DataBus == word_in[ccell]) begin
+				if (ccell < cells && DataBus.data == word_in[ccell]) begin
 					// token
 					++wp;
 					++ccell;
@@ -483,7 +442,7 @@ always_ff @(posedge clk) begin
 					state = ADD_EXIT;
 				end
 			end
-			NEW_LINK: begin
+			NEW_LINK: begin // "CREATE"
 				wp = xtwp++;
 				dict_write = 1'b1;
 				dict_wdata = newest_def;
@@ -507,19 +466,24 @@ always_ff @(posedge clk) begin
 			end
 			MEM_OP : begin
 				if (i_data_op == STORE) begin // STORE
-					wp = i_data_addr;
 					dict_write = 1'b1;
 					dict_wdata = i_data;
 					i_data_gnt <= 1'b1;
+					state = IDLE;
 				end
 				else if (i_data_op == FETCH) begin
-					wp = i_data_addr;
 					state = LOAD;
 				end
 			end
 			LOAD : begin
-				o_rdata = DataBus;
+				o_rdata = DataBus.data;
 				i_data_gnt <= 1'b1;
+				state = MEM_OP_DONE;
+				mem_access_outer = 1'b0;
+			end
+			MEM_OP_DONE : begin // Need to create a delay to allow proper execution
+				i_data_gnt <= 1'b0;
+				state = IDLE;
 			end
 		default : state = IDLE;
 		endcase
@@ -530,28 +494,57 @@ end
         dp='0;
         rp='0;
         mp ='0;
-		nrp = '0;
         busy = false;
         skip_op = false;
 		uart_send_inner <= 1'b0;
 		tx_data_inner <= '0;
 		i_data_req <= 1'b0;
 	endtask
-
+	
+	task automatic t_push(logic [data_size:0] x);
+		++dp;
+		top_data_stack <= x;
+		data_stack[dp] <= top_data_stack;
+	endtask
+	
+	task automatic t_pop;
+		top_data_stack <= data_stack[dp];
+		--dp;
+	endtask
+	
 	task automatic t_Fetch_opcode;
 		if (branch) begin
 			mp = branch_addr;
 		end
 		else if (busy == false) begin
-			mp++;
+			++mp;
 		end
 	endtask        
+
+function bit [7:0] int_to_ascii_str(input int num);
+  int temp_num = num;
+  int digit;
+
+  if (temp_num == 0) begin
+    int_to_ascii_str = "0";
+  end else begin
+	/*
+    while (temp_num > 0) begin
+      digit = temp_num % 10; // Get the last digit
+      result = {string'(digit + 48),result}; // Convert to ASCII and prepend
+      temp_num = temp_num / 10; // Remove the last digit
+    end
+	*/
+	digit = temp_num % 10;
+	int_to_ascii_str = digit + 48;
+  end
+endfunction
 
 	//Execute opcodes task
 	task automatic t_execute;
    
       if (skip_op == false && busy == false) begin
-		opcode = op_e'(DataBus[code_size:0]);
+		opcode = op_e'(DataBus.data);
 	  end
 	  case (opcode)
 		_store : begin
@@ -582,6 +575,7 @@ end
 			end
 			else begin
 				if (i_data_gnt == 1'b1) begin
+					i_data_req <= 1'b0;
 					top_data_stack <= o_rdata;
 					busy = false;
 				end
@@ -637,6 +631,9 @@ end
 			top_data_stack <= top_data_stack | data_stack[dp];
 			--dp;
 		end
+		_atoi : begin
+			top_data_stack <= 48 + top_data_stack;
+		end
 		_io_led : begin
 			n_LED_G <= top_data_stack[0];
 			n_LED_B <= top_data_stack[1];
@@ -656,7 +653,7 @@ end
 			else begin
 				++dp;
 				data_stack[dp] <= top_data_stack;
-				top_data_stack <= DataBus;
+				top_data_stack <= DataBus.data;
 				busy = false;
 				skip_op = true;
 			end
@@ -669,7 +666,7 @@ end
 				branch = (top_data_stack == '0) ? -1 : '0;
 				top_data_stack <= data_stack[dp];
 				--dp;
-				branch_addr = DataBus;
+				branch_addr = DataBus.data;
 				busy = false;
 				skip_op = true;
 			end
@@ -681,23 +678,25 @@ end
 			else begin
 				busy = false;
 				branch = true;
-				branch_addr = DataBus;
+				branch_addr = DataBus.data;
 			end
         end    
         _emit : begin
 			if (busy == false) begin
-				uart_send_inner <= 1'b1;
-				busy = true;    
-			end
-			else if (uart_busy_tx && busy == true) begin
-				tx_data_inner   <= top_data_stack[7:0];         
+				busy = true;
 			end
 			else if (!uart_busy_tx && busy == true) begin
-				uart_send_inner <= 1'b0;
-				tx_data_inner <= '0;
-				top_data_stack <= data_stack[dp];
-				--dp;
-				busy = false;
+				if (!uart_send_inner) begin
+					uart_send_inner <= 1'b1;
+					tx_data_inner <= top_data_stack[7:0]; 
+				end
+				else begin
+					uart_send_inner <= 1'b0;
+					tx_data_inner <= '0;
+					top_data_stack <= data_stack[dp];
+					--dp;
+					busy = false;
+				end
 			end
         end        
 		_execute : begin
@@ -728,7 +727,7 @@ end
 	  endcase
       
   endtask : t_execute
- 
+
 //----------------------------------------------------------------------------
 //                                                                          --
 //                       Instantiate RGB primitive                          --
@@ -845,60 +844,17 @@ always_ff @(posedge clk) begin
 	end
 end
 
-//Process SPI1_8 out
-always_ff @(posedge clk) begin
-	logic i;
-	
-	if (reset == true) begin
-		SPI1_8_div_counter = 0;
-		SPI1_8_out <= low;
-		SPI1_8_ss  <= high;
-		SPI1_8_clk <= low;
-	end
-	
-    else if (SPI1_8_div_counter == 0) begin
-		SPI1_8_ss <= low;
-    end
-
-    else if (SPI1_8_div_counter <= 8) begin
-
-		for (int i = 0; i < 8; i++) begin
-			SPI1_8_clk <= low;
-		   	SPI1_8_out <= 8'b1000000 & (SPI1_8_data_out << 1);//may need to AND bit mask 1000000 here
-			SPI1_8_clk <= high;
-		end
-	end	
-	
-    else if (SPI1_8_div_counter >= 9) begin
-		SPI1_8_ss <= high;	
-		SPI1_8_div_counter = 0;
-    end	
-	
-				
-
-//		SPI1_8_out <= SPI1_8_in;
-		++SPI1_8_div_counter;
-end	
-
-//Process SPI2_16 out
-always_ff @(posedge clk) begin
-	if (reset == true) begin
-		SPI2_16_div_counter = 0;
-		SPI2_16_out <= low;
-		SPI2_16_out <= low;		
-		SPI2_16_ss <= low;	
-		SPI2_16_clk <= low;
-	end	
-	else begin
-		SPI2_16_out <= SPI2_16_in;	
-		++SPI2_16_div_counter;
-	end	
-end	
-
 initial begin
 	bootROM[0] =  _execute;
 	bootROM[1] =  _branch;
 	bootROM[2] =  0;
+	bootROM[3] =  1;
+	bootROM[4] =  2;
+	bootROM[5] =  3;
+	bootROM[6] =  4;
+	bootROM[7] =  5;
+	bootROM[8] =  6;
+	bootROM[9] = 7;
 	bootROM[11] =  _lit;
 	bootROM[12] =  "?";
 	bootROM[13] =  _emit;
@@ -941,6 +897,32 @@ initial begin
 	bootROM[50] = 44;
 	bootROM[51] = _drop;
 	bootROM[52] = _exit;
+	bootROM[53] = 39;
+	bootROM[54] = {8'd1,"!","\0","\0"};
+	bootROM[55] = _store;
+	bootROM[56] = _exit;
+	bootROM[57] = 53;
+	bootROM[58] = {8'd1,"@","\0","\0"};
+	bootROM[59] = _fetch;
+	bootROM[60] = _exit;
+	bootROM[61] = 57;
+	bootROM[62] = {8'd1,"x","\0","\0"};
+	bootROM[63] = _lit;
+	bootROM[64] = 250;
+	bootROM[65] = _exit;
+	bootROM[66] = 61;
+	bootROM[67] = {8'd1,"y","\0","\0"};
+	bootROM[68] = _lit;
+	bootROM[69] = 251;
+	bootROM[70] = _exit;
+	bootROM[71] = 66;
+	bootROM[72] = {8'd1,".","\0","\0"};
+	bootROM[73] = _atoi;
+	bootROM[74] = _emit;
+	bootROM[75] = _lit;
+	bootROM[76] = 32;
+	bootROM[77] = _emit;
+	bootROM[78] = _exit;
 end
   
 endmodule

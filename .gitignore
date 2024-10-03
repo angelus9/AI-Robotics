@@ -1,5 +1,12 @@
-
 Altera/ForthProc.sv.bak
 ForthProc.sv.bak
 ForthProc.sv.bak
 *.bak
+corei_project_tcr*
+Demitri_Demo*
+ForthProc/*
+impl1*
+work/*
+Backups*
+archive*
+source/*
