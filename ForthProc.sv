@@ -79,8 +79,6 @@ parameter data_width = 9;
 parameter address_width = 10;
 parameter ext_ram_size = 1024;
 
-//BootROM
-parameter end_boot_ROM = 28;
 parameter clock_1MHZ_divider = 6;
 parameter clock_1KHZ_divider = 500;
 parameter clock_500MS_divider = 2000;
@@ -99,7 +97,7 @@ parameter SPI_16_reg_size = 5;//16 data pulses
 typedef enum logic [15:0]{
 
 //System Operators
-_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit, _number,
+_execute, _abort, _end_boot,  _run_boot, _create, _does, _compile, _bracket_compile, _interpret, _do_colon, _exit,
 
 //Stack Operators
 _depth, _dup, _pick, _over, _swap, _rot, _equal, _zero_equal, _greater_than, _less_than,
@@ -141,7 +139,6 @@ module ForthProc
   io_size           = 7,//size-1  
   data_stack_depth  = 16,
   return_stack_depth = 8,
-  boot_depth        = 256,
   ram_depth         = 500,
   high		        = 1'b1,
   low		        = 1'b0,
@@ -188,9 +185,8 @@ logic n_main_clk;
 logic [3:0] active_mem;//which memory is active? ROM, INTSRAM or EXSRAM    
 logic [3:0] errorcode ; 
 logic	[address_size:0] mp;      // memory pointer
-logic	[address_size:0] bp;      // boot ROM memory pointer
 logic	[1:0] successful;
-logic	[code_size:0] opcode;
+op_e opcode;
 
 logic [4:0] clock_1MHZ_ctr;
 logic [10:0] clock_1KHZ_ctr = 12;//from 1MHZ clock
@@ -222,11 +218,10 @@ logic [data_size:0] return_stack[return_stack_depth];
 logic [$clog2(data_stack_depth)-1:0] dp;
 logic [$clog2(data_stack_depth)-1:0] rp;
 
-//Internal Boot ROM
-logic [data_size:0] boot_ROM [boot_depth];
-
+logic boot_enable;
+logic [data_size:0] bootROM [200:0];
 //Lattice Internal memory
- logic [Int_SRAM_ADDR_size:0] mem[Int_SRAM_size:0]; /// memory block
+ logic [Int_SRAM_size:0][Int_SRAM_ADDR_size:0] mem; /* synthesis syn_ramstyle="block_ram" */;
  
 //External Memory
 logic [data_size:0] DataBus;
@@ -254,176 +249,160 @@ logic uart_rx_valid;
 logic [7:0] uart_rx_data;
 
 // Execution Token
-logic [address_size:0] xt[256];
-logic [7:0] xtrp;
-logic [7:0] xtwp;
+localparam XTQ_START = 200;
+logic [address_size:0] xtrp;
+logic [address_size:0] xtwp;
 logic xt_valid;
 logic xt_ready;
 
-logic [data_size:0] number[256];
 logic [7:0] nrp;
 logic [7:0] nwp;
 
-//Boot code when the processor starts...
-task automatic t_init_boot_code;
-	boot_ROM[0] <=  _execute;
-	boot_ROM[1] <=  _lit;
-	boot_ROM[2] <=  "?";
-	boot_ROM[3] <=  _emit;
-	boot_ROM[4] <= _branch;
-	boot_ROM[5] <= 0;
-	boot_ROM[6] <=  _lit;
-	boot_ROM[7] <= 4;
-	boot_ROM[8] <= _io_led;
-	boot_ROM[9] <= _branch;
-	boot_ROM[10] <= 0;
-	boot_ROM[11] <=  _lit;
-	boot_ROM[12] <= 1;
-	boot_ROM[13] <= _io_led;
-	boot_ROM[14] <= _branch;
-	boot_ROM[15] <= 0;
-	boot_ROM[16] <=  _lit;
-	boot_ROM[17] <= 2;
-	boot_ROM[18] <= _io_led;
-	boot_ROM[19] <= _branch;
-	boot_ROM[20] <= 0;
-	boot_ROM[21] <= _number;
-	boot_ROM[22] <= _branch;
-	boot_ROM[23] <= 0;
-	boot_ROM[24] <= _io_led;
-	boot_ROM[25] <= _branch;
-	boot_ROM[26] <= 0;
-	boot_ROM[27] <= _lit;
-	boot_ROM[28] <= 5000000;
-	boot_ROM[29] <= _lit;
-	boot_ROM[30] <= 1;
-	boot_ROM[31] <= _minus;
-	boot_ROM[32] <= _dup;
-	boot_ROM[33] <= _zero_equal;
-	boot_ROM[34] <= _0branch;
-	boot_ROM[35] <= 29;
-	boot_ROM[36] <= _drop;
-	boot_ROM[37] <= _branch;
-	boot_ROM[38] <= 0;
-	boot_ROM[39] <= _dup;
-	boot_ROM[40] <= _zero_less_than;
-	boot_ROM[41] <= _0branch;
-	boot_ROM[42] <= 47;
-	boot_ROM[43] <= _lit;
-	boot_ROM[44] <= "-";
-	boot_ROM[45] <= _emit;
-	boot_ROM[46] <= _negate;
-	boot_ROM[47] <= _lit;
-	boot_ROM[48] <= "0";
-	boot_ROM[49] <= _plus;
-	boot_ROM[50] <= _emit;
-	boot_ROM[51] <= _lit;
-	boot_ROM[52] <= " ";
-	boot_ROM[53] <= _emit;
-	boot_ROM[54] <= _execute;
-	boot_ROM[55] <= _plus;
-	boot_ROM[56] <= _execute;
-	boot_ROM[57] <= _minus;
-	boot_ROM[58] <= _execute;
-	boot_ROM[59] <= _lit;
-	boot_ROM[60] <= "0";
-	boot_ROM[61] <= _execute;
-	boot_ROM[62] <= _negate;
-	boot_ROM[63] <= _execute;
-endtask : t_init_boot_code 
+// Dictionary
+logic dict_write;
+logic mem_access_outer;
+logic [address_size:0] mem_addr;
+logic [Int_SRAM_ADDR_size:0] dict_wdata;
+logic [address_size:0] wp; // dictionary pointer wp
 
 //Demetri: can you change the Outer Interpreter code to use this RAM based dictionary?
 //build dictionary for testing...
 task automatic t_init_dictionary_code;
-	mem[0] <= 3;					// Link to next dictionary entry
-	mem[1] <= {8'd1,"r","e","d"};	// Name field (NFA)
-	mem[2] <= 6;					// Boot ROM address containing code (XT/CFA)
-	mem[3] <= 7;
-	mem[4] <= {8'd2,"g","r","e"};
-	mem[5] <= {"e","n","\0","\0"};
-	mem[6] <= 11;
-	mem[7] <= 11;
-	mem[8] <= {8'd2,"b","l","u"};
-	mem[9] <= {"e","\0","\0","\0"};
-	mem[10] <= 16;
-	mem[11] <= 15;
-	mem[12] <= {8'd2,"d","e","l"};
-	mem[13] <= {"a","y","\0","\0"};
-	mem[14] <= 27;
-	mem[15] <= 18;
-	mem[16] <= {8'd1,"l","e","d"};
-	mem[17] <= 8;
-	mem[18] <= 21;
-	mem[19] <= {8'd1,".","\0","\0"};
-	mem[20] <= 39;
-	mem[21] <= 24;
-	mem[22] <= {8'd1,"+","\0","\0"};
-	mem[23] <= 55;
-	mem[24] <= 27;
-	mem[25] <= {8'd1,"-","\0","\0"};
-	mem[26] <= 57;
-	mem[27] <= 31;
-	mem[28] <= {8'd2,"e","m","i"};
-	mem[29] <= {"t","\0","\0","\0"};
-	mem[30] <= 53;
-	mem[31] <= 34;
-	mem[32] <= {8'd1,"\"","0","\""};
-	mem[33] <= 59;
-	mem[34] <= 0;
-	mem[35] <= {8'd2,"n","e","g"};
-	mem[36] <= {"a","t","e","\0"};
-	mem[37] <= 62;
+	bootROM[0] <=  _execute;
+	bootROM[1] <=  _branch;
+	bootROM[2] <=  0;
+	bootROM[11] <=  _lit;
+	bootROM[12] <=  "?";
+	bootROM[13] <=  _emit;
+	bootROM[14] <= _exit;
+	bootROM[15] <= 0; 					// Link to next dictionary entry
+	bootROM[16] <= {8'd1,"l","e","d"};	// Name field (NFA)
+	bootROM[17] <= _io_led;				// code field
+	bootROM[18] <= _exit;					// end of code field
+	bootROM[19] <= 15;
+	bootROM[20] <= {8'd1,"r","e","d"};				
+	bootROM[21] <= _lit;
+	bootROM[22] <= 4;
+	bootROM[23] <= -17;
+	bootROM[24] <= _exit;				
+	bootROM[25] <= 19;
+	bootROM[26] <= {8'd2,"g","r","e"};
+	bootROM[27] <= {"e","n","\0","\0"};
+	bootROM[28] <= _lit;
+	bootROM[29] <= 1;
+	bootROM[30] <= -17;
+	bootROM[31] <= _exit;
+	bootROM[32] <= 25;
+	bootROM[33] <= {8'd2,"b","l","u"};
+	bootROM[34] <= {"e","\0","\0","\0"};
+	bootROM[35] <= _lit;
+	bootROM[36] <= 2;
+	bootROM[37] <= -17;
+	bootROM[38] <= _exit;
+	bootROM[39] <= 32;
+	bootROM[40] <= {8'd2,"d","e","l"};
+	bootROM[41] <= {"a","y","\0","\0"};
+	bootROM[42] <= _lit;
+	bootROM[43] <= 5000000;
+	bootROM[44] <= _lit;
+	bootROM[45] <= 1;
+	bootROM[46] <= _minus;
+	bootROM[47] <= _dup;
+	bootROM[48] <= _zero_equal;
+	bootROM[49] <= _0branch;
+	bootROM[50] <= 44;
+	bootROM[51] <= _drop;
+	bootROM[52] <= _exit;
 endtask : t_init_dictionary_code
+
+logic [address_size:0] mem_diff;
+assign boot_enable = (mem_access_outer ? wp : mp) < XTQ_START;
+// memory manager
+always_ff @(posedge clk or negedge reset) begin
+	if (reset == 1'b0) begin
+		t_init_dictionary_code;
+	end
+	else begin
+		mem_diff = boot_enable ? '0 : -XTQ_START;
+		mem_addr = (mem_access_outer ? wp : mp)+mem_diff;
+		if (dict_write) begin
+			mem[mem_addr] <= dict_wdata;
+		end
+	end
+end
+assign DataBus = boot_enable ? bootROM[mem_addr] : mem[mem_addr];
+
+	logic [7:0] byte_in;
+	logic [31:0] link_addr;
+	logic [31:0] newest_def;
+	logic [7:0] ccell, cchar, cells;
+	logic [3:0][31:0] word_in;
+	logic [data_size:0] local_xt;
+	logic [3:0] count ;
+	enum logic [3:0] {IDLE, PARSE, SEARCH, BEFORE_LINK, GET_LINK, GET_XT, ADD_EXIT, EXECUTE, NUMBER, COMPILE,
+	NEW_LINK, NEW_DEF} state;
+	enum logic [3:0]{INTERPRET, COLON, WORD, COMPILING, END_COMPILE} comp_state;
 
 // Forth Outer Interpreter
 always_ff @(posedge clk) begin
-	logic [7:0] byte_in;
-	logic [31:0] wp;
-	logic [31:0] link_addr;
-	logic [7:0] ccell, cchar, cells;
-	logic [3:0][31:0] word_in;
-	logic [address_size:0] local_xt;
-	enum logic [2:0] {IDLE, PARSE, SEARCH, GET_LINK, GET_XT, EXECUTE, NUMBER, COMPILE} state;
+	localparam DICT_START = 39;
+	localparam ERROR_CFA = 11;
 	
 	if (reset == 1'b0) begin
-		wp = '0;
+		newest_def = DICT_START;
 		xt_valid <= 1'b0;
 		state = IDLE;
+		count = '0;
 		uart_receive <= 1'b1;
-		xtwp = 0;
+		xtwp = XTQ_START;
+		xtrp = XTQ_START;
 		nwp = '0;
 		local_xt=0;
 		word_in = '0;
 		cells = '0;
 		cchar = '0;
+		mem_access_outer = 1'b0;
+		comp_state = INTERPRET;
 	end
 	else begin
 		case (state)
 			IDLE : begin
-				wp = '0;
+				xt_valid <= 1'b0;
+				mem_access_outer = 1'b0;
+				dict_write = 1'b0;
+				wp = newest_def;
+				uart_receive <= 1'b1;
 				if (uart_rx_valid) begin
+					mem_access_outer = 1'b1;
 					uart_receive <= 1'b0;
 					byte_in = uart_rx_data;
 					state = PARSE;
 				end
 			end
 			PARSE : begin
-				if (10 <= byte_in && byte_in <= 13) begin//is character between <bl> and <cr>?
-					xt[xtwp++] = local_xt;
-					local_xt = 0;
-					word_in = '0;
-					cells = '0;
-					cchar = '0;
-					state = EXECUTE;
+				state = IDLE;
+				if (byte_in == " " || 10 <= byte_in && byte_in <= 13) begin //is character space or between <bl> and <cr>?
+					if (comp_state == COLON) begin
+						comp_state = WORD;
+					end
+					else if (comp_state == WORD) begin
+						comp_state = COMPILING;
+						state = NEW_LINK;
+					end
+					else if (comp_state == END_COMPILE) begin
+						comp_state = INTERPRET;
+						xtrp = xtwp;
+					end
+					else begin
+						state = BEFORE_LINK;
+					end
 				end
-				else if (byte_in == " ") begin
-					xt[xtwp++] = local_xt;
-					local_xt = 0;
-					state = IDLE;
-					word_in = '0;
-					cells = '0;
-					cchar = '0;
-					uart_receive <= 1'b1;
+				else if (byte_in == ":") begin
+					comp_state = COLON;
+				end
+				else if (byte_in == ";") begin
+					state = ADD_EXIT;
+					comp_state = END_COMPILE;
 				end
 				else begin
 					cchar++;
@@ -436,61 +415,103 @@ always_ff @(posedge clk) begin
 					endcase
 					cells = 1 + (cchar / 4);
 					word_in[0][31:24] = cells;
-					state = GET_LINK;
 				end
 			end
+			BEFORE_LINK : begin
+				++wp;
+				state = GET_LINK;
+			end
 			GET_LINK :  begin
-				link_addr = mem[wp];		
+				link_addr = DataBus;
 				++wp;
 				ccell = '0;
 				state = SEARCH;
 			end
 			SEARCH : begin
-				if (ccell < cells && mem[wp] == word_in[ccell]) begin
+				if (ccell < cells && DataBus == word_in[ccell]) begin
 					// token
 					++wp;
 					++ccell;
 				end
 				else if (ccell >= cells) begin
-					state = GET_XT;
+					local_xt = -(wp-1);
+					state = COMPILE;
 				end
 				else begin
 					wp = link_addr;
-					state = link_addr ? GET_LINK : NUMBER;
+					state = link_addr ? BEFORE_LINK : NUMBER;
 				end
 			end
-			GET_XT: begin
-				local_xt = mem[wp];
-				state = IDLE;
-				uart_receive <= 1'b1;
+			ADD_EXIT: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = _exit;
+				state = GET_XT;
+			end
+			GET_XT: begin // Demitri 2023 Jan 9: repurposed for adding a delay for XT compilation before execute
+				dict_write = 1'b0;
+				mem_access_outer = 1'b0;
+				state = comp_state == INTERPRET ? EXECUTE : IDLE;
 			end			
 			NUMBER : begin
 				// TODO: more than one char numbers
-				if (byte_in inside{["0":"9"]}) begin
-					number[nwp++] = byte_in - "0";
-					local_xt = 21; // CFA for "number"
+				if (word_in[0][23:16] inside{["0":"9"]}) begin
+					local_xt = word_in[0][23:16] - "0";
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = _lit;
 				end
 				else begin
-					local_xt = 1; // CFA for error "word not found"
+					local_xt = -ERROR_CFA; // CFA for error "word not found"
 				end
-				state = IDLE;
-				uart_receive <= 1'b1;
+				state = COMPILE;
 			end
 			EXECUTE : begin
-				xt_valid <= (xtrp < xtwp); // FIFO not empty (read before write)
-				if (xtrp == xtwp) begin    // Stop when FIFO empty (read at write)
+				xt_valid <= 1'b1;
+				if (xt_ready) begin
+					xtwp=xtrp;
 					state = IDLE;
-					nwp = nrp;
 					uart_receive <= 1'b1;
+					xt_valid <= 1'b0;
 				end
 			end
-			
 			COMPILE: begin
-				//xt_valid <= (xtrp < xtwp);
-				//if (xtrp == xtwp) begin
-					//state = IDLE;
-					//uart_receive <= 1'b1;
-				//end
+				wp = xtwp++;	
+				dict_write = 1'b1;
+				dict_wdata = local_xt;
+				local_xt = 0;
+				word_in = '0;
+				cells = '0;
+				cchar = '0;
+				if (byte_in == " ") begin
+					state = IDLE;
+					uart_receive <= 1'b1;
+				end
+				else if (comp_state == INTERPRET) begin
+					state = ADD_EXIT;
+				end
+			end
+			NEW_LINK: begin
+				wp = xtwp++;
+				dict_write = 1'b1;
+				dict_wdata = newest_def;
+				state = NEW_DEF;
+				newest_def = wp;
+				ccell = '0;
+			end
+			NEW_DEF: begin
+				if (ccell < cells) begin
+					wp = xtwp++;
+					dict_write = 1'b1;
+					dict_wdata = word_in[ccell];
+					++ccell;
+				end
+				else begin
+					word_in = '0;
+					cells = '0;
+					cchar = '0;
+					state = IDLE;
+				end
 			end
 		default : state = IDLE;
 		endcase
@@ -498,36 +519,30 @@ always_ff @(posedge clk) begin
 end
 
 	task automatic t_reset;
-        t_init_boot_code;
-        bp='0;
         dp='0;
         rp='0;
         mp ='0;
-		xtrp = 0;
 		nrp = '0;
-        busy <= false;
-        skip_op <= false;
-		uart_send <= 1'b0;	
-		t_init_dictionary_code;
+        busy = false;
+        skip_op = false;
+		uart_send <= 1'b0;
 	endtask
 
 	task automatic t_Fetch_opcode;
 		if (branch) begin
-			DataBus = boot_ROM[branch_addr];
-			bp = branch_addr+1;
-			branch = false;
+			mp = branch_addr;
 		end
-		else begin
-			DataBus = boot_ROM[bp];
-			++bp;
+		else if (busy == false) begin
+			mp++;
 		end
-	
 	endtask        
 
 	//Execute opcodes task
 	task automatic t_execute;
    
-      opcode = DataBus[code_size:0];
+      if (skip_op == false && busy == false) begin
+		opcode = op_e'(DataBus[code_size:0]);
+	  end
 	  case (opcode)
         _minus : begin
 				--dp;
@@ -581,10 +596,15 @@ end
             data_stack[dp] = {BUTTON1,BUTTON0};
 		end
 		_lit : begin
-			// TODO: allow to work for main memory too
-			++dp;
-			data_stack[dp] = boot_ROM[bp];
-			skip_op <= true;
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				++dp;
+				data_stack[dp] = DataBus;
+				busy = false;
+				skip_op = true;
+			end
 		end
 		_and : begin
 			--dp;
@@ -595,14 +615,26 @@ end
 			data_stack[dp] = data_stack[dp] | data_stack[dp+1];
 		end
 		_0branch : begin
-			branch = (data_stack[dp] == '0) ? -1 : '0;
-			--dp;
-			branch_addr = boot_ROM[bp];
-			skip_op <= ~branch;
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				branch = (data_stack[dp] == '0) ? -1 : '0;
+				--dp;
+				branch_addr = DataBus;
+				busy = false;
+				skip_op = true;
+			end
 		end
 		 _branch : begin
-			branch = true;
-			branch_addr = boot_ROM[bp];
+			if (busy == false) begin
+				busy = true;
+			end
+			else begin
+				busy = false;
+				branch = true;
+				branch_addr = DataBus;
+			end
         end    
         _emit : begin
 			if (busy == false) begin
@@ -619,18 +651,30 @@ end
 			end
         end        
 		_execute : begin
-			busy = true; // Wait until XT/CFA available
+			busy = true;
+			xt_ready = 1'b0;
 			if (xt_valid) begin
-				branch_addr = xt[xtrp++];
-				busy = false;
+				branch_addr = xtrp;
 				branch = true;
+				busy = false;
+				skip_op = true;
+				rp++;
+				return_stack[rp] = mp;
+				xt_ready = 1'b1;
 			end
 		end
-		_number : begin
-			++dp;
-			data_stack[dp] = number[nrp++];
+		_exit : begin
+			branch_addr = return_stack[rp];
+			branch = true;
+			skip_op = true;
+			rp--;
 		end
-		default : ;
+		default: begin
+			branch_addr = -opcode;
+			branch = true;
+			rp++;
+			return_stack[rp] = mp;
+		end
 	  endcase
       
   endtask : t_execute
@@ -642,16 +686,15 @@ always_ff @(posedge clk) begin
         t_reset;
     end    
     else begin
-		if (busy == false) begin
-			t_Fetch_opcode;
-		end
+		skip_op = skip_op || branch;
+		branch = false;
 		if (skip_op == false) begin
 			t_execute;
 		end
 		else begin
-			skip_op <= false;
+			skip_op = false;
 		end
-        
+		t_Fetch_opcode;
         n_BUTTON0 <= BUTTON0;
         n_BUTTON1 <= BUTTON1;         
 		LED_G <= n_LED_G;
